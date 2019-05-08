@@ -1,5 +1,6 @@
 # PostgREST til åbne data API
-![Swagger](img/swagger.png "Swagger")
+![Swagger](https://user-images.githubusercontent.com/7534153/57377665-4a336180-71a3-11e9-8491-685008318867.PNG)
+
 Til at udstille data udenfor firewallen bruges [PostgREST](http://postgrest.org/en/latest/). Data sendes fra den interne server til en PostgreSQL database skyen. Dette kan gøres med script, som køres som et job - se eksempel [her](https://github.com/frederiksberg/automation-scripts/blob/master/Python/api/transfer_tables.py).
 
 ## Opsætning
