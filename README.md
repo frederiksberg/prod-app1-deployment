@@ -1,11 +1,26 @@
 # PostgREST til åbne data API
-
-Til at udstille data udenfor firewallen bruges [PostgREST](http://postgrest.org/en/latest/). Data sendes fra den interne server til en PostgreSQL database skyen. Dette kan  
+![Swagger](img/swagger.png "Swagger")
+Til at udstille data udenfor firewallen bruges [PostgREST](http://postgrest.org/en/latest/). Data sendes fra den interne server til en PostgreSQL database skyen. Dette kan gøres med script, som køres som et job - se eksempel [her](https://github.com/frederiksberg/automation-scripts/blob/master/Python/api/transfer_tables.py).
 
 ## Opsætning
+Herunder kommer gennemgang af opsætning af PostgREST og Swagger vha. docker-compose samt funktioner til PostgreSQL til at returnerer GeoJSON.
+
+Klon git-repository og tilret `docker-compose.yml` og kør `docker-compose up`
+
 
 ### PostgREST
-Kommer
+Som indledning kan denne  [tutorial](http://postgrest.org/en/latest/tutorials/tut0.html) anbefales. 
+
+Hvis PostgREST kører i docker på samme server som databasen og hvis denne er en del at et docker network, kan følgende kommando bruges til at forbinde PostgREST containeren til netværket. Herved kan `<HOST>` `PGRST_DB_URI` i  `docker-compose.yml` sættes til PostgreSQL container navn.  
+
+`docker network connect <NETWORK> <CONTAINER>`
+
+
+
+#### Opdater Caching
+Følgende kan tilføjes til crontab på serveren, så PostgREST cashing bliver opdateret ([kilde](http://postgrest.org/en/latest/admin.html#schema-reloading))
+
+`0 * * * * docker restart <CONTAINER>`
 
 ### PostgreSQL 
 For at kunne udstille data i GeoJSON format gennem PostgREST bruges to funktioner som kræver at PostGIS er installeret. Den første laver rækker om til GeoJSON `features`. Den anden laver features om til `FeatureCollection`
@@ -66,6 +81,5 @@ PostgREST ustiller som udgangspunkt data som en liste med objekter. Når `to_geo
 ## Eksempel på kald
 Herunder ses eksempel på kald, som bruger `to_geojson` funktionen til at returnerer GeoJSON.
 ```bash
-curl -X POST "http://localhost:3000/rpc/to_geojson" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"srid\": 4326, \"_tbl\": \"soe\", \"geom_column\": \"geom\"}"
+curl -X POST "http://localhost:3000/rpc/to_geojson" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"srid\": 4326, \"_tbl\": \"YOURTABLE\", \"geom_column\": \"GEOM_COLUMN\"}"
 ```
-
