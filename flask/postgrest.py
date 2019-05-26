@@ -1,7 +1,7 @@
 import requests
 
 def to_geojson(table, srid=4326, where=None):
-    url = "http://104.248.90.41:3030/rpc/to_geojson"
+    url = "http://postgrest:3000/rpc/to_geojson"
     data = {
         "srid": srid,
         "_tbl": table,

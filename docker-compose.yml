@@ -4,7 +4,7 @@ services:
     container_name: postgrest
     image: postgrest/postgrest
     ports:
-      - "3000:3000"
+      - "3030:3000"
     environment:
       PGRST_DB_URI: postgres://<USER>:<PASSWORD>@<HOST>:<PORT>/<DATABASE>
       PGRST_DB_SCHEMA: api
@@ -14,8 +14,13 @@ services:
     container_name: swagger
     image: swaggerapi/swagger-ui
     ports:
-      - "8080:8080"
+      - "8090:8080"
     expose:
-      - "8080"
+      - "8090"
     environment:
       API_URL: "http://SOME_SITE:3000" # same as PGRST_SERVER_PROXY_URI
+  flask:
+    build: .
+    container_name: api_wrapper
+    ports:
+      - "5000:5000"

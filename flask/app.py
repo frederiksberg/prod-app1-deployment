@@ -11,3 +11,6 @@ def table(table):
     res = to_geojson(table, srid, where)
 
     return res, 200, {"ContentType": "application/json"}
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0')
