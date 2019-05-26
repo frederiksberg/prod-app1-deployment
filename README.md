@@ -1,7 +1,9 @@
 # PostgREST til åbne data API
 ![Swagger](https://user-images.githubusercontent.com/7534153/57377665-4a336180-71a3-11e9-8491-685008318867.PNG)
 
-Til at udstille data udenfor firewallen bruges [PostgREST](http://postgrest.org/en/latest/). Data sendes fra den interne server til en PostgreSQL database skyen. Dette kan gøres med script, som køres som et job - se eksempel [her](https://github.com/frederiksberg/automation-scripts/blob/master/Python/api/transfer_tables.py).
+Til at udstille data udenfor firewallen bruges [PostgREST](http://postgrest.org/en/latest/). Data sendes fra den interne server til en PostgreSQL database skyen. Dette kan gøres med script, som køres som et job - se eksempel [her](https://github.com/frederiksberg/automation-scripts/blob/master/Python/api/transfer_tables.py). 
+
+For at øge brugervenlighed for geodata så de f.eks. kan læses direkte ind i QGIS med GET-request er der lavet en wrapper i [Flask](http://flask.pocoo.org/docs/1.0/api/) som kalder PostgREST. 
 
 ## Opsætning
 Herunder kommer gennemgang af opsætning af PostgREST og Swagger vha. docker-compose samt funktioner til PostgreSQL til at returnerer GeoJSON.
@@ -79,8 +81,22 @@ PostgREST ustiller som udgangspunkt data som en liste med objekter. Når `to_geo
 
  ([kilde](http://postgrest.org/en/latest/api.html?highlight=list%20of%20objects#singular-or-plural))
 
+## API wrapper
+For at forsimple kald til geodata er der lavet en API wrapper i Flask, så man bliver fri for at lave POST-requests når der skal laves GeoJSON. Der understøttes også parameter i URL'en, men indtil videre er det kun muligheden for at sætte projektionen vha. SRID.  
+
 ## Eksempel på kald
+
+### Flask
+Herunder ses eksempel på kald til API wrapper, som forsimpler kaldet efter GeoJSON.
+```bash
+curl "http://localhost:5000/<TABLE>?srid=<SRID>"
+
+curl "http://104.248.90.41:5000/soe?srid=25832"
+```
+
+### PostgREST
 Herunder ses eksempel på kald, som bruger `to_geojson` funktionen til at returnerer GeoJSON.
 ```bash
 curl -X POST "http://localhost:3000/rpc/to_geojson" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"srid\": 4326, \"_tbl\": \"YOURTABLE\", \"geom_column\": \"GEOM_COLUMN\"}"
 ```
+
