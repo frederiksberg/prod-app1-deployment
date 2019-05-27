@@ -82,16 +82,19 @@ PostgREST ustiller som udgangspunkt data som en liste med objekter. Når `to_geo
  ([kilde](http://postgrest.org/en/latest/api.html?highlight=list%20of%20objects#singular-or-plural))
 
 ## API wrapper
-For at forsimple kald til geodata er der lavet en API wrapper i Flask, så man bliver fri for at lave POST-requests når der skal laves GeoJSON. Der understøttes også parameter i URL'en, men indtil videre er det kun muligheden for at sætte projektionen vha. SRID.  
+For at forsimple kald til geodata er der lavet en API wrapper i Flask, så man bliver fri for at lave POST-requests når der skal laves GeoJSON. Der understøttes også parameter i URL'en, men indtil videre er det kun muligheden for at sætte projektionen vha. SRID.
+
+### Swagger
+PostgREST autogenererer OpenAPI beskrivelse som Swagger UI indlæser og bygger siden op efter. Denne bliver modificeret i Flask således and den er tilpasset de ændringer Flask API'et laver ifht. routing og parameter. Derudover ændres også generel information om siden. OpenAPI beskrivelsen ligger under `/v1/meta`
 
 ## Eksempel på kald
 
 ### Flask
 Herunder ses eksempel på kald til API wrapper, som forsimpler kaldet efter GeoJSON.
 ```bash
-curl "http://localhost:5000/<TABLE>?srid=<SRID>"
-
-curl "http://104.248.90.41:5000/soe?srid=25832"
+curl "http://localhost:5000/v1/data/<TABLE>?srid=<SRID>"
+# Eks
+curl "http://104.248.90.41:5000/v1/data/soe?srid=25832"
 ```
 
 ### PostgREST
