@@ -1,5 +1,11 @@
 import requests
 
+def metadata():
+    url = "http://postgrest:3000"
+    r = requests.get(url)
+
+    return r.text
+
 def to_geojson(table, srid=4326, where=None):
     url = "http://postgrest:3000/rpc/to_geojson"
     data = {
