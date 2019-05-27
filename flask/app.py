@@ -4,14 +4,14 @@ from postgrest import metadata, to_geojson
 app = Flask(__name__)
 
 @app.route("/v1/meta", methods=["GET"])
-def table():
+def meta():
 
     res = metadata()
 
     return res, 200, {"ContentType": "application/json"}
 
 
-@app.route("/v1/meta/<table>", methods=["GET"])
+@app.route("/v1/data/<table>", methods=["GET"])
 def table(table):
     srid = request.args.get("srid", default=4326, type=int)
     where = request.args.get("where", default=None, type=str)
