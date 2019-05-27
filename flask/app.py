@@ -1,7 +1,9 @@
 from flask import Flask, request
+from flask_cors import CORS
 from postgrest import metadata, to_geojson
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/v1/meta", methods=["GET"])
 def meta():
