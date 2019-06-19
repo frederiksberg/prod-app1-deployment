@@ -1,0 +1,9 @@
+[submodule "gis/PostgREST"]
+	path = gis/PostgREST
+	url = https://github.com/frederiksberg/PostgREST
+[submodule "gis/VectorTile-Project"]
+	path = gis/VectorTile-Project
+	url = https://github.com/frederiksberg/VectorTile-Project.git
+[submodule "gis/Vector-DigitaltAnlaeg"]
+	path = gis/Vector-DigitaltAnlaeg
+	url = https://github.com/frederiksberg/Vector-DigitaltAnlaeg.git
