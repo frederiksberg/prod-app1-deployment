@@ -74,7 +74,7 @@ Here's a bit of flow inspiration, which can easily be imported to yout Node-RED 
 ```
 
 ### First dashboard in Grafana
-1. Add PostgreSQL datasource. Hostname is `postgresql` and it is reommendeed to use the `grafanareader` read only user.
+1. Add PostgreSQL datasource. Hostname is `db.frb-data.dk` and it is reommendeed to use the `grafanareader` read only user.
 2. Create a new dashboard and add a Graph panel.
 3. Edit panel and make sure `grafanareader` has privileges to read from the  table.
 4. Under `Metrics` pane it is possible to query the table using a Query Builder or plain SQL. Grafana needs time and metric column in order to generate the gragh.
