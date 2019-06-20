@@ -14,6 +14,24 @@ Klon git-repository og tilret `docker-compose.yml` og kør `docker-compose up`
 ### PostgREST
 Som indledning kan denne  [tutorial](http://postgrest.org/en/latest/tutorials/tut0.html) anbefales. 
 
+Her oprettes blandt andet en read only bruger som PostgREST bruger.
+```sql
+--opret ny bruger
+create role postgrest_web_anon nologin;
+
+--giv adgang til api schemaet
+grant usage on schema api to postgrest_web_anon;
+
+--Brugeren får lov til at læse (select) fra alle tabellerne i schemaerne
+GRANT SELECT ON ALL TABLES IN SCHEMA api 
+  TO postgrest_web_anon;
+
+--Hvis der i fremtiden oprettes nye tabeller i schemaerne har brugeren også adgang til dem
+ALTER DEFAULT PRIVILEGES IN SCHEMA api
+  GRANT SELECT ON TABLES TO postgrest_web_anon;
+
+```
+
 Hvis PostgREST kører i docker på samme server som databasen og hvis denne er en del at et docker network, kan følgende kommando bruges til at forbinde PostgREST containeren til netværket. Herved kan `<HOST>` `PGRST_DB_URI` i  `docker-compose.yml` sættes til PostgreSQL container navn.  
 
 `docker network connect <NETWORK> <CONTAINER>`

@@ -5,11 +5,8 @@ services:
     image: postgrest/postgrest
     ports:
       - "3030:3000"
-    environment:
-      PGRST_DB_URI: postgres://<USER>:<PASSWORD>@<HOST>:<PORT>/<DATABASE>
-      PGRST_DB_SCHEMA: api
-      PGRST_DB_ANON_ROLE: web_anon
-      PGRST_SERVER_PROXY_URI: http://SOME_SITE:3000 # This makes swagger call the right endpoint
+    env_file:
+      - ./envs/postgrest.env
   swagger:
     container_name: swagger
     image: swaggerapi/swagger-ui
@@ -17,8 +14,8 @@ services:
       - "8090:8080"
     expose:
       - "8090"
-    environment:
-      API_URL: "http://SOME_SITE:3000" # same as PGRST_SERVER_PROXY_URI
+    env_file:
+      - ./envs/swagger.env
   flask:
     build: .
     container_name: api_wrapper
