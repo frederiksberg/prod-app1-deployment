@@ -1,0 +1,17 @@
+version: '3'
+services:
+  nginx:
+    image: really/nginx-certbot
+    volumes:
+      - ./confs:/etc/nginx/conf.d:rw
+      - ./certs:/etc/letsencrypt:rw
+    networks:
+      - proxy
+    ports:
+      - 80:80
+      - 443:443
+    restart: unless-stopped
+
+networks:
+  proxy:
+    name: proxy

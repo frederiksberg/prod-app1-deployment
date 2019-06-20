@@ -1,0 +1,31 @@
+version: '3'
+services:
+  th:
+    image: frbsc/tilehut:latest
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./tiles:/tilehut/data:ro
+    networks:
+      - front-facing
+    ports:
+      - 8000:8000
+    restart: unless-stopped
+  ftp:
+    image: atmoz/sftp:latest
+    volumes:
+      - ./tiles:/home/gis/tiles:rw
+      - ./pub_keys:/home/gis/.ssh/keys:ro
+      - ./host_keys/ssh_host_ed25519_key:/etc/ssh/ssh_host_ed25519_key:ro
+      - ./host_keys/ssh_host_rsa_key:/etc/ssh/ssh_host_rsa_key:ro
+    ports:
+      - "2222:22"
+    command: gis::::tiles
+    depends_on: [th]
+    restart: unless-stopped
+
+networks:
+  front-facing:
+    external: true
+    name: proxy
