@@ -20,6 +20,13 @@ clean: $(cleans)
 
 kill: $(kills)
 
+# -------- Project specific targets
+gis: deploy-proxy deploy-gis
+
+iot:
+
+meta:
+
 # -------- Projects --------
 
 # -> Proxy
