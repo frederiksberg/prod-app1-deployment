@@ -3,11 +3,11 @@ MAKEFLAGS += --silent
 .PHONY: deploy run build clean kill
 
 # -------- Project definitions --------
-deploys := deploy-proxy deploy-gis deploy-iot
-runs 	:= run-proxy run-gis run-iot
-builds 	:= build-proxy build-gis build-iot
-cleans 	:= clean-proxy clean-gis clean-iot
-kills 	:= kill-proxy kill-gis kill-iot
+deploys := deploy-proxy deploy-gis deploy-iot deploy-meta
+runs 	:= run-proxy run-gis run-iot run-meta
+builds 	:= build-proxy build-gis build-iot build-meta
+cleans 	:= clean-proxy clean-gis clean-iot clean-meta
+kills 	:= kill-proxy kill-gis kill-iot kill-meta
 
 # -------- The usefull options --------
 deploy: $(deploys)
@@ -25,7 +25,7 @@ gis: deploy-proxy deploy-gis
 
 iot: deploy-proxy deploy-iot
 
-meta:
+meta: deploy-proxy deploy-meta
 
 # -------- Projects --------
 
@@ -76,3 +76,19 @@ run-iot:
 
 deploy-iot:
 	@${MAKE} --no-print-directory -C iot deploy
+
+# -> meta
+kill-meta:
+	@${MAKE} --no-print-directory -C meta kill
+
+clean-meta:
+	@${MAKE} --no-print-directory -C meta clean
+
+build-meta:
+	@${MAKE} --no-print-directory -C meta build
+
+run-meta:
+	@${MAKE} --no-print-directory -C meta run
+
+deploy-meta:
+	@${MAKE} --no-print-directory -C meta deploy

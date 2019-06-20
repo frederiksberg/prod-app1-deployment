@@ -7,3 +7,6 @@
 [submodule "gis/Vector-DigitaltAnlaeg"]
 	path = gis/Vector-DigitaltAnlaeg
 	url = https://github.com/frederiksberg/Vector-DigitaltAnlaeg.git
+[submodule "meta/monitor/src"]
+	path = meta/monitor/src
+	url = https://github.com/frederiksberg/monitoring-master

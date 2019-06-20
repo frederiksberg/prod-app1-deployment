@@ -1,0 +1,78 @@
+version: '3'
+services:
+  influxdb:
+    build:
+      context: ./src/influxdb
+      dockerfile: ./influxdb.Dockerfile
+    image: frbsc/monitoring:db
+    environment:
+      - 'INFLUXDB_DB=monitor'
+      - 'INFLUXDB_ADMIN_USER=${DB_USER}'
+      - 'INFLUXDB_ADMIN_PASSWORD=${DB_PWD}'
+      - 'INFLUXDB_HTTP_AUTH_ENABLED=true'
+    volumes:
+      - ./src/influxdb/data:/var/lib/influxdb/
+    networks:
+     - proxy
+    restart: unless-stopped
+
+  kapacitor:
+    build:
+      context: ./src/kapacitor
+      dockerfile: ./kapacitor.Dockerfile
+    image: frbsc/monitoring:kapacitor
+    restart: unless-stopped
+    environment:
+      - 'KAPACITOR_INFLUXDB_0_USERNAME=${DB_USER}'
+      - 'KAPACITOR_INFLUXDB_0_PASSWORD=${DB_PWD}'
+    volumes:
+      - ./src/kapacitor/data:/var/lib/kapacitor/
+    links:
+      - influxdb
+    depends_on:
+      - influxdb
+
+  chronograf:
+    build:
+      context: ./src/chronograf
+      dockerfile: ./chronograf.Dockerfile
+    image: frbsc/monitoring:chrono
+    environment:
+      - 'RESOURCES_PATH=/usr/share/chronograf/resources'
+      - 'INFLUXDB_URL=http://influxdb:8086'
+      - 'INFLUXDB_USERNAME=${DB_USER}'
+      - 'INFLUXDB_PASSWORD=${DB_PWD}'
+      - 'KAPACITOR_URL=http://kapacitor:9092'
+      - 'TOKEN_SECRET=${TOKEN_SECRET}'
+      - 'GH_CLIENT_ID=${GH_CLIENT_ID}'
+      - 'GH_CLIENT_SECRET=${GH_CLIENT_SECRET}'
+      - 'GH_ORGS=${GH_ORGS}'
+    volumes:
+      - ./src/chronograf/data/:/var/lib/chronograf/
+    networks:
+     - proxy
+    links:
+      - influxdb
+      - kapacitor
+    depends_on:
+      - kapacitor
+      - influxdb
+    restart: unless-stopped
+
+  telegraf:
+    build:
+      context: ./src/telegraf
+      dockerfile: ./telegraf.Dockerfile
+    image: frbsc/monitoring:telegraf-master
+    env_file:
+      - ./.env
+    links:
+      - influxdb
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+
+networks:
+  front-facing:
+    external: true
+    name: proxy
