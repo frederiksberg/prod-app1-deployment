@@ -3,11 +3,11 @@ MAKEFLAGS += --silent
 .PHONY: deploy run build clean kill
 
 # -------- Project definitions --------
-deploys := deploy-tilehut
-runs := run-tilehut
-builds := build-tilehut
-cleans := clean-tilehut
-kills := kill-tilehut
+deploys 	:= deploy-tilehut deploy-posgrest
+runs 		:= run-tilehut run-posgrest
+builds 		:= build-tilehut build-posgrest
+cleans 		:= clean-tilehut clean-posgrest
+kills 		:= kill-tilehut kill-posgrest
 
 # -------- The usefull options --------
 deploy: $(deploys)
@@ -37,3 +37,19 @@ run-tilehut:
 
 deploy-tilehut:
 	@${MAKE} --no-print-directory -C tilehut deploy
+
+# -> posgrest
+kill-posgrest:
+	@${MAKE} --no-print-directory -C PostgREST kill
+
+clean-posgrest:
+	@${MAKE} --no-print-directory -C PostgREST clean
+
+build-posgrest:
+	@${MAKE} --no-print-directory -C PostgREST build
+
+run-posgrest:
+	@${MAKE} --no-print-directory -C PostgREST run
+
+deploy-posgrest:
+	@${MAKE} --no-print-directory -C PostgREST deploy
