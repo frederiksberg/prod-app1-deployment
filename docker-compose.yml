@@ -1,23 +1,26 @@
-version: '3'
+version: '3.5'
 services:
   server:
     container_name: postgrest
     image: postgrest/postgrest
-    ports:
-      - "3030:3000"
+    networks:
+      - front-facing
     env_file:
       - ./envs/postgrest.env
   swagger:
     container_name: swagger
     image: swaggerapi/swagger-ui
-    ports:
-      - "8090:8080"
-    expose:
-      - "8090"
+    networks:
+      - front-facing
     env_file:
       - ./envs/swagger.env
   flask:
     build: .
     container_name: api_wrapper
-    ports:
-      - "5000:5000"
+    networks:
+      - front-facing
+
+networks:
+  front-facing:
+    external: true
+    name: proxy

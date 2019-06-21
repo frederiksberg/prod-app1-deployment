@@ -5,7 +5,7 @@ from postgrest import metadata, to_geojson
 app = Flask(__name__)
 CORS(app)
 
-@app.route("/v1/meta", methods=["GET"])
+@app.route("/meta", methods=["GET"])
 def meta():
 
     res = metadata()
@@ -13,7 +13,7 @@ def meta():
     return res, 200, {"ContentType": "application/json"}
 
 
-@app.route("/v1/data/<table>", methods=["GET"])
+@app.route("/data/<table>", methods=["GET"])
 def table(table):
     srid = request.args.get("srid", default=4326, type=int)
     where = request.args.get("where", default=None, type=str)
