@@ -17,6 +17,8 @@ services:
   flask:
     build: .
     container_name: api_wrapper
+    links:
+      - server
     networks:
       - front-facing
 
