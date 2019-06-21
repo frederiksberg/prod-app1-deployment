@@ -11,10 +11,10 @@ clean: kill
 	docker-compose rm -f
 
 build: clean
-	docker build -t frbsc/monitoring:influxdb -f ./influxdb/influxdb.Dockerfile ./influxdb
-	docker build -t frbsc/monitoring:kapacitor -f ./kapacitor/kapacitor.Dockerfile ./kapacitor
-	docker build -t frbsc/monitoring:chronograf -f ./chronograf/chronograf.Dockerfile ./chronograf
-	docker build -t frbsc/monitoring:telegraf-master -f ./telegraf/telegraf.Dockerfile ./telegraf
+	docker build -t frbsc/monitoring:influxdb -f ./src/influxdb/influxdb.Dockerfile ./src/influxdb
+	docker build -t frbsc/monitoring:kapacitor -f ./src/kapacitor/kapacitor.Dockerfile ./src/kapacitor
+	docker build -t frbsc/monitoring:chronograf -f ./src/chronograf/chronograf.Dockerfile ./src/chronograf
+	docker build -t frbsc/monitoring:telegraf-master -f ./src/telegraf/telegraf.Dockerfile ./src/telegraf
 
 kill:
 	docker-compose down
