@@ -21,6 +21,8 @@ clean: $(cleans)
 kill: $(kills)
 
 # -------- Projects --------
+
+# -> tilehut
 kill-tilehut:
 	@${MAKE} --no-print-directory -C tilehut kill
 
