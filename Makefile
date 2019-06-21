@@ -6,7 +6,7 @@ MAKEFLAGS += --silent
 deploys := deploy-gis deploy-iot deploy-meta
 runs 	:= run-gis run-iot run-meta
 builds 	:= build-proxy build-gis build-iot build-meta
-cleans 	:= clean-proxy clean-gis clean-iot clean-meta
+cleans 	:= clean-gis clean-iot clean-meta
 kills 	:= kill-gis kill-iot kill-meta
 
 # -------- The usefull options --------
@@ -16,7 +16,7 @@ run: $(runs)
 
 build: $(builds)
 
-clean: $(cleans)
+clean: clean-proxy
 
 kill: kill-proxy
 
@@ -33,7 +33,7 @@ meta: deploy-meta
 kill-proxy: $(kills)
 	@${MAKE} --no-print-directory -C proxy kill
 
-clean-proxy:
+clean-proxy: $(cleans)
 	@${MAKE} --no-print-directory -C proxy clean
 
 build-proxy:
