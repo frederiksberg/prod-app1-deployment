@@ -11,7 +11,7 @@ clean: kill
 	docker-compose rm -f
 
 build: clean
-	docker build -f ./Dockerfile .
+	docker build -t frbsc/api_wrapper:latest -f ./Dockerfile .
 
 kill:
 	docker-compose down
