@@ -9,8 +9,6 @@ services:
       - ./tiles:/tilehut/data:ro
     networks:
       - front-facing
-    ports:
-      - 8000:8000
     restart: unless-stopped
   ftp:
     image: atmoz/sftp:latest
