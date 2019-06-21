@@ -2,8 +2,6 @@ version: '3.5'
 services:
   nodered:
     image: nodered/node-red-docker
-    ports:
-      - "1880:1880"
     volumes:
       - nodered-data:/data
     networks:
@@ -15,8 +13,6 @@ services:
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=YourPassword
       - GF_INSTALL_PLUGINS=grafana-worldmap-panel
-    ports:
-      - "3000:3000"
     user: "104"
     volumes:
       - grafana-data:/var/lib/grafana
