@@ -7,7 +7,7 @@ deploys := deploy-proxy deploy-gis deploy-iot deploy-meta
 runs 	:= run-proxy run-gis run-iot run-meta
 builds 	:= build-proxy build-gis build-iot build-meta
 cleans 	:= clean-proxy clean-gis clean-iot clean-meta
-kills 	:= kill-proxy kill-gis kill-iot kill-meta
+kills 	:= kill-gis kill-iot kill-meta kill-proxy
 
 # -------- The usefull options --------
 deploy: $(deploys)
