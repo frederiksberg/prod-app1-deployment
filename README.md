@@ -30,6 +30,9 @@ GRANT SELECT ON ALL TABLES IN SCHEMA api
 ALTER DEFAULT PRIVILEGES IN SCHEMA api
   GRANT SELECT ON TABLES TO postgrest_web_anon;
 
+--Lav overordnet postgresql rolle
+create role postgrest_authenticator noinherit login password 'MyPW';
+grant postgrest_web_anon to postgrest_authenticator;
 ```
 
 Hvis PostgREST kører i docker på samme server som databasen og hvis denne er en del at et docker network, kan følgende kommando bruges til at forbinde PostgREST containeren til netværket. Herved kan `<HOST>` `PGRST_DB_URI` i  `docker-compose.yml` sættes til PostgreSQL container navn.  
