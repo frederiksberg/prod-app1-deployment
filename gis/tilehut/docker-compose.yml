@@ -6,22 +6,26 @@ services:
       context: .
       dockerfile: ./Dockerfile
     volumes:
-      - ./tiles:/tilehut/data:ro
+      - tiles:/tilehut/data:ro
     networks:
       - front-facing
     restart: unless-stopped
   ftp:
     image: atmoz/sftp:latest
     volumes:
-      - ./tiles:/home/gis/tiles:rw
+      - tiles:/home/gis/tiles:rw
       - ./pub_keys:/home/gis/.ssh/keys:ro
       - ./host_keys/ssh_host_ed25519_key:/etc/ssh/ssh_host_ed25519_key:ro
       - ./host_keys/ssh_host_rsa_key:/etc/ssh/ssh_host_rsa_key:ro
+      - ./fixownership.sh:/etc/sftp.d/fixownership.sh
     ports:
       - "2222:22"
     command: gis::::tiles
     depends_on: [th]
     restart: unless-stopped
+
+volumes:
+  tiles:
 
 networks:
   front-facing:
