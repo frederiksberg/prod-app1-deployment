@@ -3,7 +3,7 @@ services:
   nodered:
     image: nodered/node-red-docker
     volumes:
-      - ./nodered:/data:rw
+      - nodered-data:/data
     networks:
       - front-facing
     restart: unless-stopped
@@ -14,11 +14,15 @@ services:
       - ./.env
     user: "104"
     volumes:
-      - ./grafana:/var/lib/grafana:rw
+      - grafana-data:/var/lib/grafana
     networks:
       - front-facing
     restart: unless-stopped
 
+volumes:
+  grafana-data:
+  nodered-data:
+  
 networks:
   front-facing:
     external: true
