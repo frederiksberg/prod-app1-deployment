@@ -15,8 +15,11 @@ services:
     env_file:
       - ./envs/swagger.env
   flask:
+    image: frbsc/api_wrapper:latest
     build: .
     container_name: api_wrapper
+    links:
+      - server
     networks:
       - front-facing
 

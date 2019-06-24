@@ -7,6 +7,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY ./flask .
 
-ENTRYPOINT [ "python" ]
-
-CMD [ "app.py" ]
+CMD ["gunicorn", "app:app", "-b 0.0.0.0:5000"]
