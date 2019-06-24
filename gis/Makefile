@@ -20,6 +20,8 @@ clean: $(cleans)
 
 kill: $(kills)
 
+restart: deploy
+
 # -------- Projects --------
 
 # -> tilehut

@@ -20,6 +20,8 @@ clean: $(cleans)
 
 kill: $(kills)
 
+restart: deploy
+
 # -------- Projects --------
 kill-iot-pipeline:
 	@${MAKE} --no-print-directory -C iot-pipeline kill

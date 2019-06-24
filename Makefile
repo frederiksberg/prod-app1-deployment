@@ -20,6 +20,8 @@ clean: clean-proxy
 
 kill: kill-proxy
 
+restart: | kill deploy
+
 # -------- Project specific targets
 gis: deploy-gis
 
