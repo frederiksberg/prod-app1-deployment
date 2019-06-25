@@ -13,7 +13,8 @@ services:
     volumes:
       - ./src/influxdb/data:/var/lib/influxdb/
     networks:
-     - front-facing
+      - front-facing
+      - internal
     restart: unless-stopped
 
   kapacitor:
@@ -27,8 +28,8 @@ services:
       - 'KAPACITOR_INFLUXDB_0_PASSWORD=${DB_PWD}'
     volumes:
       - ./src/kapacitor/data:/var/lib/kapacitor/
-    links:
-      - influxdb
+    networks:
+      - internal
     depends_on:
       - influxdb
 
@@ -50,10 +51,8 @@ services:
     volumes:
       - ./src/chronograf/data/:/var/lib/chronograf/
     networks:
-     - front-facing
-    links:
-      - influxdb
-      - kapacitor
+      - front-facing
+      - internal
     depends_on:
       - kapacitor
       - influxdb
@@ -66,8 +65,8 @@ services:
     image: frbsc/monitoring:telegraf-master
     env_file:
       - ./.env
-    links:
-      - influxdb
+    networks:
+      - internal
     depends_on:
       - influxdb
     volumes:
@@ -78,3 +77,4 @@ networks:
   front-facing:
     external: true
     name: proxy
+  internal:
