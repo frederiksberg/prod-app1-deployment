@@ -44,7 +44,7 @@ Når en applikation debugges kand et være en fordel at køre `make run`. Servic
 ### Make i roden
 
 Makefilen i roden af repositoriet er sat op til at styre deployment af hele serveren.
-Her specificeret de samme targets som i de individuelle projekt, samt et `restart` target.
+Her er specificeret de samme targets som i de individuelle projekt, samt et `restart` target.
 
 ## Opgradering
 
