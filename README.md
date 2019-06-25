@@ -12,7 +12,6 @@
 2. Tilret `*.env`under de forskellige projekter (brug evt. `init_env.sh` script)
 3. Container specifik init (se [dette afsnit](#konfiguration))
 4. Kør `make` i root folderen
-Sikkerhed
 5. Kør `/proxy/init.sh` for at sætte SSL op
 6. Genstart med `make restart`
 
