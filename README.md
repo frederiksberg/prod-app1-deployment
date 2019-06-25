@@ -11,10 +11,10 @@
 1. Klon dette repository `git clone https://github.com/frederiksberg/prod-app1-deployment.git`
 2. Tilret `*.env`under de forskellige projekter (brug evt. `init_env.sh` script)
 3. Container specifik init (se [dette afsnit](#konfiguration))
-3. Kør `make` i root folderen
+4. Kør `make` i root folderen
 Sikkerhed
-4. Kør `/proxy/init.sh` for at sætte SSL op
-5. Genstart med `make restart`
+5. Kør `/proxy/init.sh` for at sætte SSL op
+6. Genstart med `make restart`
 
 ### Make
 
