@@ -49,7 +49,7 @@ Flere af containerne er
 
 ## God stil
 
-* Commit ikke kode fra serveren fra Github
+* Commit ikke kode fra serveren til Github
 
 ## Requirements
 
