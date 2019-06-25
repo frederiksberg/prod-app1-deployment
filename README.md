@@ -32,6 +32,8 @@ Deploy er standard target, dvs. at køres make uden at specificere et target, k�
 Dette kombineret betyder at, der kan startes en service ved at køre `make` fra servicens rod.
 Og at servicen kan tages ned, bygges om og spinnes op igen ved at køre `make`.
 
+Når en applikation debugges kand et være en fordel at køre `make run`. Servicen vil nu løbende printe log output til terminalen. Vær dog opmærksom på at servicen ikke længere køres som en daemon, og at dens life-cycle derfor er tied ttil terminalen.
+
 ### Make i roden
 
 Makefilen i roden af repositoriet er sat op til at styre deployment af hele serveren.
