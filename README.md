@@ -28,14 +28,15 @@ Til at styrer docker-compose filerne bruges [Make](https://www.gnu.org/software/
 * `make clean` - Fjerner containere (`docker-compose rm -f`)
 
 Ovennævnte build targets har interne afhængigheder for at lette workflowet.
-deploy    run
-  |________|
-      |
-    build
-      |
-    clean
-      |
-    kill
+
+deploy    run  
+  |________|  
+      |  
+    build  
+      |  
+    clean  
+      |  
+    kill  
 
 Deploy er standard target, dvs. at køres make uden at specificere et target, køres deploy.
 
