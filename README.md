@@ -4,7 +4,14 @@
 
 <img src="https://github.com/frederiksberg/prod-app1-deployment/blob/master/figures/tree.svg" width="800px">
 
-### Folderstruktur
+## Opdeling
+
+Projektet er opdelt i 4 logiske kasser.
+
+* [GIS](gis/README.md)
+* [IOT](iot/README.md)
+* [meta](meta/README.md)
+* [Reverse proxy](proxy/README.md)
 
 ## Kom igang
 
