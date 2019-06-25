@@ -60,6 +60,28 @@ Flere af containerne er
 
 * Commit ikke kode fra serveren til Github
 
+## Digital Ocean
+TODO: forklar kort om managed DB og app server setup.
+
+## Videre udvikling
+Ønskes der at tilføjes services til stacken 
+* lav `docker-compose.yml` og tilhørende `Makefile`
+* Hvis servicen er en webapplikation tilføjes docker netværket til `docker-compose.yml`:
+```yml
+services:
+    ...
+    networks:
+      - front-facing
+networks:
+  front-facing:
+    external: true
+    name: proxy
+```
+* Tilføj den nye service i parent `Makefile`. Se [eksempel](https://github.com/frederiksberg/prod-app1-deployment/blob/master/gis/Makefile)
+* Opret nginx konfiguration under [`proxy/confs/`](https://github.com/frederiksberg/prod-app1-deployment/tree/master/proxy/confs)
+* Tilføj services til [`proxy/init.sh`](https://github.com/frederiksberg/prod-app1-deployment/blob/master/proxy/init.sh)
+* Gentart servicen 
+
 ## Requirements
 
 For at benytte setup kræves flgn. installeret på serveren.
