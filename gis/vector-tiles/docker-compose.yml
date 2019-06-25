@@ -1,0 +1,21 @@
+version: "3.5"
+services:
+  tegola:
+    image: gospatial/tegola
+    volumes:
+      - ./config:/opt/tegola_config
+    command: serve --config /opt/tegola_config/config.toml
+    networks:
+      - front-facing
+    restart: unless-stopped
+  
+  maputnik:
+    image: maputnik/editor:latest
+    networks:
+      - front-facing
+    restart: unless-stopped
+    
+networks:
+  front-facing:
+    external: true
+    name: proxy

@@ -1,0 +1,75 @@
+[webserver]
+port = ":8080"
+
+[cache]
+type="file"             # cache type
+basepath="/tmp/tegola"  # cache specific config
+
+# register data providers
+[[providers]]
+name = "db1"           # provider name is referenced from map layers
+type = "postgis"        # the type of data provider. currently only supports postgis
+host = "xx"      # postgis database host
+port =  25060            # postgis database port
+database = "xx"       # postgis database name
+user = "xx"         # postgis database user
+password = "xx"           # postgis database password
+srid = 3857             # The default srid for this provider. If not provided it will be WebMercator (3857)
+ssl_mode = "allow"
+
+  [[providers.layers]]
+  name = "bevarede_lokalplaner"
+  tablename = "bevarende_lokalplaner"
+
+  [[providers.layers]]
+  name = "kommuneplanrammer"
+  tablename = "kommuneplanrammer"
+
+  [[providers.layers]]
+  name = "kommuneplantillaeg"
+  tablename = "kommuneplantillaeg"
+
+  [[providers.layers]]
+  name = "lokalplan"
+  tablename = "lokalplan"
+
+  [[providers.layers]]
+  name = "lokalplaner_forslag"
+  tablename = "lokalplaner_forslag"
+
+  [[providers.layers]]
+  name = "temalokalplaner"
+  tablename = "temalokalplaner"
+
+[[maps]]
+name = "Byggeri og planlægning"
+
+  [[maps.layers]]
+  provider_layer = "db1.bevarede_lokalplaner"
+  min_zoom = 10
+  max_zoom = 20
+
+  [[maps.layers]]
+  provider_layer = "db1.kommuneplanrammer"
+  min_zoom = 10
+  max_zoom = 20
+
+  [[maps.layers]]
+  provider_layer = "db1.kommuneplantillaeg"
+  min_zoom = 10
+  max_zoom = 20
+
+  [[maps.layers]]
+  provider_layer = "db1.lokalplan"
+  min_zoom = 10
+  max_zoom = 20
+
+  [[maps.layers]]
+  provider_layer = "db1.lokalplaner_forslag"
+  min_zoom = 10
+  max_zoom = 20
+
+  [[maps.layers]]
+  provider_layer = "db1.temalokalplaner"
+  min_zoom = 10
+  max_zoom = 20
