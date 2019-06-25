@@ -1,5 +1,6 @@
 create database iot;
-create database api
+create database api;
+create database vectortile;
 
 set database iot;
 create extension postgis;
@@ -8,7 +9,20 @@ create extension timescaledb;
 set database api;
 create extension postgis;
 
---opret ny bruger
+set database vectortile;
+create extension postgis;
+
+--USERS
+CREATE USER vectortile WITH PASSWORD 'mypw';
+GRANT ALL PRIVILEGES ON DATABASE vectortile to vectortile;
+
+CREATE USER iot WITH PASSWORD 'mypw';
+GRANT ALL PRIVILEGES ON DATABASE iot to iot;
+
+CREATE USER api WITH PASSWORD 'mypw';
+GRANT ALL PRIVILEGES ON DATABASE api to api;
+
+--PostgREST
 create role postgrest_authenticator noinherit login password 'secret';
 create role postgrest_web_anon nologin;
 
@@ -27,3 +41,4 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA api
   
 grant postgrest_web_anon to postgrest_authenticator;
 grant postgrest_web_anon to api;
+
