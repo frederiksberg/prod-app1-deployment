@@ -29,15 +29,6 @@ Til at styrer docker-compose filerne bruges [Make](https://www.gnu.org/software/
 
 Ovennævnte build targets har interne afhængigheder for at lette workflowet.
 
-deploy    run  
-  |________|  
-      |  
-    build  
-      |  
-    clean  
-      |  
-    kill  
-
 Deploy er standard target, dvs. at køres make uden at specificere et target, køres deploy.
 
 Dette kombineret betyder at, der kan startes en service ved at køre `make` fra servicens rod.
