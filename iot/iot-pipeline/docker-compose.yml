@@ -17,6 +17,8 @@ services:
       - grafana-data:/var/lib/grafana
     networks:
       - front-facing
+    depends_on:
+      - nodered
     restart: unless-stopped
 
 volumes:
