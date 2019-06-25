@@ -16,7 +16,6 @@ Sikkerhed
 4. Kør `/proxy/init.sh` for at sætte SSL op
 5. Genstart med `make restart`
 
-
 ### Make
 
 Til at styrer docker-compose filerne bruges [Make](https://www.gnu.org/software/make/), som gør det muligt at bygge, fjerne,  starte eller stoppe produktionsserveren eller dele af den afhængigt af hvor man står i foldertræet. Som udgangpunkt har alle services en `docker-compose.yml` og en tilhørnede `Makefile` som kalder docker-compose filen med forskellige kommandoer.
@@ -39,6 +38,9 @@ Og at servicen kan tages ned, bygges om og spinnes op igen ved at køre `make`.
 Makefilen i roden af repositoriet er sat op til at styre deployment af hele serveren.
 Her specificeret de samme targets som i de individuelle projekt, samt et `restart` target.
 
+## Opgradering
+
+Se guiden for [Blue-green deployment](tutorials/blue-green.md) og [Live opgradering](tutorials/upgrade-service.md).
 
 ## Konfiguration
 
