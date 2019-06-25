@@ -7,33 +7,55 @@
 ### Folderstruktur
 
 ## Kom igang
+
 1. Klon dette repository `git clone https://github.com/frederiksberg/prod-app1-deployment.git`
 2. Tilret `*.env`under de forskellige projekter (brug evt. `init_env.sh` script)
+3. Container specifik init (se [dette afsnit](#konfiguration))
 3. Kør `make` i root folderen
 Sikkerhed
-4. Kør `/proxy/init.sh`
-5. Byg det hele igen med `make`
-
+4. Kør `/proxy/init.sh` for at sætte SSL op
+5. Genstart med `make restart`
 
 
 ### Make
+
 Til at styrer docker-compose filerne bruges [Make](https://www.gnu.org/software/make/), som gør det muligt at bygge, fjerne,  starte eller stoppe produktionsserveren eller dele af den afhængigt af hvor man står i foldertræet. Som udgangpunkt har alle services en `docker-compose.yml` og en tilhørnede `Makefile` som kalder docker-compose filen med forskellige kommandoer.
 
-* `make run` - Starter containerne med live logging (`docker-compose up`)
 * `make deploy` - Starter containerne i detatch mode (`docker-compose up -d`)
+* `make run` - Starter containerne med live logging (`docker-compose up`)
 * `make build` - Bygger images fra `Dockerfile` (`docker build -t frbsc/img_name:latest -f ./Dockerfile .`)
-* `make kill` - Lukker og fjerne containere(`docker-compose down`)
+* `make kill` - Lukker containere(`docker-compose down`)
 * `make clean` - Fjerner containere (`docker-compose rm -f`)
 
+Ovennævnte build targets har interne afhængigheder for at lette workflowet.
+deploy    run
+  |________|
+      |
+    build
+      |
+    clean
+      |
+    kill
 
+Deploy er standard target, dvs. at køres make uden at specificere et target, køres deploy.
+
+Dette kombineret betyder at, der kan startes en service ved at køre `make` fra servicens rod.
+Og at servicen kan tages ned, bygges om og spinnes op igen ved at køre `make`.
+
+### Make i roden
+
+Makefilen i roden af repositoriet er sat op til at styre deployment af hele serveren.
+Her specificeret de samme targets som i de individuelle projekt, samt et `restart` target.
 
 
 ## Konfiguration
+
 Flere af containerne er 
 
 ## Sikkerhed
 
 ## God stil
+
 * Commit ikke kode fra serveren fra Github
 
 ## Requirements
