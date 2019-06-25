@@ -13,9 +13,9 @@ I DigitalOcean kan dette gøres nemt ved tage et snapshot af produktionsserveren
 
 De to vigtige kommandoer er `make` for at starte hele setupet of `make restart` for at genstarte et setup, der kører. Begge kommandoer skal køres fra roden af repoet.
 
-Vær opmærksom på at du proxy-servicen ikke vil køre korrekt i denne fase, da dns ikke er ændret endnu.
+Vær opmærksom på at proxy-servicen ikke vil køre korrekt i denne fase, da dns ikke er ændret endnu.
 
-Under udviklingen kan det være en fordel at spinne enkelte services op og ned. Se guiden for live opgradering for hjælp til dette.
+Under udviklingen kan det være en fordel at spinne enkelte services op og ned. Se guiden for [live opgradering](upgrade-service.md) for hjælp til dette.
 
 ## 3. Skift dns
 
@@ -26,4 +26,4 @@ På DigitalOcean har produktionsserveren en "floating ip". Assign denne til den 
 
 ## 4. Wrap up
 
-Når den nye server kører og det er kontrolleret at alt fungerer som det skal kan den gamle server lukkes ned.
+Når den nye server kører og det er kontrolleret at alt fungerer som det skal, kan den gamle server lukkes ned.

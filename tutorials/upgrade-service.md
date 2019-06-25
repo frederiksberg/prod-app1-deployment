@@ -5,7 +5,7 @@
 Når kodebasen opdateres anbefales det at lade servicen køre under hele processen.
 Det er den bedste måde at minimere nedetid, og det har den positive effekt at det ikke risikere at påvirke proxy-servicen med at resolve adresser, der ike findes.
 
-Stil dig i den directory hvor servicen er. Når du kører `make` kommandoer herfra vil de kun påvirke den ene service. Det er **meget vigtigt** at der ikke køres docker/docker-compose kommandoer manuelt, da de kan risikere at påvirke de andre services. Hvis du har behov får at gøre dette anbefales det at lave en green/blue deployment. Se guiden i repoet.
+Stil dig i den directory hvor servicen er. Når du kører `make` kommandoer herfra vil de kun påvirke den ene service. Det er **meget vigtigt** at der ikke køres docker/docker-compose kommandoer manuelt, da de kan risikere at påvirke de andre services. Hvis du har behov får at gøre dette anbefales det at lave en green/blue deployment. Se guiden i [her](green-blue.md).
 
 Når koden er bragt up-to-date kan servicen genstartes.
 
@@ -17,7 +17,7 @@ Kør `make`.
 
 Du vil nu se at servicen lukkes ned, bygges om og starter igen.
 
-Som regel tager dette ikke mere end 10-15 sekunder. Hvis din service tager lang til at tænde/slukke/bygge eller hvis oppetid er kritisk, må der igen henvises til guiden for blue/green deployment.
+Som regel tager dette ikke mere end 10-15 sekunder. Hvis din service tager lang til at tænde/slukke/bygge eller hvis oppetid er kritisk, må der igen henvises til guiden for [blue/green deployment](green-blue.md).
 
 ## 3. Test + profit
 
@@ -25,6 +25,6 @@ Nu da servicen er opgraderet er det tid til at verificere at ændringen er slåe
 
 ## Bemærkninger
 
-Det kan ikke understreges nok at metoden forklaret i denne guide frarådes på det kraftigste.
+Det kan ikke understreges nok at metoden forklaret i denne guide frarådes på det kraftigste live i produktionen.
 
 Husk at du arbejder i et produktionsmiljø!
