@@ -77,7 +77,7 @@ Produktionserveren har en floating ip, som dns'en peger på. Dette gør at produ
 
 Produktionsdatabasen db1 er hostet i DO's managed database cluster engine. Det vil sige at vi ikke selv administrerer lav-praktisk tuning og vedligeholdelse.
 
-Det er muligt at tilføje standby of read-only nodes til clusteren, hvis nedetid bliver et problem.
+Det er muligt at tilføje standby og read-only nodes til clusteren, hvis nedetid bliver et problem.
 
 ## Videre udvikling
 
