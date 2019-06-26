@@ -61,9 +61,19 @@ Flere af containerne er
 * Commit ikke kode fra serveren til Github
 
 ## Digital Ocean
-TODO: forklar kort om managed DB og app server setup.
+
+Vi kører setuppet i DigitalOcean.
+
+Produktionsdelen af setuppet består af en produktions server og en produktionsdatabase.
+
+Produktionserveren har en floating ip, som dns'en peger på. Dette gør at produktionsserveren kan flyttes ved plot at pege denne ip over på en ny droplet.
+
+Produktionsdatabasen db1 er hostet i DO's managed database cluster engine. Det vil sige at vi ikke selv administrerer lav-praktisk tuning og vedligeholdelse.
+
+Det er muligt at tilføje standby of read-only nodes til clusteren, hvis nedetid bliver et problem.
 
 ## Videre udvikling
+
 Ønskes der at tilføjes services til stacken 
 * lav `docker-compose.yml` og tilhørende `Makefile`
 * Hvis servicen er en webapplikation tilføjes docker netværket til `docker-compose.yml`:
