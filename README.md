@@ -54,6 +54,13 @@ Se guiden for [Blue-green deployment](tutorials/blue-green.md) og [Live opgrader
 
 Flere af containerne er 
 
+### tilehut
+
+For at konfigurere tilehut rigtigt **inden** første opstart, skal `gis/tilehut/init.sh` køres.
+
+Det sørger for at der bliver genereret host keys til SFTP serveren.
+Det er vigtigt at dette bliver gjort inden første opstart, da docker-compose ellers vil lave den forkerte type volume binding.
+
 ## Sikkerhed
 
 ## God stil
@@ -78,6 +85,7 @@ Det er muligt at tilføje standby of read-only nodes til clusteren, hvis nedetid
 * lav `docker-compose.yml` og tilhørende `Makefile`
 * Hvis servicen er en webapplikation tilføjes docker netværket til `docker-compose.yml`:
 ```yml
+version: '3.5'
 services:
     ...
     networks:
@@ -101,4 +109,3 @@ For at benytte setup kræves flgn. installeret på serveren.
 * cmake
 
 De enkelte projekter kan have yderligere dependencies.
-
