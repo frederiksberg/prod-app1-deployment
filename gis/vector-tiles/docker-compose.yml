@@ -13,6 +13,8 @@ services:
     image: maputnik/editor:latest
     networks:
       - front-facing
+    depends_on:
+      - tegola
     restart: unless-stopped
     
 networks:
