@@ -2,7 +2,7 @@
 
 ## Diagram over services
 
-<img src="https://github.com/frederiksberg/prod-app1-deployment/blob/master/figures/tree.svg" width="800px">
+<img src="https://github.com/frederiksberg/prod-app1-deployment/blob/master/figures/tree.svg" width="900px">
 
 ## Opdeling
 
