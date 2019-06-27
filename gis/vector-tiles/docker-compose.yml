@@ -2,9 +2,9 @@ version: "3.5"
 services:
   tegola:
     image: gospatial/tegola
-    volumes:
-      - ./config:/opt/tegola_config
-    command: serve --config /opt/tegola_config/config.toml
+    env_file: 
+      - ./.env
+    command: serve --config https://frederiksberg.github.io/tegola/config.toml
     networks:
       - front-facing
     restart: unless-stopped
