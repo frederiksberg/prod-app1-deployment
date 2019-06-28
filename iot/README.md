@@ -22,7 +22,7 @@ Docker volumes are used for persistent storage of data from the different apps a
 ## Configuration
 
 ### Grafana
-Add plugins to Grafana in `docker-compose.yml` under  `GF_INSTALL_PLUGINS`. here's available plugins: https://grafana.com/plugins
+Edit `.env` file with password and plugins ([ref](https://grafana.com/docs/installation/docker/#installing-plugins-for-grafana)). Here's available plugins: https://grafana.com/plugins
 
 ## Requirements
 
@@ -30,7 +30,7 @@ Before using this `docker-compose.yml` file, make sure you have [Docker](https:/
 installed.
 
 ## Security
-* Grafana `admin` user: `docker-compose.yml`
+* Grafana `admin` user: `.env`
 * Node-RED [enable admin auth](https://nodered.org/docs/security): `data/nodered/settings.js` (Currently needs to be done after `docker-compose up` and entails `docker restart nodered`)
 
 ## Usage

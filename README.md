@@ -52,7 +52,19 @@ Se guiden for [Blue-green deployment](tutorials/blue-green.md) og [Live opgrader
 
 ## Konfiguration
 
-Flere af containerne er 
+Flere af servicesne kræver at der laves konfigurationer inden de startes. Dette står nærmere beskrevet i `README.md` får de forskellige services. Overordnet skal følgende services konfigureres inden de startes:
+
+**GIS**
+* Tegola
+* PostgREST
+* Swagger
+* Tilehut
+
+**IoT**
+* Grafana
+
+**Meta**
+* Monitor
 
 ### tilehut
 
@@ -62,6 +74,14 @@ Det sørger for at der bliver genereret host keys til SFTP serveren.
 Det er vigtigt at dette bliver gjort inden første opstart, da docker-compose ellers vil lave den forkerte type volume binding.
 
 ## Sikkerhed
+
+### NGINX
+TODO:
+* reverse proxy
+* cerbot / letsencrypt
+
+### Node-RED
+Node-RED skal have opsat auth **efter** containeren er startet, hvilket står beskrevet `README.md` for iot-pipeline.
 
 ## God stil
 
