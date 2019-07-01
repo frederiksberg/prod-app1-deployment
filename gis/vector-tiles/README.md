@@ -23,11 +23,15 @@ Vær opmærksom på at fejl i konfigurationsfilen gør at Tegola serveren fejler
 Forbindelsen til databasen opsættes i `.env` filen. Når konfigurationsfilen læses bliver environment variables sat ind.
 
 #### Caching
-Hvis der ønskes at der generes en tile cache får at øge performance kan dette gøres i tegola. Du kan læse mere om caching i tegola [her](https://tegola.io/documentation/cache-seeding-and-purging/#seed1).
+Hvis der ønskes at der generes en tile cache får at øge performance kan dette gøres i tegola. Herunder se eksempel på kommando, som laver tiles til cachen for alle lag i `config.toml` i zoom nivea 14 til 19 og inden for en bounding box der dækker Frederiksberg kommune.
 
 ```bash
-docker exec vector-tiles_tegola_1 ./tegola cache seed --config https://frederiksberg.github.io/tegola/config.toml --bounds "12.485782,55.664938,12.557257,55.697899" --max-zoom 17 --min-zoom 14 --overwrite --concurrency 4
+docker exec <container_name> ./tegola cache seed --config https://frederiksberg.github.io/tegola/config.toml --bounds "12.485782,55.664938,12.557257,55.697899" --max-zoom 22 --min-zoom 14 --overwrite --concurrency 4
 ```
+
+Hvis der løbende ønskes at genereres tile cache på dynamiske lag, kan ovenstående komando føjes til crontab (Se evt `crontab.sh`).
+
+Du kan læse mere om caching i tegola [her](https://tegola.io/documentation/cache-seeding-and-purging/#seed1).
 
 ## Maputnik
 Webapp til at generere styling til vector tiles.
