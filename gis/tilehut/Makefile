@@ -15,3 +15,6 @@ build: clean
 
 kill:
 	docker-compose down
+
+re-ftp:
+	docker-compose restart ftp
