@@ -1,6 +1,7 @@
 version: "3.5"
 services:
   tegola:
+    container_name: tegola
     image: gospatial/tegola
     env_file: 
       - ./.env
@@ -10,6 +11,7 @@ services:
     restart: unless-stopped
   
   maputnik:
+    container_name: maputnik
     image: maputnik/editor:latest
     networks:
       - front-facing

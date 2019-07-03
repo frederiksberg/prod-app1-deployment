@@ -1,2 +1,2 @@
-cmd="docker exec vector-tiles_tegola_1 ./tegola cache seed --config https://frederiksberg.github.io/tegola/config.toml --bounds \"12.485782,55.664938,12.557257,55.697899\" --max-zoom 19 --min-zoom 14 --overwrite --concurrency 4"
+cmd="docker exec tegola ./tegola cache seed --config https://frederiksberg.github.io/tegola/config.toml --bounds \"12.485782,55.664938,12.557257,55.697899\" --max-zoom 19 --min-zoom 14 --overwrite --concurrency 4"
 (crontab -l 2>/dev/null; echo "30 2 * * * $cmd") | crontab -

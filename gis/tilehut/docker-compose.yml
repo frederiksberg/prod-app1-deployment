@@ -1,6 +1,7 @@
 version: '3.5'
 services:
   th:
+    container_name: tilehut
     image: frbsc/tilehut:latest
     build:
       context: .
@@ -10,7 +11,9 @@ services:
     networks:
       - front-facing
     restart: unless-stopped
+
   ftp:
+    container_name: th-ftp
     image: atmoz/sftp:latest
     volumes:
       - tiles:/home/gis/tiles:rw

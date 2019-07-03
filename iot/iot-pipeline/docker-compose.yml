@@ -1,6 +1,7 @@
 version: '3.5'
 services:
   nodered:
+    container_name: nodered
     image: nodered/node-red-docker
     volumes:
       - nodered-data:/data
@@ -9,6 +10,7 @@ services:
     restart: unless-stopped
   
   grafana:
+    container_name: grafana
     image: grafana/grafana
     env_file:
       - ./.env

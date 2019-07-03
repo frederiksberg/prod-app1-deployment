@@ -52,7 +52,7 @@ Se guiden for [Blue-green deployment](tutorials/blue-green.md) og [Live opgrader
 
 ## Konfiguration
 
-Flere af servicesne kræver at der laves konfigurationer inden de startes. Dette står nærmere beskrevet i `README.md` får de forskellige services. Overordnet skal følgende services konfigureres inden de startes:
+Flere af servicesne kræver at der laves konfigurationer inden de startes. Dette står nærmere beskrevet i `README.md` for de forskellige services. Overordnet skal følgende services konfigureres inden de startes:
 
 **GIS**
 * Tegola
@@ -76,6 +76,14 @@ Det er vigtigt at dette bliver gjort inden første opstart, da docker-compose el
 ## Sikkerhed
 
 ### NGINX
+
+Proxy docker netværket styrer hvilke services, der kan snakke med nginx.
+Det er det første lag af isolation.
+
+nginx's config filer styrer, hvordan trafik routes fra via proxy netværket. Dette tjener som det andet lag af isolation.
+
+SSL certifikaterne bruges til at oprette sikre https tuneller til brugeren og nginx er konfigureret til at redirecte alt http trafik til https.
+
 TODO:
 * reverse proxy
 * cerbot / letsencrypt
