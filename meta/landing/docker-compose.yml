@@ -1,0 +1,13 @@
+version: '3.5'
+services:
+  landing:
+    image: frbsc/landing:latest
+    build: .
+    container_name: landing
+    networks:
+      - front-facing
+
+networks:
+  front-facing:
+    external: true
+    name: proxy
