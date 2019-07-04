@@ -18,4 +18,4 @@ kill:
 
 re-ftp:
 	docker-compose rm -f -s ftp
-	docker-compose up ftp
+	docker-compose up -d ftp
