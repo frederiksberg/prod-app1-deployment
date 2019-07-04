@@ -4,6 +4,7 @@ WORKDIR /usr/src
 
 RUN apk add --no-cache --virtual .build-deps nodejs nodejs-npm git
 
+ADD https://api.github.com/repos/frederiksberg/frb-data-landing/git/refs/heads/master /opt/version.json
 RUN git clone https://github.com/frederiksberg/frb-data-landing .
 
 RUN npm install
