@@ -3,11 +3,11 @@ MAKEFLAGS += --silent
 .PHONY: deploy run build clean kill
 
 # -------- Project definitions --------
-deploys := deploy-monitor
-runs := run-monitor
-builds := build-monitor
-cleans := clean-monitor
-kills := kill-monitor
+deploys := deploy-monitor deploy-landing
+runs := run-monitor run-landing
+builds := build-monitor build-landing
+cleans := clean-monitor clean-landing
+kills := kill-monitor kill-landing
 
 # -------- The usefull options --------
 deploy: $(deploys)
@@ -23,6 +23,7 @@ kill: $(kills)
 restart: deploy
 
 # -------- Projects --------
+# Monitor
 kill-monitor:
 	@${MAKE} --no-print-directory -C monitor kill
 
@@ -37,3 +38,20 @@ run-monitor:
 
 deploy-monitor:
 	@${MAKE} --no-print-directory -C monitor deploy
+
+# Landing
+kill-landing:
+	@${MAKE} --no-print-directory -C landing kill
+
+clean-landing:
+	@${MAKE} --no-print-directory -C landing clean
+
+build-landing:
+	@${MAKE} --no-print-directory -C landing build
+
+run-landing:
+	@${MAKE} --no-print-directory -C landing run
+
+deploy-landing:
+	@${MAKE} --no-print-directory -C landing deploy
+
