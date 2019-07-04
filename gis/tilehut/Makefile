@@ -17,4 +17,6 @@ kill:
 	docker-compose down
 
 re-ftp:
-	docker-compose restart ftp
+	docker-compose down ftp
+	docker-compose rm -f ftp
+	docker-compose up ftp
