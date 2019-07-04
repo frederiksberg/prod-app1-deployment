@@ -73,6 +73,8 @@ For at konfigurere tilehut rigtigt **inden** første opstart, skal `gis/tilehut/
 Det sørger for at der bliver genereret host keys til SFTP serveren.
 Det er vigtigt at dette bliver gjort inden første opstart, da docker-compose ellers vil lave den forkerte type volume binding.
 
+Se nærmere info om tilehut [her](gis/tilehut/README.md).
+
 ## Sikkerhed
 
 ### NGINX
