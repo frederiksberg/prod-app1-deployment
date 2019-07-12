@@ -3,11 +3,11 @@ MAKEFLAGS += --silent
 .PHONY: deploy run build clean kill
 
 # -------- Project definitions --------
-deploys := deploy-iot-pipeline
-runs := run-iot-pipeline
-builds := build-iot-pipeline
-cleans := clean-iot-pipeline
-kills := kill-iot-pipeline
+deploys := deploy-iot-pipeline deploy-forecasting
+runs 	:= run-iot-pipeline run-forecasting
+builds 	:= build-iot-pipeline build-forecasting
+cleans 	:= clean-iot-pipeline clean-forecasting
+kills 	:= kill-iot-pipeline kill-forecasting
 
 # -------- The usefull options --------
 deploy: $(deploys)
@@ -23,6 +23,7 @@ kill: $(kills)
 restart: deploy
 
 # -------- Projects --------
+# -> IOT Pipeline
 kill-iot-pipeline:
 	@${MAKE} --no-print-directory -C iot-pipeline kill
 
@@ -37,3 +38,19 @@ run-iot-pipeline:
 
 deploy-iot-pipeline:
 	@${MAKE} --no-print-directory -C iot-pipeline deploy
+
+# -> forecasting
+kill-forecasting:
+	@${MAKE} --no-print-directory -C forecasting kill
+
+clean-forecasting:
+	@${MAKE} --no-print-directory -C forecasting clean
+
+build-forecasting:
+	@${MAKE} --no-print-directory -C forecasting build
+
+run-forecasting:
+	@${MAKE} --no-print-directory -C forecasting run
+
+deploy-forecasting:
+	@${MAKE} --no-print-directory -C forecasting deploy
