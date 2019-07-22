@@ -3,11 +3,11 @@ MAKEFLAGS += --silent
 .PHONY: deploy run build clean kill
 
 # -------- Project definitions --------
-deploys := deploy-gis deploy-iot deploy-meta
-runs 	:= run-gis run-iot run-meta
-builds 	:= build-proxy build-gis build-iot build-meta
-cleans 	:= clean-gis clean-iot clean-meta
-kills 	:= kill-gis kill-iot kill-meta
+deploys := deploy-gis deploy-iot deploy-meta deploy-proxy
+runs 	:= run-gis run-iot run-meta run-proxy
+builds 	:= build-proxy build-gis build-iot build-meta build-networking
+cleans 	:= clean-gis clean-iot clean-meta clean-proxy
+kills 	:= kill-gis kill-iot kill-meta kill-proxy
 
 # -------- The usefull options --------
 deploy: $(deploys)
@@ -16,11 +16,13 @@ run: $(runs)
 
 build: $(builds)
 
-clean: clean-proxy
+clean: clean-networking
 
-kill: kill-proxy
+kill: kill-networking
 
-restart: | kill deploy
+restart-all: | kill deploy
+
+restart: deploy-proxy
 
 # -------- Project specific targets
 gis: deploy-gis
@@ -31,20 +33,36 @@ meta: deploy-meta
 
 # -------- Projects --------
 
-# -> Proxy
-kill-proxy: $(kills)
+# -> Network
+kill-networking: $(kills)
+	@${MAKE} --no-print-directory -C networking kill
+
+clean-networking: $(cleans)
+	@${MAKE} --no-print-directory -C networking clean
+
+build-networking:
+	@${MAKE} --no-print-directory -C networking build
+
+run-networking:
+	@${MAKE} --no-print-directory -C networking run
+
+deploy-networking:
+	@${MAKE} --no-print-directory -C networking deploy
+
+# -> proxy
+kill-proxy:
 	@${MAKE} --no-print-directory -C proxy kill
 
-clean-proxy: $(cleans)
+clean-proxy:
 	@${MAKE} --no-print-directory -C proxy clean
 
 build-proxy:
 	@${MAKE} --no-print-directory -C proxy build
 
-run-proxy:
+run-proxy: deploy-networking
 	@${MAKE} --no-print-directory -C proxy run
 
-deploy-proxy:
+deploy-proxy: deploy-networking
 	@${MAKE} --no-print-directory -C proxy deploy
 
 # -> GIS
@@ -57,10 +75,10 @@ clean-gis:
 build-gis:
 	@${MAKE} --no-print-directory -C gis build
 
-run-gis: run-proxy
+run-gis: deploy-networking
 	@${MAKE} --no-print-directory -C gis run
 
-deploy-gis: deploy-proxy
+deploy-gis: deploy-networking
 	@${MAKE} --no-print-directory -C gis deploy
 
 # -> IOT
@@ -73,10 +91,10 @@ clean-iot:
 build-iot:
 	@${MAKE} --no-print-directory -C iot build
 
-run-iot: run-proxy
+run-iot: deploy-networking
 	@${MAKE} --no-print-directory -C iot run
 
-deploy-iot: deploy-proxy
+deploy-iot: deploy-networking
 	@${MAKE} --no-print-directory -C iot deploy
 
 # -> meta
@@ -89,8 +107,8 @@ clean-meta:
 build-meta:
 	@${MAKE} --no-print-directory -C meta build
 
-run-meta: run-proxy
+run-meta: deploy-networking
 	@${MAKE} --no-print-directory -C meta run
 
-deploy-meta: deploy-proxy
+deploy-meta: deploy-networking
 	@${MAKE} --no-print-directory -C meta deploy
