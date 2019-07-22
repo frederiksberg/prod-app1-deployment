@@ -20,7 +20,6 @@ Projektet er opdelt i 4 logiske kasser.
 3. Container specifik init (se [dette afsnit](#konfiguration))
 4. Kør `make` i root folderen
 5. Kør `/proxy/init.sh` for at sætte SSL op
-6. Genstart med `make restart`
 
 ### Make
 
@@ -44,7 +43,7 @@ Når en applikation debugges kand et være en fordel at køre `make run`. Servic
 ### Make i roden
 
 Makefilen i roden af repositoriet er sat op til at styre deployment af hele serveren.
-Her er specificeret de samme targets som i de individuelle projekt, samt et `restart` target.
+Her er specificeret de samme targets som i de individuelle projekt, samt et `restart` target til at restarte reverse_proxy og et restart-all target til at restarte hele setuppet.
 
 ## Opgradering
 
