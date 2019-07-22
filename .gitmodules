@@ -4,3 +4,6 @@
 [submodule "meta/monitor/src"]
 	path = meta/monitor/src
 	url = https://github.com/frederiksberg/monitoring-master
+[submodule "iot/vejrapi"]
+	path = iot/vejrapi
+	url = https://github.com/frederiksberg/VejrAPI

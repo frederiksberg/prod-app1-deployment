@@ -1,0 +1,13 @@
+version: '3.5'
+services:
+  plumber:
+    build: .
+    container_name: forecasting
+    volumes:
+      - ./model_endpoint.R:/app/plumber.R
+    networks: [front-facing]
+
+networks:
+  front-facing:
+    external: true
+    name: proxy

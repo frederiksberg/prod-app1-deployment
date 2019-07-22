@@ -3,11 +3,11 @@ MAKEFLAGS += --silent
 .PHONY: deploy run build clean kill
 
 # -------- Project definitions --------
-deploys := deploy-iot-pipeline deploy-forecasting
-runs 	:= run-iot-pipeline run-forecasting
-builds 	:= build-iot-pipeline build-forecasting
-cleans 	:= clean-iot-pipeline clean-forecasting
-kills 	:= kill-iot-pipeline kill-forecasting
+deploys := deploy-iot-pipeline deploy-forecast deploy-vejrapi
+runs 	:= run-iot-pipeline run-forecast run-vejrapi
+builds 	:= build-iot-pipeline build-forecast build-vejrapi
+cleans 	:= clean-iot-pipeline clean-forecast clean-vejrapi
+kills 	:= kill-iot-pipeline kill-forecast kill-vejrapi
 
 # -------- The usefull options --------
 deploy: $(deploys)
@@ -23,7 +23,7 @@ kill: $(kills)
 restart: deploy
 
 # -------- Projects --------
-# -> IOT Pipeline
+# ~~> iot-pipeline
 kill-iot-pipeline:
 	@${MAKE} --no-print-directory -C iot-pipeline kill
 
@@ -39,18 +39,34 @@ run-iot-pipeline:
 deploy-iot-pipeline:
 	@${MAKE} --no-print-directory -C iot-pipeline deploy
 
-# -> forecasting
-kill-forecasting:
-	@${MAKE} --no-print-directory -C forecasting kill
+# ~~> Forecast
+kill-forecast:
+	@${MAKE} --no-print-directory -C forecast kill
 
-clean-forecasting:
-	@${MAKE} --no-print-directory -C forecasting clean
+clean-forecast:
+	@${MAKE} --no-print-directory -C forecast clean
 
-build-forecasting:
-	@${MAKE} --no-print-directory -C forecasting build
+build-forecast:
+	@${MAKE} --no-print-directory -C forecast build
 
-run-forecasting:
-	@${MAKE} --no-print-directory -C forecasting run
+run-forecast:
+	@${MAKE} --no-print-directory -C forecast run
 
-deploy-forecasting:
-	@${MAKE} --no-print-directory -C forecasting deploy
+deploy-forecast:
+	@${MAKE} --no-print-directory -C forecast deploy
+
+# ~~> VejrAPI
+kill-vejrapi:
+	@${MAKE} --no-print-directory -C vejrapi kill
+
+clean-vejrapi:
+	@${MAKE} --no-print-directory -C vejrapi clean
+
+build-vejrapi:
+	@${MAKE} --no-print-directory -C vejrapi build
+
+run-vejrapi:
+	@${MAKE} --no-print-directory -C vejrapi run
+
+deploy-vejrapi:
+	@${MAKE} --no-print-directory -C vejrapi deploy
