@@ -1,10 +1,10 @@
 MAKEFLAGS += --silent
 .PHONY: deploy run build clean kill init
 
-deploy: build
+deploy: | build clean
 	docker-compose up -d
 
-run: build
+run: | build clean
 	docker-compose up
 	
 init: clean
@@ -12,7 +12,7 @@ init: clean
 clean: kill
 	docker-compose rm -f
 
-build: clean
+build:
 	docker-compose build
 
 kill:
