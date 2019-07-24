@@ -1,5 +1,9 @@
 # Reverse proxy
 
+## Nemt
+
+<img src="https://github.com/frederiksberg/prod-app1-deployment/blob/master/figures/ssllabsA+.PNG" width="900px">
+
 ## Formål
 
 Proxy servicen har til formål at styre hvilke services, der kan tilgås fra internettet, samt at styre forbindelsen til dem.
