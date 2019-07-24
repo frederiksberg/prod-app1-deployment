@@ -1,17 +1,17 @@
 MAKEFLAGS += --silent
 .PHONY: deploy run build clean kill
 
-deploy: build
+deploy: | build clean
 	docker-compose up -d
 
-run: build
+run: | build clean
 	docker-compose up
 
 clean: kill
 	docker-compose rm -f
 
-build: clean
-	docker build -t frbsc/api_wrapper:latest -f ./Dockerfile .
+build:
+	docker-compose build
 
 kill:
 	docker-compose down
