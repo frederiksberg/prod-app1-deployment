@@ -14,6 +14,14 @@ Proxy servicen står også for at styre SSL-certifikater, sådan at de udadvendt
 
 Proxy servicen bygger på nginx, og bruger certbot til at administrere letsencrypt-certifikater.
 
+Certifikaterne er signed med 4096-bit RSA og supporterer kun TLSv1.2.
+
+For en detaljeret gennemgang af ssl konfigurationen henvises til [ssllabs](https://www.ssllabs.com/ssltest/analyze.html?d=th.frb-data.dk).
+
+Servicen genererer sine egne 2048-bit Diffie-Hellman keys første gang containeren startes op.
+
+Proxy serveren supporterer en relativt nøje udvalgt cipher suite. Dette kan give problemer i ældre browsere eller i gamle operativsystemer. Hvis dette bliver et problem kan cipher-suiten redigeres i `proxy/certs/options-ssl-nginx.conf`
+
 ## Konfiguration
 
 Hvert domæne, der skal kunnes tilgås udefra skal have en konfigurationsfil i `proxy/confs`. Filen navngives efter domænet, den konfigurerer; f.eks vil konfigurationsfilen for api.frb-data.dk hedde `api.frb-data.dk.conf`.
@@ -46,16 +54,10 @@ server {
 
 Når et nyt domæne er blevet tilføjet skal SSL-certifikatet opdateres.
 
-Dette gøres ved at køre scriptet `proxy/init.sh`.
+Sikrer dig først at det nye domæne kan tilgås på http. Det kræver typisk en genstart af proxy-serveren.
+Dette gøres ved at køre `cd proxy && make`.
 
-Scriptet skal både køres første gang serveren sættes op og efter ændringer.
+Når det er verificeret kan SSL-certifikatet opdateres med `proxy/init.sh`-scriptet.
+Certifikatændringen bør slå igennem med det samme.
 
-Vær opmærksom på at proxy servicen skal genstartes efter init er kørt for at tage effekt.
-
-## Traps for new players
-
-Når proxy-servicen spinnes op skal den generere et nyt Diffie-Hellman key pair.
-
-Dette kan ikke gøres på deterministisk tid, og det kan derfor tage alt imellem få sekunder og flere minutter. Proxy'en og derfor alle services vil ikke være tilgængelige i denne periode.
-
-Hvis det ønskes at overvåge om nginx er færdig med at generere nøgler kan man køre `watch -n 0.5 docker logs reverse_proxy`.
+Prøv nu igen at tilgå domænet på http og sikrer dig at din forespørgsel bliver dirigeret til https og at servicen er tilgængelig her.

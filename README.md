@@ -23,7 +23,7 @@ Projektet er opdelt i 4 logiske kasser.
 
 ### Make
 
-Til at styrer docker-compose filerne bruges [Make](https://www.gnu.org/software/make/), som gør det muligt at bygge, fjerne,  starte eller stoppe produktionsserveren eller dele af den afhængigt af hvor man står i foldertræet. Som udgangpunkt har alle services en `docker-compose.yml` og en tilhørnede `Makefile` som kalder docker-compose filen med forskellige kommandoer.
+Til at styre docker-compose filerne bruges [Make](https://www.gnu.org/software/make/), som gør det muligt at bygge, fjerne,  starte eller stoppe produktionsserveren eller dele af den afhængigt af hvor man står i foldertræet. Som udgangpunkt har alle services en `docker-compose.yml` og en tilhørnede `Makefile` som kalder docker-compose filen med forskellige kommandoer.
 
 * `make deploy` - Starter containerne i detatch mode (`docker-compose up -d`)
 * `make run` - Starter containerne med live logging (`docker-compose up`)
@@ -85,9 +85,7 @@ nginx's config filer styrer, hvordan trafik routes fra via proxy netværket. Det
 
 SSL certifikaterne bruges til at oprette sikre https tuneller til brugeren og nginx er konfigureret til at redirecte alt http trafik til https.
 
-TODO:
-* reverse proxy
-* cerbot / letsencrypt
+For detaljer om proxy servicen se [denne readme](proxy/README.md).
 
 ### Node-RED
 Node-RED skal have opsat auth **efter** containeren er startet, hvilket står beskrevet `README.md` for iot-pipeline.
@@ -127,7 +125,8 @@ networks:
 * Tilføj den nye service i parent `Makefile`. Se [eksempel](https://github.com/frederiksberg/prod-app1-deployment/blob/master/gis/Makefile)
 * Opret nginx konfiguration under [`proxy/confs/`](https://github.com/frederiksberg/prod-app1-deployment/tree/master/proxy/confs)
 * Tilføj services til [`proxy/init.sh`](https://github.com/frederiksberg/prod-app1-deployment/blob/master/proxy/init.sh)
-* Gentart servicen 
+* Start servicen
+* Er der tilføjet et nye (sub)domæne skal [proxy genstartes](proxy/README.md)
 
 ## Requirements
 
