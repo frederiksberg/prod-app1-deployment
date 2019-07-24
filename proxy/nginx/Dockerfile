@@ -7,7 +7,7 @@ RUN set -x && \
 
 # Install all dependencies
 RUN apt-get update && apt-get install --no-install-recommends --no-install-suggests -y \
-    gnupg1 apt-transport-https ca-certificates crontab \
+    gnupg1 apt-transport-https ca-certificates cron \
     automake gcc libpcre3-dev zlib1g-dev make wget curl gpg
 
 # Get source
