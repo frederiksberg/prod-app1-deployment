@@ -7,7 +7,7 @@ RUN set -x && \
 
 # Install all dependencies
 RUN apt-get update && apt-get install --no-install-recommends --no-install-suggests -y \
-    gnupg1 apt-transport-https ca-certificates \
+    gnupg1 apt-transport-https ca-certificates crontab \
     automake gcc libpcre3-dev zlib1g-dev make wget curl gpg
 
 # Get source
@@ -38,6 +38,8 @@ RUN pip3 install --upgrade --force-reinstall urllib3 requests
 RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
     ln -sf /dev/stderr /var/log/nginx/error.log
 
+# Renewal
+RUN echo "30 3 * * * certbot renew" | crontab -
 
 COPY ./nginx.conf /etc/nginx/nginx.conf
 
