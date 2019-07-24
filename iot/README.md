@@ -22,7 +22,33 @@ Docker volumes are used for persistent storage of data from the different apps a
 ## Configuration
 
 ### Grafana
+#### ENV
 Edit `.env` file with password and plugins ([ref](https://grafana.com/docs/installation/docker/#installing-plugins-for-grafana)). Here's available plugins: https://grafana.com/plugins
+
+#### SMTP
+Der kan opættes SMTP så Grafana kan sende mail med alerts. Dette gøres ved at rette `/etc/grafana/grafana.ini` som også er beskrevet [her](https://grafana.com/docs/installation/configuration/#smtp). Ret filen i en kørende containeren ved at:
+* `docker exec -u 0 -it grafana bash` (Der logges ind som root med `-u 0`)
+* `vi /etc/grafana/grafana.ini` (vim/nano er ikke installeret som default, så skal gøres første gang der skal rettes)
+
+```ini
+[smtp]
+enabled = true
+host = smtp.gmail.com:465
+user = YOUR_MAIL
+# If the password contains # or ; you have to wrap it with triple quotes. Ex """#password;"""
+password = YOUR_PW
+cert_file =
+key_file =
+skip_verify = false
+from_address = admin@grafana.localhost
+from_name = Grafana
+ehlo_identity =
+
+[emails]
+welcome_email_on_sign_up = false
+templates_pattern = emails/*.html
+```
+Der kan bruges google mail konto, hvor der med fordel kan laves App password som grafana bruger. Herunder ses eksempel på konfigurationen.
 
 ## Requirements
 
