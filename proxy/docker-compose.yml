@@ -1,11 +1,12 @@
 version: '3.5'
 services:
   nginx:
-    image: really/nginx-certbot
+    build: ./nginx
     container_name: reverse_proxy
     volumes:
       - ./confs:/etc/nginx/conf.d:rw
       - ./certs:/etc/letsencrypt:rw
+      - ./dhparam:/etc/ssl/certs:rw
     networks:
       - proxy
     ports:

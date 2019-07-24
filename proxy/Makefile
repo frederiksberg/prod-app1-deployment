@@ -13,6 +13,7 @@ clean: kill
 	docker-compose rm -f
 
 build: clean
+	docker-compose build
 
 kill:
 	docker-compose down
