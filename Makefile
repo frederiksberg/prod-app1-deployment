@@ -20,7 +20,7 @@ clean: clean-networking
 
 kill: kill-networking
 
-restart-all: | kill deploy
+restart-all: | build kill deploy
 
 restart: deploy-proxy
 
