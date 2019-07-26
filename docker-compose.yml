@@ -14,6 +14,7 @@ services:
       - front-facing
     env_file:
       - ./envs/swagger.env
+    depends_on: [server]
   flask:
     image: frbsc/api_wrapper:latest
     build: .
@@ -22,6 +23,7 @@ services:
       - server
     networks:
       - front-facing
+    depends_on: [swagger]
 
 networks:
   front-facing:
