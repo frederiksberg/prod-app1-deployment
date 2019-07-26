@@ -137,3 +137,7 @@ For at benytte setup kræves flgn. installeret på serveren.
 * cmake
 
 De enkelte projekter kan have yderligere dependencies.
+
+## Postman tests
+
+[https://www.getpostman.com/collections/b3c209f5a3dbc6304fd2](https://www.getpostman.com/collections/b3c209f5a3dbc6304fd2)
