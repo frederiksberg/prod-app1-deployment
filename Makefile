@@ -22,7 +22,7 @@ kill: kill-networking
 
 restart-all: | build kill deploy
 
-restart: deploy-proxy
+restart: restart-proxy
 
 # -------- Project specific targets
 gis: deploy-gis
@@ -63,6 +63,9 @@ run-proxy: deploy-networking
 	@${MAKE} --no-print-directory -C proxy run
 
 deploy-proxy: deploy-networking
+	@${MAKE} --no-print-directory -C proxy deploy
+	
+restart-proxy:
 	@${MAKE} --no-print-directory -C proxy deploy
 
 # -> GIS
