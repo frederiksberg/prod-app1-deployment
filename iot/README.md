@@ -29,6 +29,7 @@ Edit `.env` file with password and plugins ([ref](https://grafana.com/docs/insta
 Der kan opættes SMTP så Grafana kan sende mail med alerts. Dette gøres ved at rette `/etc/grafana/grafana.ini` som også er beskrevet [her](https://grafana.com/docs/installation/configuration/#smtp). Ret filen i en kørende containeren ved at:
 * `docker exec -u 0 -it grafana bash` (Der logges ind som root med `-u 0`)
 * `vi /etc/grafana/grafana.ini` (vim/nano er ikke installeret som default, så skal gøres første gang der skal rettes)
+* Tilret `smtp` konfigurationen (Se eksempel herunder)
 
 ```ini
 [smtp]
@@ -48,7 +49,7 @@ ehlo_identity =
 welcome_email_on_sign_up = false
 templates_pattern = emails/*.html
 ```
-Der kan bruges google mail konto, hvor der med fordel kan laves App password som grafana bruger. Herunder ses eksempel på konfigurationen.
+Der kan bruges google mail konto, hvor der med fordel kan laves App password som grafana bruger. 
 
 ## Requirements
 
