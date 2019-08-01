@@ -14,7 +14,7 @@ services:
     image: grafana/grafana
     env_file:
       - ./.env
-    user: "472"
+    user: "104"
     volumes:
       - grafana-data:/var/lib/grafana
     networks:

@@ -1,16 +1,6 @@
-**REDO THIS**
+# IoT Pipeline
 
-# IoT tools
-
-This repository contains a skeleton setting up the [Node-RED](https://nodered.org) and [Grafana](https://grafana.com)
-project using [docker-compose](https://docs.docker.com/compose/).
-
-**Note:** Please use this `docker-compose.yml` file as a starting point for testing
-but keep in mind that for production usage it might need modifications. 
-
-## Directory layout
-
-* `docker-compose.yml`: the docker-compose file containing the services
+Foruden PostgreSQL med Timescale DB består vores IoT pipeline af [Node-RED](https://nodered.org) til at manipulere og flytte data samt [Grafana](https://grafana.com) til at visualisere sensordata.
 
 ## Persistent storage
 Docker volumes are used for persistent storage of data from the different apps and are defined in `docker-compose.yml`
@@ -18,15 +8,18 @@ Docker volumes are used for persistent storage of data from the different apps a
 * `grafana-data`: volume containing the Grafana data
 * `nodered-data`: volume containing the Node-RED data
 
-
-## Configuration
+## Konfiguration
+Herunder gennemgås den konfiguration der skal laves **inden** docker containeren startes.
 
 ### Grafana
-#### ENV
-Edit `.env` file with password and plugins ([ref](https://grafana.com/docs/installation/docker/#installing-plugins-for-grafana)). Here's available plugins: https://grafana.com/plugins
+Konfiguration af Grafana sker gennem [`.env`](https://github.com/frederiksberg/prod-app1-deployment/blob/master/iot/iot-pipeline/.env) filen, hvor der opsættes følfende:
+* Admin kodeord
+* Installation af plugins
+* Grafanas url (e.g. https://grafana.frb-data.dk)
+* SMTP (Til alerting over mail)
 
-#### SMTP
-Der kan opættes SMTP så Grafana kan sende mail med alerts. Dette gøres ved at rette `/etc/grafana/grafana.ini` som også er beskrevet [her](https://grafana.com/docs/installation/configuration/#smtp). Ret filen i en kørende containeren ved at:
+Rediger `.env` filen hvor der angives admin password og plugins ([kilde](https://grafana.com/docs/installation/docker/#installing-plugins-for-grafana)). Du finder plugins [her](https://grafana.com/plugins). Herudover kan der også opsættes SMTP server, hvilket giver mulighed for at sende alert emails, som er beskrevet [her](https://grafana.com/docs/installation/configuration/#smtp).
+Alt i Grafanas konfigurationsfil kan sættes gennem [docker environment variable](https://grafana.com/docs/installation/docker/#configuration). Alternativt kan der rettes i filen i en kørende containeren ved at:
 * `docker exec -u 0 -it grafana bash` (Der logges ind som root med `-u 0`)
 * `vi /etc/grafana/grafana.ini` (vim/nano er ikke installeret som default, så skal gøres første gang der skal rettes)
 * Tilret `smtp` konfigurationen (Se eksempel herunder)
@@ -35,7 +28,7 @@ Der kan opættes SMTP så Grafana kan sende mail med alerts. Dette gøres ved at
 [smtp]
 enabled = true
 host = smtp.gmail.com:465
-user = YOUR_MAIL
+user = YOUR@MAIL.COM
 # If the password contains # or ; you have to wrap it with triple quotes. Ex """#password;"""
 password = YOUR_PW
 cert_file =
@@ -51,27 +44,22 @@ templates_pattern = emails/*.html
 ```
 Der kan bruges google mail konto, hvor der med fordel kan laves App password som grafana bruger. 
 
-## Requirements
-
-Before using this `docker-compose.yml` file, make sure you have [Docker](https://www.docker.com/community-edition)
-installed.
-
 ## Security
-* Grafana `admin` user: `.env`
-* Node-RED [enable admin auth](https://nodered.org/docs/security): `data/nodered/settings.js` (Currently needs to be done after `docker-compose up` and entails `docker restart nodered`)
+For at sikre både Grafana og Node-RED skal der opsættes login til løsninger.
+* Grafana admin password sættes i `.env` (gennemgået ovenfor)
+* Node-RED [enable admin auth](https://nodered.org/docs/security): `data/nodered/settings.js` (Skal gøres efter docker containeren er startet og kræver efterfølgende en `docker restart nodered`)
 
 ## Usage
 
-When configuration and security steps are done start all the IoT stack components by simply running:
+Når [proxy](https://github.com/frederiksberg/prod-app1-deployment/tree/master/proxy) konfiguration og sikkerhedsopsætningen er lavet kan IoT pipeline startes med:
 
 ```bash
-$ docker-compose up
+$ make deploy
 ```
 
-After all the components have been initialized and started, you should be able
-http://localhost:3000/ (Grafana) and http://localhost:1880/ (Node-RED) in your browser.
+Herefter skulle løsningerne kunne tilgås på henholdsvis https://grafana.frb-data.dk (Grafana) og https://nodered.frb-data.dk (Node-RED) i din browser.
 
-## Getting started
+## Første Node-RED Flow og Grafana visualisering
 
 ### First timeseries table in PostgreSQL
 TimescaleDB is used to handle large reading and writing of data and is supported when querying data from Grafana
@@ -105,7 +93,7 @@ Here's a bit of flow inspiration, which can easily be imported to yout Node-RED 
 ### First dashboard in Grafana
 1. Add PostgreSQL datasource. Hostname is `db.frb-data.dk` and it is reommendeed to use the `grafanareader` read only user.
 2. Create a new dashboard and add a Graph panel.
-3. Edit panel and make sure `grafanareader` has privileges to read from the  table.
+3. Edit panel and make sure `grafanareader` has privileges to read from the table.
 4. Under `Metrics` pane it is possible to query the table using a Query Builder or plain SQL. Grafana needs time and metric column in order to generate the gragh.
 
 ## References
