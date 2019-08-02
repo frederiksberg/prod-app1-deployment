@@ -16,7 +16,7 @@ Projektet er opdelt i 4 logiske kasser.
 ## Kom igang
 
 1. Klon dette repository `git clone https://github.com/frederiksberg/prod-app1-deployment.git`
-2. Tilret `*.env`under de forskellige projekter (brug evt. `init_env.sh` script)
+2. Tilret `*.env`under de forskellige projekter (brug evt. `initenv.sh` script - se nedenfor)
 3. Container specifik init (se [dette afsnit](#konfiguration))
 4. Kør `make` i root folderen
 5. Kør `/proxy/init.sh` for at sætte SSL op
@@ -64,6 +64,49 @@ Flere af servicesne kræver at der laves konfigurationer inden de startes. Dette
 
 **Meta**
 * Monitor
+
+Herunder ses eksempel på `initenv.sh` bash script som kan tilrettes. Det anbefales at ligge dette udenfor git repo'et så man ved en fejl ikke commiter disse oplysninger.
+```bash
+# ----- Config files -----
+POSTGREST='/opt/prod-app1-deployment/gis/PostgREST/envs/postgrest.env'
+SWAGGER='/opt/prod-app1-deployment/gis/PostgREST/envs/swagger.env'
+GRAFANA='/opt/prod-app1-deployment/iot/iot-pipeline/.env'
+MONITOR='/opt/prod-app1-deployment/meta/monitor/.env'
+TEGOLA='/opt/prod-app1-deployment/gis/vector-tiles/.env'
+
+# ==> PostgREST
+echo "PGRST_DB_URI=postgresql://uesr:pw@host:port/db?sslmode=require
+PGRST_DB_SCHEMA=schema
+PGRST_DB_ANON_ROLE=user
+PGRST_SERVER_PROXY_URI=https://api.frb-data.dk/v1/data" > $POSTGREST
+
+# ==> Swagger
+echo "API_URL=https://api.frb-data.dk/v1/meta" > $SWAGGER
+
+# ==> Grafana
+echo "GF_SECURITY_ADMIN_PASSWORD=pw
+GF_INSTALL_PLUGINS=grafana-worldmap-panel
+GF_SERVER_ROOT_URL=https://grafana.frb-data.dk
+GF_SMTP_ENABLED=true
+GF_SMTP_HOST=smtp.gmail.com:465
+GF_SMTP_USER=your@mail.com
+GF_SMTP_PASSWORD=pw" > $GRAFANA
+
+# ==> Monitor
+echo "DB_USER=user
+DB_PWD=pw
+TOKEN_SECRET=token
+GH_CLIENT_ID=id
+GH_CLIENT_SECRET=secret_id
+GH_ORGS=org" > $MONITOR
+
+# ==> Tegola
+echo "POSTGIS_HOST=host
+POSTGIS_PORT=port
+POSTGIS_DB=db
+POSTGIS_USER=user
+POSTGIS_PW=pw" > $TEGOLA
+```
 
 ### tilehut
 
