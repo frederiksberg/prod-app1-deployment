@@ -2,10 +2,9 @@
 
 Vi benytter en række applikationer til at udstille og style geografiske data:
 
-* [Tilehut](https://github.com/b-g/tilehut)
+* [Tilehut](https://github.com/frederiksberg/prod-app1-deployment/tree/master/gis/tilehut)
 * [PostgREST API/Swagger](https://github.com/frederiksberg/PostgREST)
-* [Tegola](https://github.com/go-spatial/tegola)
-* [Maputnik](https://maputnik.github.io/)
+* [Vector tile server (Tegola/Maputnik)](https://github.com/frederiksberg/prod-app1-deployment/tree/master/gis/vector-tiles)
 
 ## Tilehut
 
@@ -22,15 +21,6 @@ Tegola er koblet op på PostgreSQL/PostGIS og udstiller vector tiles.
 
 Brugergrænseflade til at style vector data ved f.eks. at angive en TileJSON URL og skal bruges i sammenhæng med vector tile server.
 
-
-## Anlægskort
-
-Kortløsning over kommunens og forsyningens anlægsprojekter, hvor der er mulighed for at redigere i data. Løsninger består både af [VectorTile-Project](https://github.com/frederiksberg/VectorTile-Project) og [Vector-DigitaltAnlaeg](https://github.com/frederiksberg/Vector-DigitaltAnlaeg) som henholdsvis er server og frontend applikationer. I øjeblikket kører denne løsning på en seperat server.
-
-# Sikkerhed og DNS
-
-Der er opsat
-
 ## Eksmepler på URL'er
 
 API 
@@ -42,3 +32,9 @@ Anlægskort
 
 Maputnik
 * https://api.frb-data.dk
+
+## Kilder
+* [Tilehut](https://github.com/b-g/tilehut)
+* [PostgREST API/Swagger](https://github.com/frederiksberg/PostgREST)
+* [Tegola](https://github.com/go-spatial/tegola)
+* [Maputnik](https://maputnik.github.io/)
