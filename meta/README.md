@@ -3,7 +3,7 @@
 ## Oversigt
 
 * [landing](landing/README.md)
-* [monitor](monitor/src/README.md)
+* [monitor](https://github.com/frederiksberg/monitoring-master/blob/master/README.md)
 
 ## Hvad bor her?
 

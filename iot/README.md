@@ -4,7 +4,7 @@
 
 * [forecast](forecast/README.md)
 * [iot-pipeline](iot-pipeline/README.md)
-* [vejrapi](vejrapi/readme.md)
+* [vejrapi](https://github.com/frederiksberg/VejrAPI/blob/master/readme.md)
 
 ## Hvad bor her?
 
