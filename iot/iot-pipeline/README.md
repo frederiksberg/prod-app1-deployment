@@ -96,7 +96,12 @@ Here's a bit of flow inspiration, which can easily be imported to yout Node-RED 
 3. Edit panel and make sure `grafanareader` has privileges to read from the table.
 4. Under `Metrics` pane it is possible to query the table using a Query Builder or plain SQL. Grafana needs time and metric column in order to generate the gragh.
 
-## References
+## Links til løsninger
+* https://grafana.frb-data.dk
+* https://nodered.frb-data.dk
+
+
+## Kilder
 * [TimescaleDB](https://docs.timescale.com/v1.2/main)
 * [Node-RED](https://nodered.org/docs/)
 * [Grafana](http://docs.grafana.org/)
