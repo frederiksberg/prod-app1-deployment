@@ -2,8 +2,9 @@
 
 ## Oversigt
 
-* [landing](landing/readme.md)
-* [monitor](monitor/src/readme.md)
+* [landing](landing/README.md)
+* [monitor](monitor/src/README.md)
 
 ## Hvad bor her?
 
+Services, der releterer sig til vores egne projekter eller drift af vores services.
