@@ -178,6 +178,14 @@ networks:
 * Start servicen
 * Er der tilføjet et nye (sub)domæne skal [proxy genstartes](proxy/README.md)
 
+## Lokal udvikling
+
+Hvis ændringer skal testes, kan det være en fordel at spinne setuppet op uden for produktionsmiljøet. Der er en dev-proxy pakket med, for at gøre dette nemmere.
+
+De almindelige make kommandoer kan køres fra roden med `-dev` som suffix (f .eks `make deploy-dev`) for at bruge dev proxyen i stedet for produktionsproxyen.
+
+Fordelen er at dev-proxyen server på http på localhost, på en række endpoints beskrevet [her](proxy-dev/confs/localhost.conf). Nogle services kræver særlig konfiguration for at benytte dev-proxyen.
+
 ## Requirements
 
 For at benytte setup kræves flgn. installeret på serveren.
