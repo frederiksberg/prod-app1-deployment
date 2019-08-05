@@ -31,7 +31,7 @@ Anlægskort
 * https://gis.frederiksberg.dk/vectorAnl%C3%A6g
 
 Maputnik
-* https://api.frb-data.dk
+* https://maputnik.frb-data.dk
 
 ## Kilder
 * [Tilehut](https://github.com/b-g/tilehut)
