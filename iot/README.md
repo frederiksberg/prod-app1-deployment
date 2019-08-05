@@ -19,7 +19,7 @@ Konfiguration af Grafana sker gennem [`.env`](https://github.com/frederiksberg/p
 * SMTP (Til alerting over mail)
 
 Rediger `.env` filen hvor der angives admin password og plugins ([kilde](https://grafana.com/docs/installation/docker/#installing-plugins-for-grafana)). Du finder plugins [her](https://grafana.com/plugins). Herudover kan der også opsættes SMTP server, hvilket giver mulighed for at sende alert emails, som er beskrevet [her](https://grafana.com/docs/installation/configuration/#smtp).
-Alt i Grafanas konfigurationsfil kan sættes gennem [docker environment variable](https://grafana.com/docs/installation/docker/#configuration). Alternativt kan der rettes i filen i en kørende containeren ved at:
+Alt i Grafanas konfigurationsfil kan sættes gennem [docker environment variable](https://grafana.com/docs/installation/docker/#configuration) hvilket anbefales. Alternativt kan der rettes i filen i en kørende containeren, men disse ændringer slettes hvis containeren fjerner og operettes igen. Ret filen med:
 * `docker exec -u 0 -it grafana bash` (Der logges ind som root med `-u 0`)
 * `vi /etc/grafana/grafana.ini` (vim/nano er ikke installeret som default, så skal gøres første gang der skal rettes)
 * Tilret `smtp` konfigurationen (Se eksempel herunder)
@@ -44,12 +44,12 @@ templates_pattern = emails/*.html
 ```
 Der kan bruges google mail konto, hvor der med fordel kan laves App password som grafana bruger. 
 
-## Security
+## Sikkerhed
 For at sikre både Grafana og Node-RED skal der opsættes login til løsninger.
 * Grafana admin password sættes i `.env` (gennemgået ovenfor)
 * Node-RED [enable admin auth](https://nodered.org/docs/security): `data/nodered/settings.js` (Skal gøres efter docker containeren er startet og kræver efterfølgende en `docker restart nodered`)
 
-## Usage
+## Start services
 
 Når [proxy](https://github.com/frederiksberg/prod-app1-deployment/tree/master/proxy) konfiguration og sikkerhedsopsætningen er lavet kan IoT pipeline startes med:
 
