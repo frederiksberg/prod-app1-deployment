@@ -8,16 +8,16 @@
 
 Projektet er opdelt i 4 logiske kasser.
 
-* [GIS](gis/README.md)
-    * [Tilehut](gis/tilehut/README.md)
+* [GIS](gis/)
+    * [Tilehut](gis/tilehut/)
     * [PostgREST API/Swagger](https://github.com/frederiksberg/PostgREST)
-    * [Vector tile server (Tegola/Maputnik)](gis/vector-tiles/README.md) 
+    * [Vector tile server (Tegola/Maputnik)](gis/vector-tiles/) 
 * [IOT](iot/README.md)
-    * [Grafana/Node-RED](iot/iot-pipeline/README.md)
-    * [Vejr API](https://github.com/frederiksberg/VejrAPI/blob/master/readme.md)
+    * [Grafana/Node-RED](iot/iot-pipeline/)
+    * [Vejr API](https://github.com/frederiksberg/VejrAPI/blob/master/)
     * [Forecasting](iot/forecast)
-* [Meta](meta/README.md)
-* [Reverse proxy](proxy/README.md)
+* [Meta](meta/)
+* [Reverse proxy](proxy/)
 
 ## Kom igang
 
