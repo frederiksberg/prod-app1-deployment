@@ -33,7 +33,7 @@ Til at styre docker-compose filerne bruges [Make](https://www.gnu.org/software/m
 
 * `make deploy` - Starter containerne i detatch mode (`docker-compose up -d`)
 * `make run` - Starter containerne med live logging (`docker-compose up`)
-* `make build` - Bygger images fra `Dockerfile` (`docker build -t frbsc/img_name:latest -f ./Dockerfile .`)
+* `make build` - Bygger images fra `Dockerfile` (`docker-compose build`)
 * `make kill` - Lukker containere(`docker-compose down`)
 * `make clean` - Fjerner containere (`docker-compose rm -f`)
 
