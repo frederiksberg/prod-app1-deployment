@@ -3,18 +3,18 @@ MAKEFLAGS += --silent
 .PHONY: deploy run build clean kill
 
 # -------- Project definitions --------
-deploys := deploy-gis deploy-iot deploy-meta deploy-proxy
-runs 	:= run-gis run-iot run-meta run-proxy
-builds 	:= build-proxy build-gis build-iot build-meta build-networking
-cleans 	:= clean-gis clean-iot clean-meta clean-proxy
-kills 	:= kill-gis kill-iot kill-meta kill-proxy
+deploys := deploy-gis deploy-iot deploy-meta
+runs 	:= run-gis run-iot run-meta
+builds 	:= build-gis build-iot build-meta build-networking
+cleans 	:= clean-gis clean-iot clean-meta
+kills 	:= kill-gis kill-iot kill-meta
 
 # -------- The usefull options --------
-deploy: $(deploys)
+deploy: $(deploys) deploy-proxy
 
-run: $(runs)
+run: $(runs) run-proxy
 
-build: $(builds)
+build: $(builds) build-proxy
 
 clean: clean-networking
 
@@ -23,6 +23,21 @@ kill: kill-networking
 restart-all: | build kill deploy
 
 restart: restart-proxy
+
+# -------- Using the dev proxy --------
+deploy-dev: $(deploys) deploy-proxy-dev
+
+run-dev: $(runs) run-proxy-dev
+
+build-dev: $(builds) build-proxy-dev
+
+clean-dev: clean-networking
+
+kill-dev: kill-networking
+
+restart-all-dev: | build-dev kill-dev deploy-dev
+
+restart-dev: restart-proxy-dev
 
 # -------- Project specific targets
 gis: deploy-gis
@@ -34,10 +49,10 @@ meta: deploy-meta
 # -------- Projects --------
 
 # -> Network
-kill-networking: $(kills)
+kill-networking: $(kills) kill-proxy kill-proxy-dev
 	@${MAKE} --no-print-directory -C networking kill
 
-clean-networking: $(cleans)
+clean-networking: $(cleans) clean-proxy clean-proxy-dev
 	@${MAKE} --no-print-directory -C networking clean
 
 build-networking:
@@ -67,6 +82,25 @@ deploy-proxy: deploy-networking
 	
 restart-proxy:
 	@${MAKE} --no-print-directory -C proxy deploy
+
+# -> proxy-dev
+kill-proxy-dev:
+	@${MAKE} --no-print-directory -C proxy-dev kill
+
+clean-proxy-dev:
+	@${MAKE} --no-print-directory -C proxy-dev clean
+
+build-proxy-dev:
+	@${MAKE} --no-print-directory -C proxy-dev build
+
+run-proxy-dev: deploy-networking
+	@${MAKE} --no-print-directory -C proxy-dev run
+
+deploy-proxy-dev: deploy-networking
+	@${MAKE} --no-print-directory -C proxy-dev deploy
+	
+restart-proxy-dev:
+	@${MAKE} --no-print-directory -C proxy-dev deploy
 
 # -> GIS
 kill-gis:
