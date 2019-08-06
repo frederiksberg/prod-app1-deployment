@@ -7,4 +7,4 @@ docker exec reverse_proxy certbot --nginx \
     -d forecast.frb-data.dk \
     -nq --agree-tos --redirect --expand \
     --no-eff-email -m gis@frederiksberg.dk \
-    --rsa-key-size=4096
+    --rsa-key-size=2048
