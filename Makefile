@@ -25,6 +25,8 @@ restart-all: | build kill deploy
 restart: restart-proxy
 
 # -------- Using the dev proxy --------
+dev: deploy-dev
+
 deploy-dev: $(deploys) deploy-proxy-dev
 
 run-dev: $(runs) run-proxy-dev
