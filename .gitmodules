@@ -1,6 +1,3 @@
-[submodule "gis/PostgREST"]
-	path = gis/PostgREST
-	url = https://github.com/frederiksberg/PostgREST
 [submodule "meta/monitor/src"]
 	path = meta/monitor/src
 	url = https://github.com/frederiksberg/monitoring-master
