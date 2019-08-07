@@ -1,0 +1,31 @@
+version: '3.5'
+services:
+  server:
+    container_name: postgrest
+    image: postgrest/postgrest
+    networks:
+      - front-facing
+    env_file:
+      - ./envs/postgrest.env
+  swagger:
+    container_name: swagger
+    image: swaggerapi/swagger-ui
+    networks:
+      - front-facing
+    env_file:
+      - ./envs/swagger.env
+    depends_on: [server]
+  flask:
+    image: frbsc/api_wrapper:latest
+    build: .
+    container_name: api_wrapper
+    links:
+      - server
+    networks:
+      - front-facing
+    depends_on: [swagger]
+
+networks:
+  front-facing:
+    external: true
+    name: proxy
