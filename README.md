@@ -126,6 +126,8 @@ Se nærmere info om tilehut [her](gis/tilehut/README.md).
 
 ## Sikkerhed
 
+Der bliver sat auth op for de fleste services gennem `.env` beskrevet ovenfor. Derudover er der opsat https som beskrives herunder. Det anbefales at der ikke commites kode fra serveren til Github for at undgå at `.env` og andet med credentials ikke lægges ud.
+
 ### NGINX
 
 Proxy docker netværket styrer hvilke services, der kan snakke med nginx.
@@ -139,10 +141,6 @@ For detaljer om proxy servicen se [denne readme](proxy/README.md).
 
 ### Node-RED
 Node-RED skal have opsat auth **efter** containeren er startet, hvilket står beskrevet `README.md` for iot-pipeline.
-
-## God stil
-
-* Commit ikke kode fra serveren til Github
 
 ## Digital Ocean
 
@@ -195,6 +193,22 @@ For at benytte setup kræves flgn. installeret på serveren.
 * cmake
 
 De enkelte projekter kan have yderligere dependencies.
+
+## Links
+**GIS**
+* https://tegola.frb-data.dk
+* https://maputnik.frb-data.dk
+* https://api.frb-data.dk
+* https://th.frb-data.dk
+
+**IoT**
+* https://grafana.frb-data.dk
+* https://nodered.frb-data.dk
+* https://forecast.frb-data.dk
+* https://vejr.frb-data.dk/getforecast
+
+**Meta**
+* https://monitor.frb-data.dk
 
 ## Postman tests
 
