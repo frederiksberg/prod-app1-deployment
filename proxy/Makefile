@@ -17,3 +17,6 @@ build:
 
 kill:
 	docker-compose down
+
+check:
+	docker exec reverse_proxy nginx -t

@@ -1,12 +1,15 @@
 from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Search, Q
 from datetime import datetime
-import os
+import configparser
 import json
 import csv
 
-USER = os.environ['cvr_user']
-PASSWORD = os.environ['cvr_pwd']
+conf = configparser.ConfigParser()
+conf.read("/srv/shiny-server/lib/creds.conf")
+
+USER = conf['creds']['cvr_user']
+PASSWORD = conf['creds']['cvr_pwd']
 HOST = 'distribution.virk.dk/cvr-permanent/'
 
 _es = Elasticsearch(

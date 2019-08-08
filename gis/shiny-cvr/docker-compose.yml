@@ -4,7 +4,6 @@ services:
     build: .
     container_name: shiny-cvr
     restart: unless-stopped
-    env_file: .env
     networks: [proxy]
 
 networks:

@@ -16,23 +16,9 @@ De mest almindelige syndere er hardcodede passwords og tokens, men andre følsom
 
 I shiny-cvr er der et hardcodet username/password til cvr-registret, som skal fjernes. Den nemmeste måde er oftest at opbevare de følsomme oplysninger som environment variabler, da det er nemt at styre i Docker.
 
-I dette eksempel er oplysninger opbevaret i Python koden:
+I dette tilfælde vil dette ikke virke, da shiny-server ikke lader applikationer læse systemets environment.
 
-```python
-# FIXME: Password in code :(
-USER = '<I am secret and should be removed>'
-PASSWORD = '<I am secret and should be removed>'
-HOST = 'distribution.virk.dk/cvr-permanent/'
-```
-
-Hvordan environment variabler læses er forskelligt, men i dette eksempel fixer vi problemet ved at rette disse linjer til:
-
-```python
-import os
-USER = os.environ['cvr_user']
-PASSWORD = os.environ['cvr_pwd']
-HOST = 'distribution.virk.dk/cvr-permanent/'
-```
+Det løses derfor ved at opbevare dem i en config file.
 
 Når du er overbevist om at alle sådanne problemer er løst kan du gå videre til næste skridt.
 

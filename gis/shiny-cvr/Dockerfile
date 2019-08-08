@@ -33,4 +33,8 @@ RUN ["chmod", "+x", "/usr/bin/shiny-server.sh"]
 RUN mkdir -p /srv/shiny-server/cache
 RUN chmod -R a+rw /srv/shiny-server
 
+# Nice output
+RUN ln -sf /dev/stdout /var/log/shiny-server.log && \
+    ln -sf /dev/stderr /var/log/shiny-server/*.log
+
 CMD ["/usr/bin/shiny-server.sh"]
