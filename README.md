@@ -56,6 +56,8 @@ Her er specificeret de samme targets som i de individuelle projekt, samt et `res
 
 Se guiden for [Blue-green deployment](tutorials/blue-green.md) og [Live opgradering](tutorials/upgrade-service.md).
 
+Du kan også kigge på [dette](tutorials/ny-service.md) eksempel
+
 ## Konfiguration
 
 Flere af servicesne kræver at der laves konfigurationer inden de startes. Dette står nærmere beskrevet i `README.md` for de forskellige services. Overordnet skal følgende services konfigureres inden de startes:
@@ -195,25 +197,31 @@ For at benytte setup kræves flgn. installeret på serveren.
 De enkelte projekter kan have yderligere dependencies.
 
 ## Links
+
 Herunder er links til de webapps og services som udstilles.
 
-**Landing**
-* https://frb-data.dk
+### Landing
 
-**GIS**
-* https://tegola.frb-data.dk
-* https://maputnik.frb-data.dk
-* https://api.frb-data.dk
-* https://th.frb-data.dk
+* [https://frb-data.dk](https://frb-data.dk)
 
-**IoT**
-* https://grafana.frb-data.dk
-* https://nodered.frb-data.dk
-* https://forecast.frb-data.dk
-* https://vejr.frb-data.dk/getforecast
+### GIS
 
-**Meta**
-* https://monitor.frb-data.dk
+* [https://tegola.frb-data.dk](https://tegola.frb-data.dk)
+* [https://maputnik.frb-data.dk](https://maputnik.frb-data.dk)
+* [https://api.frb-data.dk](https://api.frb-data.dk)
+* [https://th.frb-data.dk](https://th.frb-data.dk)
+* [https://cvr.frb-data.dk](https://cvr.frb-data.dk)
+
+### IoT
+
+* [https://grafana.frb-data.dk](https://grafana.frb-data.dk)
+* [https://nodered.frb-data.dk](https://nodered.frb-data.dk)
+* [https://forecast.frb-data.dk](https://forecast.frb-data.dk)
+* [https://vejr.frb-data.dk/getforecast](https://vejr.frb-data.dk/getforecast)
+
+### Meta
+
+* [https://monitor.frb-data.dk](https://monitor.frb-data.dk)
 
 ## Postman tests
 
