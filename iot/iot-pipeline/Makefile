@@ -16,7 +16,7 @@ kill:
 	docker-compose down
 
 clean-grafana:
-	docker-compose down grafana
+	docker-compose rm -f -s grafana
 
 grafana: clean-grafana
 	docker-compose up -d grafana
