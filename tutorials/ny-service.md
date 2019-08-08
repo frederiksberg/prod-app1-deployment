@@ -306,9 +306,9 @@ curl -I -L http://cvr.frb-data.dk
 curl -I https://cvr.frb-data.dk
 ```
 
-Det forventede output er `301 Moced Permanently` for den første kommando.
+Det forventede output er `301 Moved Permanently` for den første kommando.
 
-Den anden bør give `301 Moced Permanently` efterfulgt af `200 OK`.
+Den anden bør give `301 Moved Permanently` efterfulgt af `200 OK`.
 
 Den trejde bør give `200 OK`.
 
