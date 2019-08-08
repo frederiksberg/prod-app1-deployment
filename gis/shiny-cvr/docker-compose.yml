@@ -1,0 +1,13 @@
+version: "3.5"
+services:
+  shiny-server:
+    build: .
+    container_name: shiny-cvr
+    restart: unless-stopped
+    env_file: .env
+    networks: [proxy]
+
+networks:
+  proxy:
+    external: true
+    name: proxy

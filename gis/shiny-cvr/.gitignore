@@ -1,0 +1,12 @@
+# Dirs
+
+*/__pycache__/
+*/.vscode/
+
+# files
+*.csv
+*.json
+*.geojson
+*.RData
+*.Rhistory
+*.cache

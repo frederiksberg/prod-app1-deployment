@@ -1,0 +1,67 @@
+---
+title: "Erhversudvikling Frederiksberg"
+output: pdf_document
+geometry: margin=0.8cm
+params:
+  year: 1999
+  A_counts: NA
+  A_all: NA
+  A_sort: NA
+  B_counts: NA
+  B_all: NA
+  B_leg: NA
+---
+
+```{r setup, include=FALSE}
+library(RColorBrewer)
+library(ggplot2)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r echo=F}
+year <- params$year
+A_counts <- params$A_counts
+A_all <- params$A_all
+A_sort <- params$A_sort
+B_counts <- params$B_counts
+B_all <- params$B_all
+B_leg <- params$B_leg
+```
+
+```{r echo=F}
+M1 <- max(unlist(Map({function(a) Map({function(b) b[2]}, a)}, unname(B_counts))))
+M2 <- max(unlist(Map({function(a) Map({function(b) b[2]}, a)}, unname(A_counts))))
+```
+
+
+```{r echo=F, out.width="100%", out.height="70%"}
+l <- B_counts[[toString(year)]]
+labs <- unlist(Map({function(a) a[[1]]}, l))
+vals <- unlist(Map({function(a) a[[2]]}, l))
+
+df = data.frame(vals, labs)
+
+ggplot(data = df, aes(x=labs, y=vals, fill=as.factor(labs))) +
+  geom_bar(stat="identity", col="black", size=.3) +
+  scale_fill_hue(h = c(10, 350), c = 60, labels=B_leg) +
+  labs(x = NULL, y = "Antal", fill = NULL) +
+  guides(fill=guide_legend(ncol=1)) +
+  theme(legend.key.size = unit(0.4, "cm"), legend.text = element_text(size = 6)) +
+  ggtitle("Branchefordeling", toString(year))
+```
+
+```{r echo=F, out.width="90%", out.height="70%"}
+l <- A_counts[[toString(year)]]
+labs <- unlist(Map({function(a) a[[1]]}, l))
+vals <- unlist(Map({function(a) a[[2]]}, l))
+# barplot(vals, names.arg = labs, main = toString(year), ylim = c(0, M2))
+
+df = data.frame(vals, labs)
+
+ggplot(data = df, aes(x=labs, y=vals, fill=as.factor(labs))) +
+  geom_bar(stat="identity", col="black", size=.3) +
+  scale_fill_hue(h = c(10, 350), c = 60, labels=NULL) +
+  labs(x = NULL, y = "Antal") +
+  guides(fill=FALSE) +
+  ggtitle("Antal medarbejdere", toString(year))
+```

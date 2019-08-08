@@ -3,11 +3,11 @@ MAKEFLAGS += --silent
 .PHONY: deploy run build clean kill
 
 # -------- Project definitions --------
-deploys 	:= deploy-tilehut deploy-posgrest deploy-vectortile
-runs 		:= run-tilehut run-posgrest run-vectortile
-builds 		:= build-tilehut build-posgrest build-vectortile
-cleans 		:= clean-tilehut clean-posgrest clean-vectortile
-kills 		:= kill-tilehut kill-posgrest kill-vectortile
+deploys 	:= deploy-tilehut deploy-posgrest deploy-vectortile deploy-shiny-cvr
+runs 		:= run-tilehut run-posgrest run-vectortile run-shiny-cvr
+builds 		:= build-tilehut build-posgrest build-vectortile build-shiny-cvr
+cleans 		:= clean-tilehut clean-posgrest clean-vectortile clean-shiny-cvr
+kills 		:= kill-tilehut kill-posgrest kill-vectortile kill-shiny-cvr
 
 # -------- The usefull options --------
 deploy: $(deploys)
@@ -71,3 +71,19 @@ run-vectortile:
 
 deploy-vectortile:
 	@${MAKE} --no-print-directory -C vector-tiles deploy
+
+# -> shiny-cvr
+kill-shiny-cvr:
+	@${MAKE} --no-print-directory -C shiny-cvr kill
+
+clean-shiny-cvr:
+	@${MAKE} --no-print-directory -C shiny-cvr clean
+
+build-shiny-cvr:
+	@${MAKE} --no-print-directory -C shiny-cvr build
+
+run-shiny-cvr:
+	@${MAKE} --no-print-directory -C shiny-cvr run
+
+deploy-shiny-cvr:
+	@${MAKE} --no-print-directory -C shiny-cvr deploy
