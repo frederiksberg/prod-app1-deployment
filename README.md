@@ -14,7 +14,7 @@ Projektet er opdelt i 4 logiske kasser.
     * [Vector tile server (Tegola/Maputnik)](gis/vector-tiles/) 
 * [IOT](iot/README.md)
     * [Grafana/Node-RED](iot/iot-pipeline/)
-    * [Vejr API](https://github.com/frederiksberg/VejrAPI/blob/master/)
+    * [Vejr API](https://github.com/frederiksberg/VejrAPI/tree/master)
     * [Forecasting](iot/forecast)
 * [Meta](meta/)
 * [Reverse proxy](proxy/)
