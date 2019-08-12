@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# SSL/TLS
 docker exec reverse_proxy certbot --nginx \
     -d frb-data.dk -d vejr.frb-data.dk -d grafana.frb-data.dk \
     -d monitor.frb-data.dk -d nodered.frb-data.dk -d th.frb-data.dk \
@@ -8,3 +9,6 @@ docker exec reverse_proxy certbot --nginx \
     -nq --agree-tos --redirect --expand \
     --no-eff-email -m gis@frederiksberg.dk \
     --rsa-key-size=2048
+
+# HTTPS/2
+sed -i 's/listen 443 ssl;/listen 443 ssl http2;/g' ./confs/*.conf
