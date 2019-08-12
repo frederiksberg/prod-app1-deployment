@@ -1,5 +1,5 @@
 MAKEFLAGS += --silent
-.PHONY: deploy run build clean kill
+.PHONY: deploy run build clean kill re-ftp init
 
 deploy: | build clean
 	docker-compose up -d
@@ -19,3 +19,6 @@ kill:
 re-ftp:
 	docker-compose rm -f -s ftp
 	docker-compose up -d ftp
+
+init:
+	./init.sh
