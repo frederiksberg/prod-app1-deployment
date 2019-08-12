@@ -207,11 +207,25 @@ I dette eksempel er domænet cvr.frb-data.dk sat af til denne service.
 Domænet skal oprettes i proxyen. Vi opretter en .conf fil i `/proxy/conf/cvr.frb-data.dk.conf`.
 
 ```nginx
+map $http_upgrade $connection_upgrade_shiny {
+    default upgrade;
+    ''      close;
+}
+
 server {
     server_name cvr.frb-data.dk;
     listen 80;
+    client_max_body_size 0;
+
     location / {
-        proxy_pass http://shiny-server:80;
+        proxy_pass http://shiny-server:3838;
+        proxy_redirect http://shiny-server:3838/ $scheme://$host/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $connection_upgrade_shiny;
+        proxy_set_header Origin "";
+        proxy_read_timeout 20d;
+        proxy_buffering off;
     }
 }
 ```
@@ -219,6 +233,8 @@ server {
 Her er det vigtigt at server_name er sat til domænet, og at proxy_pass peger på servicen på den korrekte port.
 
 Det er vigtigt at der peges på service-navnet og **ikke** container navnet. Porten er den port, servicen kører på internt i containeren.
+
+I dette eksempel kører en del af services over en websocket, og der er derfor flere indstillinger i denne fil, end der vil være i en gennemsnitlig service.
 
 Dernæst skal domænet tilføjes til `/proxy/init.sh`.
 
@@ -259,6 +275,10 @@ Brug `docker logs` til at verificere at servicen kører som den skal inden du fo
 
 ### 4. Genstart proxy
 
+Før dette trin gennemføres er det vigtigt at din nye .conf-fil ikke har syntaxfejl. De vil lede til at proxy'en ikke starter op igen, og derfor er skyld i nedetid.
+
+For at tjekke dette kør `make check` fra proxy-folderen.
+
 Kør flg. kommandoer fra roden af repo'et.
 
 Proxy'en skal genstartes for at sætte det nye domæne op.
@@ -277,13 +297,21 @@ curl http://cvr.frb-data.dk
 
 ### 5. SSL
 
-Opdater certifikatet ved at køre init.sh scriptet i /proxy/.
+Opdater certifikatet ved at køre init-targetet på proxyen.
 
 ```shell
-./proxy/init.sh
+make init-proxy
 ```
 
-Verificer at servicen kan tilgås på https og at http redirecter til http.
+Fra roden eller
+
+```shell
+make init
+```
+
+fra proxy folderen.
+
+Verificer at servicen kan tilgås på https og at http redirecter til https.
 Du kan igen benytte chrome eller nedstående kommandoer.
 
 ```shell
