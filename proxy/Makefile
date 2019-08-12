@@ -1,5 +1,5 @@
 MAKEFLAGS += --silent
-.PHONY: deploy run build clean kill init
+.PHONY: deploy run build clean kill init check ssl
 
 deploy: | build clean
 	docker-compose up -d
@@ -20,3 +20,7 @@ kill:
 
 check:
 	docker exec reverse_proxy nginx -t
+
+ssl:
+	./init.sh
+	sed -i 's/listen 443 ssl;/listen 443 ssl http2;/g' ./confs/*.conf

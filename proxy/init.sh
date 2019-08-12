@@ -9,6 +9,3 @@ docker exec reverse_proxy certbot --nginx \
     -nq --agree-tos --redirect --expand \
     --no-eff-email -m gis@frederiksberg.dk \
     --rsa-key-size=2048
-
-# HTTPS/2
-sed -i 's/listen 443 ssl;/listen 443 ssl http2;/g' ./confs/*.conf
