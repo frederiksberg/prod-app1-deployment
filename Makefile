@@ -85,6 +85,9 @@ deploy-proxy: deploy-networking
 restart-proxy:
 	@${MAKE} --no-print-directory -C proxy deploy
 
+init-proxy:
+	@${MAKE} --no-print-directory -C proxy init
+
 # -> proxy-dev
 kill-proxy-dev:
 	@${MAKE} --no-print-directory -C proxy-dev kill

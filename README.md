@@ -26,7 +26,7 @@ Projektet er opdelt i 4 logiske kasser.
 3. Tilret `*.env`under de forskellige projekter (brug evt. `initenv.sh` script - se nedenfor)
 4. Container specifik init (se [dette afsnit](#konfiguration))
 5. Kør `make` i root folderen
-6. Kør `/proxy/init.sh` for at sætte SSL op
+6. Kør `make init-proxy` for at sætte SSL op
 
 ### Make
 

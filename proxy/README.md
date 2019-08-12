@@ -57,8 +57,8 @@ Når et nyt domæne er blevet tilføjet skal SSL-certifikatet opdateres.
 Sikrer dig først at det nye domæne kan tilgås på http. Det kræver typisk en genstart af proxy-serveren.
 Dette gøres ved at køre `cd proxy && make`.
 
-Når det er verificeret kan SSL-certifikatet opdateres med `proxy/init.sh`-scriptet.
-Inden det køres skal du sikre dig at domænet er tilføjet til domæne listen i files. Der skal være et flag i kommandoen i init; `-d dit-domæne.dk`.
+Når det er verificeret kan SSL-certifikatet opdateres med `make init-proxy` fra roden eller `make init` fra proxy folderen.
+Inden det køres skal du sikre dig at domænet er tilføjet til domæne listen i `proxy/init.sh`. Der skal være et flag i kommandoen i init; `-d dit-domæne.dk`.
 Certifikatændringen bør slå igennem med det samme.
 
 Prøv nu igen at tilgå domænet på http og sikrer dig at din forespørgsel bliver dirigeret til https og at servicen er tilgængelig her.
