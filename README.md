@@ -193,6 +193,7 @@ For at benytte setup kræves flgn. installeret på serveren.
 * Docker
 * docker-compose
 * cmake
+* git
 
 De enkelte projekter kan have yderligere dependencies.
 
