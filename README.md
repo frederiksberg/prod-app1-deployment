@@ -4,6 +4,29 @@
 
 <img src="https://github.com/frederiksberg/prod-app1-deployment/blob/master/figures/tree.svg" width="900px">
 
+## Indhold
+- [Opdeling](#opdeling)
+- [Kom igang](#kom-igang)
+  * [Make](#make)
+  * [Make i roden](#make-i-roden)
+- [Opgradering](#opgradering)
+- [Konfiguration](#konfiguration)
+  * [tilehut](#tilehut)
+- [Sikkerhed](#sikkerhed)
+  * [NGINX](#nginx)
+  * [Node-RED](#node-red)
+- [Digital Ocean](#digital-ocean)
+- [Videre udvikling](#videre-udvikling)
+- [Lokal udvikling](#lokal-udvikling)
+- [Afhængigheder](#afhængigheder)
+- [Links](#links)
+  * [Landing](#landing)
+  * [GIS](#gis)
+  * [IoT](#iot)
+  * [Meta](#meta)
+- [Postman tests](#postman-tests)
+
+
 ## Opdeling
 
 Projektet er opdelt i 4 logiske kasser.
