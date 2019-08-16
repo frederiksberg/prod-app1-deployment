@@ -20,10 +20,11 @@ Projektet er opdelt i 4 logiske kasser.
 * [Reverse proxy](proxy/)
 
 ## Kom igang
+Inden de forskellige services startes kræver det at afhængigheder er installeret, hvilket er beskrevet [her](#afhængigheder). Efterfølgende gemmemgås disse skridt:
 
 1. Klon dette repository `git clone https://github.com/frederiksberg/prod-app1-deployment.git`
-2. Klon submodules med `git submodule update --init --recursive`
-3. Tilret `*.env`under de forskellige projekter (brug evt. `initenv.sh` script - se nedenfor)
+2. `cd prod-app1-deployment` og klon submodules med `git submodule update --init --recursive`
+3. Tilret `*.env`under de forskellige projekter (brug evt. `initenv.sh` script - se [dette afsnit](#konfiguration))
 4. Container specifik init (se [dette afsnit](#konfiguration))
 5. Kør `make` i root folderen
 6. Kør `make init-proxy` for at sætte SSL op
@@ -186,7 +187,7 @@ De almindelige make kommandoer kan køres fra roden med `-dev` som suffix (f .ek
 
 Fordelen er at dev-proxyen server på http på localhost, på en række endpoints beskrevet [her](proxy-dev/confs/localhost.conf). Nogle services kræver særlig konfiguration for at benytte dev-proxyen.
 
-## Requirements
+## Afhængigheder
 
 For at benytte setup kræves flgn. installeret på serveren.
 
