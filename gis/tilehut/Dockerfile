@@ -2,9 +2,10 @@ FROM node:6
 
 RUN apt update; apt install -y git
 
-RUN git clone https://github.com/frederiksberg/tilehut
+ADD https://api.github.com/repos/frederiksberg/tilehut/git/refs/heads/master /opt/version.json
+RUN git clone https://github.com/frederiksberg/tilehut /opt/tilehut
 
-WORKDIR tilehut
+WORKDIR /opt/:xtilehut
 
 RUN npm install
 
