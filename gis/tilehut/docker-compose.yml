@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: ./Dockerfile
     volumes:
-      - tiles:/tilehut/data:ro
+      - tiles:/opt/tilehut/data:ro
     networks:
       - front-facing
     restart: unless-stopped
