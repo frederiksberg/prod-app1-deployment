@@ -8,7 +8,7 @@ RUN set -x && \
 # Install all dependencies
 RUN apt-get update && apt-get install --no-install-recommends --no-install-suggests -y \
     gnupg1 apt-transport-https ca-certificates cron \
-    automake gcc libpcre3-dev zlib1g-dev make wget curl gpg
+    automake gcc libpcre3-dev zlib1g-dev make wget curl gpg openssl
 
 # Get source
 RUN wget -q http://nginx.org/download/nginx-1.17.1.tar.gz && \
