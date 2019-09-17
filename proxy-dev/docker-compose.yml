@@ -1,14 +1,17 @@
 version: '3.5'
 services:
   nginx:
-    image: nginx:latest
+    build: ./nginx
     container_name: reverse_proxy
     volumes:
       - ./confs:/etc/nginx/conf.d:rw
+      - ./certs:/etc/letsencrypt:rw
+      - ./dhparam:/etc/ssl/certs:rw
     networks:
       - proxy
     ports:
       - 80:80
+      - 443:443
     restart: unless-stopped
 
 networks:
