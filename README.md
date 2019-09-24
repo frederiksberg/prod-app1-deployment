@@ -176,6 +176,10 @@ Produktionsdelen af setuppet består af en produktions server og en produktionsd
 
 Produktionserveren har en floating ip, som dns'en peger på. Dette gør at produktionsserveren kan flyttes ved plot at pege denne ip over på en ny droplet.
 
+Dockers root directory er mappet ud på en ekstern volume, der backes op for sig selv.
+
+DNS'en har en CAA record sat op, der begrænser hvilke CA's, der kan udstede certifikater til vores domæner.
+
 Produktionsdatabasen db1 er hostet i DO's managed database cluster engine. Det vil sige at vi ikke selv administrerer lav-praktisk tuning og vedligeholdelse.
 
 Det er muligt at tilføje standby og read-only nodes til clusteren, hvis nedetid bliver et problem.
