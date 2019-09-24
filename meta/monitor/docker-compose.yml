@@ -12,7 +12,7 @@ services:
       - 'INFLUXDB_ADMIN_PASSWORD=${DB_PWD}'
       - 'INFLUXDB_HTTP_AUTH_ENABLED=true'
     volumes:
-      - ./src/influxdb/data:/var/lib/influxdb/
+      - influx_data:/var/lib/influxdb/
     networks:
       - front-facing
       - internal
@@ -29,7 +29,7 @@ services:
       - 'KAPACITOR_INFLUXDB_0_USERNAME=${DB_USER}'
       - 'KAPACITOR_INFLUXDB_0_PASSWORD=${DB_PWD}'
     volumes:
-      - ./src/kapacitor/data:/var/lib/kapacitor/
+      - kapacitor_data:/var/lib/kapacitor/
     networks:
       - internal
     depends_on:
@@ -52,7 +52,7 @@ services:
       - 'GH_CLIENT_SECRET=${GH_CLIENT_SECRET}'
       - 'GH_ORGS=${GH_ORGS}'
     volumes:
-      - ./src/chronograf/data/:/var/lib/chronograf/
+      - chronograf_data:/var/lib/chronograf/
     networks:
       - front-facing
       - internal
@@ -76,6 +76,11 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     restart: unless-stopped
+
+volumes:
+  influx_data:
+  kapacitor_data:
+  chronograf_data:
 
 networks:
   front-facing:
