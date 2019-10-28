@@ -4,23 +4,55 @@ Inden første start skal der genereres nye host keys.
 
 Kør `init.sh` scriptet.
 
-# Nye public keys
+## Opsætning af en ny bruger
 
-For at generere nye public keys kan `ssh-keygen` benyttes.
+Denne guide går ud fra at brugeren bruger windows.
 
-Kommandoen er
+Hvis brugeren kører Linux, bør de selv kunne regne ud hvordan det oversættes.
+
+### Installering af dependencies
+
+Der er to nødvendige dependencies:
+
+* WinSCP (Eller en anden ftp client)
+* OpenSSH
+
+WinSCP kan installeres fra deres hjemmeside, mens OpenSSH kan installeres for sig eller igennem git for windows. På nogle Windows 10 distributioner shipper powershell med OpenSSH.
+
+### Nøglegenerering
+
+Et nyt nøglepar genereres med
 
 ```shell
 ssh-keygen -t rsa -b 4096
 ```
 
-Nye public keys tilføjes i pub_keys mappen.  
-Vær sikker på at du tilføjer din public key og IKKE din private key.
+Du vil undervejs blive prompted for et password til privatnøglen. Det er vigtigt at du husker dette password, da det ikke kan blive recovered.
 
-Når de er tilføjet skal ftp-serveren genstartes.
+### Upload af offentlignøglen
 
-Dette gøres med 
+Nøglen skal uploades til serveren. Dette kræver at du har ssh adgang til serveren.
 
 ```shell
-make re-ftp
+scp <din-nøgle>.pub root@app.frb-data.dk:/opt/prod-app1-deployment/gis/tilehut/pub_keys/
 ```
+
+Fra serveren i mappen `/opt/prod-app1-deployment/gis/tilehut/` køres kommandoen `make re-ftp` for at opdatere ftp-serveren keystore.
+
+### Oprettelse af server i WinSCP
+
+#### 1.  `New Site` vælges i menuen til venstre.
+
+#### 2. `File protocol` = SFTP
+
+#### 3. `Hostname` = th.frb-data.dk
+
+#### 4. `Port number` = 2222
+
+#### 5. `User name` = gis
+
+#### 6. `Password` tomt
+
+#### 7. I `Advanced` under `SSH -> Authentication` sættes `Private key file` til din privat nøgle
+
+#### 8. Du promptes om, hvorvidt nøglen skal laves om til en .ppk-nøgle; Svar ja
