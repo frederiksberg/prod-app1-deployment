@@ -1,7 +1,31 @@
 version: '3.5'
 services:
-  th:
-    container_name: tilehut
+  th1:
+    container_name: tilehut1
+    image: frbsc/tilehut:latest
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - tiles:/opt/tilehut/data:ro
+    networks:
+      - front-facing
+    restart: unless-stopped
+
+  th2:
+    container_name: tilehut2
+    image: frbsc/tilehut:latest
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - tiles:/opt/tilehut/data:ro
+    networks:
+      - front-facing
+    restart: unless-stopped
+
+  th3:
+    container_name: tilehut3
     image: frbsc/tilehut:latest
     build:
       context: .
@@ -24,7 +48,10 @@ services:
     ports:
       - "2222:22"
     command: gis::::tiles
-    depends_on: [th]
+    depends_on:
+      - th1
+      - th2
+      - th3
     restart: unless-stopped
   
   th-landing:
@@ -33,6 +60,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./landing:/usr/share/nginx/html:rw
+    depends_on: [ ftp ]
     networks:
       - front-facing
 
