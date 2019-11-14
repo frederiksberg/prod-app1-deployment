@@ -10,3 +10,8 @@ docker exec reverse_proxy certbot --nginx \
     -nq --agree-tos --redirect --expand \
     --no-eff-email -m gis@frederiksberg.dk \
     --rsa-key-size=2048
+
+# Update tls CAA to BBR
+echo "net.core.default_qdisc=fq
+net.ipv4.tcp_congestion_control=bbr" > /etc/sysctl.d/tcp_optimization.conf
+sysctl -p
