@@ -22,6 +22,8 @@ services:
       - tiles:/opt/tilehut/data:ro
     networks:
       - front-facing
+    depends_on: 
+      -  th1
     restart: unless-stopped
 
   th3:
@@ -34,6 +36,9 @@ services:
       - tiles:/opt/tilehut/data:ro
     networks:
       - front-facing
+    depends_on:
+      - th1
+      - th2
     restart: unless-stopped
 
   ftp:
