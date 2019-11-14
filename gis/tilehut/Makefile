@@ -14,7 +14,7 @@ build:
 	docker-compose build
 
 kill:
-	docker-compose down
+	docker-compose down --remove-orphans
 
 re-ftp:
 	docker-compose rm -f -s ftp
