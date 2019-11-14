@@ -13,5 +13,5 @@ docker exec reverse_proxy certbot --nginx \
 
 # Update tls CAA to BBR
 echo "net.core.default_qdisc=fq
-net.ipv4.tcp_congestion_control=bbr" > /etc/sysctl.d/tcp_optimization.conf
+net.ipv4.tcp_congestion_control=bbr" > /etc/sysctl.d/10-custom-kernel-bbr.conf
 sysctl -p
