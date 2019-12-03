@@ -7,6 +7,7 @@ docker exec reverse_proxy certbot --nginx \
     -d th.frb-data.dk -d a.th.frb-data.dk -d b.th.frb-data.dk -d c.th.frb-data.dk \
     -d api.frb-data.dk -d tegola.frb-data.dk -d maputnik.frb-data.dk \
     -d forecast.frb-data.dk -d cvr.frb-data.dk \
+    -d 3d.frb-data.dk \
     -nq --agree-tos --redirect --expand \
     --no-eff-email -m gis@frederiksberg.dk \
     --rsa-key-size=2048

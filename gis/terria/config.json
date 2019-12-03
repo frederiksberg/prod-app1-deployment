@@ -1,0 +1,41 @@
+{
+    /* Names of init files (in wwwroot/init), without the .json extension, to load by default */
+    initializationUrls: [
+        "https://frederiksberg.github.io/terria/frb.json"
+    ],
+    parameters: {
+        googleUrlShortenerKey: null,
+        googleAnalyticsKey: null,
+        googleAnalyticsOptions: null,
+        /* Text that appears at the bottom of the map */
+        disclaimer: {
+            text: "",
+            url: ""
+        },
+        appName: "Hello",
+
+        brandBarElements: [
+            "",
+            "<a target=\"_blank\" href=\"https://terria.io\"><img src=\"images/terria_logo.png\" height=\"52\" title=\"Version: {{version}}\" /></a>",
+            ""
+        ],
+        // Shown when things go wrong.
+        supportEmail: "help@example.com",
+        // You probably shouldn't change this.
+        proj4ServiceBaseUrl: "proj4def/",
+        // Or this
+        feedbackUrl: "feedback",
+
+        // Default mobile viewer mode when loading the map for the first time on mobile platforms.
+        // Options are: "3DTerrain", "3DSmooth", "2D"
+        mobileDefaultViewerMode: "3DTerrain",
+        // Enable experimental features, since its nice to have the bleeding edge.
+        // Disable it if things go wrong with the experimental features or your users aren't robust to features which might change or disapear completly.
+        "experimentalFeatures": true,
+
+        // To override TerriaJS's region mapping file with a local one.
+        // regionMappingDefinitionsUrl: "data/regionMapping.json"
+        
+        cesiumIonAccessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2NGM3NDNkYy0yZWM0LTQ0ODQtYjFmNS0zMDY4MGIxNDVmYmQiLCJpZCI6MTgyMzEsInNjb3BlcyI6WyJhc3IiLCJnYyJdLCJpYXQiOjE1NzM1MDc5NTd9.VF54ufCrlaAEna_iHaCn47njpuMz1qgjrone4WnuCuA"
+    }
+}

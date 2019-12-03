@@ -1,0 +1,14 @@
+version: "3.5"
+services:
+  terria:
+    container_name: terria
+    build:
+      context: .
+    volumes:
+      - ./config.json:/etc/config/client/config.json:ro
+    networks: [proxy]
+    
+networks:
+  proxy:
+    external: true
+    name: proxy

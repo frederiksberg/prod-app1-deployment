@@ -3,11 +3,11 @@ MAKEFLAGS += --silent
 .PHONY: deploy run build clean kill
 
 # -------- Project definitions --------
-deploys 	:= deploy-tilehut deploy-posgrest deploy-vectortile deploy-shiny-cvr
-runs 		:= run-tilehut run-posgrest run-vectortile run-shiny-cvr
-builds 		:= build-tilehut build-posgrest build-vectortile build-shiny-cvr
-cleans 		:= clean-tilehut clean-posgrest clean-vectortile clean-shiny-cvr
-kills 		:= kill-tilehut kill-posgrest kill-vectortile kill-shiny-cvr
+deploys 	:= deploy-tilehut deploy-posgrest deploy-vectortile deploy-shiny-cvr deploy-terria
+runs 		:= run-tilehut run-posgrest run-vectortile run-shiny-cvr run-terria
+builds 		:= build-tilehut build-posgrest build-vectortile build-shiny-cvr build-terria
+cleans 		:= clean-tilehut clean-posgrest clean-vectortile clean-shiny-cvr clean-terria
+kills 		:= kill-tilehut kill-posgrest kill-vectortile kill-shiny-cvr kill-terria
 
 # -------- The usefull options --------
 deploy: $(deploys)
@@ -39,6 +39,22 @@ run-tilehut:
 
 deploy-tilehut:
 	@${MAKE} --no-print-directory -C tilehut deploy
+
+# -> terria
+kill-terria:
+	@${MAKE} --no-print-directory -C terria kill
+
+clean-terria:
+	@${MAKE} --no-print-directory -C terria clean
+
+build-terria:
+	@${MAKE} --no-print-directory -C terria build
+
+run-terria:
+	@${MAKE} --no-print-directory -C terria run
+
+deploy-terria:
+	@${MAKE} --no-print-directory -C terria deploy
 
 # -> posgrest
 kill-posgrest:
