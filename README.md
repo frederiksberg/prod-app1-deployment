@@ -35,6 +35,7 @@ Projektet er opdelt i 4 logiske kasser.
     * [Tilehut](gis/tilehut/)
     * [PostgREST API/Swagger](https://github.com/frederiksberg/PostgREST)
     * [Vector tile server (Tegola/Maputnik)](gis/vector-tiles/) 
+    * [Terria](gis/terria/) 
 * [IOT](iot/README.md)
     * [Grafana/Node-RED](iot/iot-pipeline/)
     * [Vejr API](https://github.com/frederiksberg/VejrAPI/tree/master)
@@ -91,6 +92,7 @@ Flere af servicesne kræver at der laves konfigurationer inden de startes. Dette
 * PostgREST
 * Swagger
 * Tilehut
+* Terria
 
 **IoT**
 * Grafana
@@ -242,6 +244,7 @@ Herunder er links til de webapps og services som udstilles.
 * [https://maputnik.frb-data.dk](https://maputnik.frb-data.dk)
 * [https://api.frb-data.dk](https://api.frb-data.dk)
 * [https://th.frb-data.dk](https://th.frb-data.dk)
+* [https://3d.frb-data.dk](https://3d.frb-data.dk)
 * [https://cvr.frb-data.dk](https://cvr.frb-data.dk)
 
 ### IoT
