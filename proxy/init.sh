@@ -4,7 +4,7 @@
 docker exec reverse_proxy certbot --nginx \
     -d frb-data.dk -d vejr.frb-data.dk -d grafana.frb-data.dk \
     -d monitor.frb-data.dk -d nodered.frb-data.dk \
-    -d th.frb-data.dk -d a.th.frb-data.dk -d b.th.frb-data.dk -d c.th.frb-data.dk \
+    -d th.frb-data.dk \
     -d api.frb-data.dk -d tegola.frb-data.dk -d maputnik.frb-data.dk \
     -d forecast.frb-data.dk -d cvr.frb-data.dk \
     -d 3d.frb-data.dk \
