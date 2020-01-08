@@ -1,0 +1,18 @@
+version: "3.5"
+services:
+  osrm:
+    container_name: osrm
+    build:
+      context: .
+    volumes:
+      - osrm-data:/opt/data
+    networks: [proxy]
+    restart: unless-stopped
+
+volumes:
+  osrm-data:
+
+networks:
+  proxy:
+    external: true
+    name: proxy

@@ -3,11 +3,11 @@ MAKEFLAGS += --silent
 .PHONY: deploy run build clean kill
 
 # -------- Project definitions --------
-deploys 	:= deploy-tilehut deploy-posgrest deploy-vectortile deploy-shiny-cvr deploy-terria
-runs 		:= run-tilehut run-posgrest run-vectortile run-shiny-cvr run-terria
-builds 		:= build-tilehut build-posgrest build-vectortile build-shiny-cvr build-terria
-cleans 		:= clean-tilehut clean-posgrest clean-vectortile clean-shiny-cvr clean-terria
-kills 		:= kill-tilehut kill-posgrest kill-vectortile kill-shiny-cvr kill-terria
+deploys 	:= deploy-tilehut deploy-posgrest deploy-vectortile deploy-shiny-cvr deploy-terria deploy-osrm
+runs 		:= run-tilehut run-posgrest run-vectortile run-shiny-cvr run-terria run-osrm
+builds 		:= build-tilehut build-posgrest build-vectortile build-shiny-cvr build-terria build-osrm
+cleans 		:= clean-tilehut clean-posgrest clean-vectortile clean-shiny-cvr clean-terria clean-osrm
+kills 		:= kill-tilehut kill-posgrest kill-vectortile kill-shiny-cvr kill-terria kill-osrm
 
 # -------- The usefull options --------
 deploy: $(deploys)
@@ -103,3 +103,19 @@ run-shiny-cvr:
 
 deploy-shiny-cvr:
 	@${MAKE} --no-print-directory -C shiny-cvr deploy
+
+# -> osrm
+kill-terria:
+	@${MAKE} --no-print-directory -C osrm kill
+
+clean-terria:
+	@${MAKE} --no-print-directory -C osrm clean
+
+build-terria:
+	@${MAKE} --no-print-directory -C osrm build
+
+run-terria:
+	@${MAKE} --no-print-directory -C osrm run
+
+deploy-terria:
+	@${MAKE} --no-print-directory -C osrm deploy
