@@ -36,7 +36,7 @@ Projektet er opdelt i 4 logiske kasser.
     * [PostgREST API/Swagger](https://github.com/frederiksberg/PostgREST)
     * [Vector tile server (Tegola/Maputnik)](gis/vector-tiles/) 
     * [Terria](gis/terria/) 
-    * [OSRM](gis/OSRM/)
+    * [OSRM](gis/osrm/)
 * [IOT](iot/README.md)
     * [Grafana/Node-RED](iot/iot-pipeline/)
     * [Vejr API](https://github.com/frederiksberg/VejrAPI/tree/master)
