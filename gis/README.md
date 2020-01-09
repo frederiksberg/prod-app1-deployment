@@ -6,6 +6,7 @@ Vi benytter en række applikationer til at udstille og style geografiske data:
 * [PostgREST API/Swagger](https://github.com/frederiksberg/PostgREST)
 * [Vector tile server (Tegola/Maputnik)](https://github.com/frederiksberg/prod-app1-deployment/tree/master/gis/vector-tiles)
 * [Terria](terria)
+* [OSRM](osrm)
 
 ## Tilehut
 
@@ -25,6 +26,9 @@ Brugergrænseflade til at style vector data ved f.eks. at angive en TileJSON URL
 ## Terria
 GIS løsning som kan vise både 2- og 3D kort. Bruger Leaflet til 2D og Cesium som 3D motor og integrere med Cesium Ion, som kan bruges til at serve bymodeller som 3D tiles og højdemodeller.
 
+## OSRM
+Rutebergener API som bruger vejdata fra Open Steet Map til at løse ruteoptimering.
+
 ## Eksmepler på URL'er
 
 API 
@@ -37,9 +41,13 @@ Anlægskort
 Maputnik
 * https://maputnik.frb-data.dk
 
+OSRM
+* https://rute.frb-data.dk
+
 ## Kilder
 * [Tilehut](https://github.com/b-g/tilehut)
 * [PostgREST API/Swagger](https://github.com/frederiksberg/PostgREST)
 * [Tegola](https://github.com/go-spatial/tegola)
 * [Maputnik](https://maputnik.github.io/)
 * [Terria](https://terria.io/)
+* [OSRM](http://project-osrm.org/)
