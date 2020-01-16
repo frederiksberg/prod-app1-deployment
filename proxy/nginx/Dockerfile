@@ -7,7 +7,7 @@ RUN set -x && \
 
 # Install all dependencies
 RUN apt-get update && apt-get install --no-install-recommends --no-install-suggests -y \
-    gnupg1 apt-transport-https ca-certificates cron python3 python3-pip\
+    gnupg1 apt-transport-https ca-certificates cron python3 python3-pip \
     automake gcc libpcre3-dev zlib1g-dev make wget curl gpg git
 
 # Install OpenSSL 1.1.1
@@ -17,9 +17,22 @@ RUN wget -q https://www.openssl.org/source/openssl-1.1.1.tar.gz && \
     make && make install && rm /usr/bin/openssl && \
     cp /usr/local/bin/openssl /usr/bin/ && openssl version
 
+# Get modsec source
+RUN git clone --depth 1 -b v3/master --single-branch https://github.com/SpiderLabs/ModSecurity
+
+# Build modsec
+RUN cd ModSecurity \
+    && git submodule init \
+    && git submodule update \
+    && ./build.sh \
+    && ./configure \
+    && make \
+    && make install
+
+# Purge build in nginx
 RUN apt-get purge nginx
 
-# Get source
+# Get nginx source
 RUN wget -q http://nginx.org/download/nginx-1.17.3.tar.gz && \
     wget -q http://nginx.org/download/nginx-1.17.3.tar.gz.asc
 
@@ -45,21 +58,25 @@ RUN tar -zxf nginx-1.17.3.tar.gz && \
         --with-openssl=../openssl-1.1.1 \
         --with-openssl-opt="no-async enable-ec_nistp_64_gcc_128 no-shared no-ssl2 no-ssl3 no-comp no-idea no-weak-ssl-ciphers -DOPENSSL_NO_HEARTBEATS -O3 -fPIE -fstack-protector-strong -D_FORTIFY_SOURCE=2" \
         --with-http_v2_module \
+        --add-module=/usr/src/ModSecurity/nginx/modsecurity \
         --without-http_autoindex_module && \
     make
 
+# Install nginx
 RUN cd nginx-1.17.3 && make install
     
 # Backports repo for newer certbot version
 RUN echo "deb http://deb.debian.org/debian stretch-backports main" >> /etc/apt/sources.list
 
-# # Install certbot
+# Install certbot
 RUN apt-get update && apt-get install -y certbot
 
+# Install certbot-nginx + deps
 RUN cd ~ && pip3 install virtualenv setuptools && virtualenv /env && \
     git clone https://github.com/certbot/certbot && \
     cd certbot/certbot-nginx && python3 setup.py install
 
+# Forece upgrade urllib3 and requests because bugs
 RUN pip3 install --upgrade --force-reinstall urllib3 requests
 
 # Set up nice output of nginx to docker
@@ -69,10 +86,13 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
 # Renewal
 RUN echo "30 3 * * * certbot renew" | crontab -
 
+# Touch temp
 RUN mkdir -p /var/tmp/nginx
 
+# Get the config
 COPY ./nginx.conf /etc/nginx/nginx.conf
 
+# Get the entrypoint
 COPY entrypoint.sh /entrypoint.sh
 
 # Run service not as daemon
