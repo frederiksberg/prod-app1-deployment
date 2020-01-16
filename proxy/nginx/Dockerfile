@@ -103,6 +103,8 @@ RUN wget https://github.com/SpiderLabs/owasp-modsecurity-crs/archive/v3.2.0.tar.
     && cd /usr/local/owasp-modsecurity-crs-3.2.0 \
     && cp crs-setup.conf.example crs-setup.conf
 
+RUN cp /ModSecurity/unicode.mapping /etc/nginx/unicode.mapping
+
 # Touch temp
 RUN mkdir -p /var/tmp/nginx
 
