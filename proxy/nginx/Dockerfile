@@ -11,7 +11,9 @@ RUN set -x && \
 RUN apt-get update && apt-get install --no-install-recommends --no-install-suggests -y \
     gnupg1 apt-transport-https ca-certificates cron python3 python3-pip \
     automake gcc libpcre3 libpcre3-dev zlib1g-dev make wget curl gpg git \
-    build-essential libssl-dev libtool autoconf libxml2-dev libcurl4-openssl-dev pkgconf
+    build-essential libssl-dev libtool autoconf libxml2-dev \
+    libcurl4-openssl-dev pkgconf flex bison libyajl-dev libgeoip-dev \
+    dh-autoreconf
 
 # Install OpenSSL 1.1.1
 RUN wget -q https://www.openssl.org/source/openssl-1.1.1.tar.gz && \
