@@ -59,7 +59,7 @@ RUN tar -zxf nginx-1.17.3.tar.gz && \
         --with-openssl=../openssl-1.1.1 \
         --with-openssl-opt="no-async enable-ec_nistp_64_gcc_128 no-shared no-ssl2 no-ssl3 no-comp no-idea no-weak-ssl-ciphers -DOPENSSL_NO_HEARTBEATS -O3 -fPIE -fstack-protector-strong -D_FORTIFY_SOURCE=2" \
         --with-http_v2_module \
-        --add-module=/usr/src/ModSecurity/nginx/modsecurity \
+        --add-module=/ModSecurity/nginx/modsecurity \
         --without-http_autoindex_module && \
     make
 
