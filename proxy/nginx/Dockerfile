@@ -30,6 +30,9 @@ RUN cd ModSecurity \
     && make \
     && make install
 
+# Get modsec-nginx
+RUN git clone --depth 1 https://github.com/SpiderLabs/ModSecurity-nginx
+
 # Purge build in nginx
 RUN apt-get purge nginx
 
@@ -42,8 +45,6 @@ RUN curl -sS http://nginx.org/keys/mdounin.key | gpg --import
 
 # Verify signature
 RUN gpg --trusted-key 0x520A9993A1C052F8 --verify nginx-1.17.3.tar.gz.asc nginx-1.17.3.tar.gz
-
-RUN ls /usr/local/src
 
 # Build and install
 RUN tar -zxf nginx-1.17.3.tar.gz && \
@@ -61,7 +62,7 @@ RUN tar -zxf nginx-1.17.3.tar.gz && \
         --with-openssl=../openssl-1.1.1 \
         --with-openssl-opt="no-async enable-ec_nistp_64_gcc_128 no-shared no-ssl2 no-ssl3 no-comp no-idea no-weak-ssl-ciphers -DOPENSSL_NO_HEARTBEATS -O3 -fPIE -fstack-protector-strong -D_FORTIFY_SOURCE=2" \
         --with-http_v2_module \
-        --add-module=/ModSecurity/nginx/modsecurity \
+        --add-module=/ModSecurity-nginx \
         --without-http_autoindex_module && \
     make
 
