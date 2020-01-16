@@ -43,8 +43,7 @@ RUN curl -sS http://nginx.org/keys/mdounin.key | gpg --import
 # Verify signature
 RUN gpg --trusted-key 0x520A9993A1C052F8 --verify nginx-1.17.3.tar.gz.asc nginx-1.17.3.tar.gz
 
-RUN pwd
-RUN ls ..
+RUN ls /ModSecurity
 
 # Build and install
 RUN tar -zxf nginx-1.17.3.tar.gz && \
