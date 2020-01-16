@@ -105,17 +105,17 @@ deploy-shiny-cvr:
 	@${MAKE} --no-print-directory -C shiny-cvr deploy
 
 # -> osrm
-kill-terria:
+kill-osrm:
 	@${MAKE} --no-print-directory -C osrm kill
 
-clean-terria:
+clean-osrm:
 	@${MAKE} --no-print-directory -C osrm clean
 
-build-terria:
+build-osrm:
 	@${MAKE} --no-print-directory -C osrm build
 
-run-terria:
+run-osrm:
 	@${MAKE} --no-print-directory -C osrm run
 
-deploy-terria:
+deploy-osrm:
 	@${MAKE} --no-print-directory -C osrm deploy
