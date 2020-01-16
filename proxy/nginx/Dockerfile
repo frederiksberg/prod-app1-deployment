@@ -1,5 +1,7 @@
 FROM debian:stretch-slim
 
+WORKDIR /
+
 # Create nginx user <- Taken from official dockerfile
 RUN set -x && \
     addgroup --system --gid 101 nginx && \
@@ -29,6 +31,9 @@ RUN cd ModSecurity \
     && ./configure \
     && make \
     && make install
+
+# Audit logging for modsec
+RUN mkdir -p /opt/modsecurity/var/audit/
 
 # Get modsec-nginx
 RUN git clone --depth 1 https://github.com/SpiderLabs/ModSecurity-nginx
@@ -90,11 +95,20 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
 # Renewal
 RUN echo "30 3 * * * certbot renew" | crontab -
 
+# Get OWASP CRS
+RUN wget https://github.com/SpiderLabs/owasp-modsecurity-crs/archive/v3.2.0.tar.gz \
+    && tar -xzvf v3.2.0.tar.gz \
+    && rm v3.2.0.tar.gz \
+    && mv owasp-modsecurity-crs-3.2.0 /usr/local \
+    && cd /usr/local/owasp-modsecurity-crs-3.2.0 \
+    && cp crs-setup.conf.example crs-setup.conf
+
 # Touch temp
 RUN mkdir -p /var/tmp/nginx
 
-# Get the config
+# Get the configs
 COPY ./nginx.conf /etc/nginx/nginx.conf
+COPY ./modsecurity.conf /etc/nginx/modsecurity.conf
 
 # Get the entrypoint
 COPY entrypoint.sh /entrypoint.sh
