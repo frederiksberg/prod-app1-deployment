@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install --no-install-recommends --no-install-sugge
     automake gcc libpcre3 libpcre3-dev zlib1g-dev make wget curl gpg git \
     build-essential libssl-dev libtool autoconf libxml2-dev \
     libcurl4-openssl-dev pkgconf flex bison libyajl-dev libgeoip-dev \
-    dh-autoreconf
+    dh-autoreconf libmaxminddb-dev
 
 # Install OpenSSL 1.1.1
 RUN wget -q https://www.openssl.org/source/openssl-1.1.1.tar.gz && \
@@ -108,7 +108,9 @@ RUN wget https://github.com/SpiderLabs/owasp-modsecurity-crs/archive/v3.2.0.tar.
 RUN cp /ModSecurity/unicode.mapping /etc/nginx/unicode.mapping
 
 # Touch temp
-RUN mkdir -p /var/tmp/nginx
+RUN mkdir -p /var/tmp/nginx \
+    && mkdir -p /var/log/modsecurity/audit \
+    && chown nginx:nginx /var/log/modsecurity/audit
 
 # Get the configs
 COPY ./nginx.conf /etc/nginx/nginx.conf
