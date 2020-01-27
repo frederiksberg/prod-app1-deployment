@@ -19,6 +19,9 @@ kill:
 check:
 	docker exec reverse_proxy nginx -t
 
+audit:
+	docker exec reverse_proxy cat /var/log/modsec_audit.log | less
+
 init:
 	./init.sh
 	sed -i 's/listen 443 ssl;/listen 443 ssl http2;/g' ./confs/*.conf
