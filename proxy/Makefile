@@ -20,7 +20,7 @@ check:
 	docker exec reverse_proxy nginx -t
 
 audit:
-	docker exec reverse_proxy cat /var/log/modsec_audit.log | less
+	docker exec reverse_proxy cat /var/log/modsec_audit.log
 
 init:
 	./init.sh
