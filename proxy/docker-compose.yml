@@ -24,7 +24,7 @@ services:
     networks:
       - proxy
     restart: unless-stopped
-    depends_on: nginx
+    depends_on: [nginx]
 
 volumes:
   logs:
