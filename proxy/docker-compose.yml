@@ -7,7 +7,7 @@ services:
       - ./confs:/etc/nginx/conf.d:rw
       - ./certs:/etc/letsencrypt:rw
       - ./dhparam:/etc/ssl/certs:rw
-      - logs:/var/log/rw
+      - logs:/var/log:rw
     networks:
       - proxy
     ports:
