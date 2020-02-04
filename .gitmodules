@@ -7,3 +7,6 @@
 [submodule "meta/nikto"]
 	path = meta/nikto
 	url = https://github.com/frederiksberg/niktodeployment
+[submodule "proxy/modsec_api"]
+	path = proxy/modsec_api
+	url = https://github.com/frederiksberg/modsec_api

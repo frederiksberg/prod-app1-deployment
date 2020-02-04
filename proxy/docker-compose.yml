@@ -7,12 +7,27 @@ services:
       - ./confs:/etc/nginx/conf.d:rw
       - ./certs:/etc/letsencrypt:rw
       - ./dhparam:/etc/ssl/certs:rw
+      - logs:/var/log/rw
     networks:
       - proxy
     ports:
       - 80:80
       - 443:443
     restart: unless-stopped
+
+  modsec_api:
+    build: ./modsec_api
+    container_name: modsec_api
+    env_file: [./modsec_api/.env]
+    volumes:
+      - logs:/var/log:ro
+    networks:
+      - proxy
+    restart: unless-stopped
+    depends_on: nginx
+
+volumes:
+  logs:
 
 networks:
   proxy:

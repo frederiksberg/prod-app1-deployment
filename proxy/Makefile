@@ -6,7 +6,7 @@ deploy: | build clean
 
 run: | build clean
 	docker-compose up
-	
+
 clean: kill
 	docker-compose rm -f
 
