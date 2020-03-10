@@ -19,7 +19,7 @@ services:
     build: ./modsec_monitor
     container_name: modsec_monitor
     volumes:
-      - logs:/var/log:ro
+      - logs:/var/log:rw
     restart: unless-stopped
     depends_on: [nginx]
 
