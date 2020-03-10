@@ -15,14 +15,11 @@ services:
       - 443:443
     restart: unless-stopped
 
-  modsec_api:
-    build: ./modsec_api
-    container_name: modsec_api
-    env_file: [./modsec_api/.env]
+  modsec_monitor:
+    build: ./modsec_monitor
+    container_name: modsec_monitor
     volumes:
       - logs:/var/log:ro
-    networks:
-      - proxy
     restart: unless-stopped
     depends_on: [nginx]
 
