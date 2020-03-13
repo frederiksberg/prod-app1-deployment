@@ -22,6 +22,8 @@ Servicen genererer sine egne 2048-bit Diffie-Hellman keys første gang container
 
 Proxy serveren supporterer en relativt nøje udvalgt cipher suite. Dette kan give problemer i ældre browsere eller i gamle operativsystemer. Hvis dette bliver et problem kan cipher-suiten redigeres i `proxy/certs/options-ssl-nginx.conf`
 
+Proxyen indeholder også en Web Application Firewall, der har til formål at blokere mistænkelige requests. Dette fungerer som det yderste lag i applikationssikkerheden.
+
 ## Konfiguration
 
 Hvert domæne, der skal kunnes tilgås udefra skal have en konfigurationsfil i `proxy/confs`. Filen navngives efter domænet, den konfigurerer; f.eks vil konfigurationsfilen for api.frb-data.dk hedde `api.frb-data.dk.conf`.
@@ -62,3 +64,23 @@ Inden det køres skal du sikre dig at domænet er tilføjet til domæne listen i
 Certifikatændringen bør slå igennem med det samme.
 
 Prøv nu igen at tilgå domænet på http og sikrer dig at din forespørgsel bliver dirigeret til https og at servicen er tilgængelig her.
+
+## Web Application Firewall (WAF)
+
+WAF'en er den populære ModSecurity, der integrerer med NGINX.
+
+WAF'en er konfigureret i `proxy/nginx/modsecurity.conf`. Her sættes alle indstillinger, der vedrører WAF'en, inklusiv undtagelser for tjek på de forskellige services.
+
+WAF'en fungerer ved at matche mønstre i requestet og kan derfor blokere legitimate traffik, hvis det følger en ellers mistænkelig form. Derfor kan man definere undtagelser for de individuelle services i konfigurationsfilen.
+
+Der er sat et dashboard op i grafana, til at overvåge loggen fra ModSecurity. De tre dashboards ligger i modsec mappen, der kun kan tilgås af administratorer.
+
+Undtagelser følger denne form:
+
+```config
+
+SecRule SERVER_NAME "@streq <domæne>" "id:<unikt id>,phase:1,t:none,nolog,pass,ctl:ruleRemoveById=<vuln_id>"
+
+```
+
+WAF'ens regelsæt er baseret på OWASP's core regelsæt.
