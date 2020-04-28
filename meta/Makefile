@@ -3,11 +3,11 @@ MAKEFLAGS += --silent
 .PHONY: deploy run build clean kill
 
 # -------- Project definitions --------
-deploys := deploy-monitor deploy-landing deploy-nikto
-runs 	:= run-monitor run-landing run-nikto
-builds 	:= build-monitor build-landing build-nikto
-cleans 	:= clean-monitor clean-landing clean-nikto
-kills 	:= kill-monitor kill-landing kill-nikto
+deploys := deploy-monitor deploy-landing
+runs 	:= run-monitor run-landing
+builds 	:= build-monitor build-landing
+cleans 	:= clean-monitor clean-landing
+kills 	:= kill-monitor kill-landing
 
 # -------- The usefull options --------
 deploy: $(deploys)
@@ -54,19 +54,3 @@ run-landing:
 
 deploy-landing:
 	@${MAKE} --no-print-directory -C landing deploy
-
-# Landing
-kill-nikto:
-	@${MAKE} --no-print-directory -C nikto kill
-
-clean-nikto:
-	@${MAKE} --no-print-directory -C nikto clean
-
-build-nikto:
-	@${MAKE} --no-print-directory -C nikto build
-
-run-nikto:
-	@${MAKE} --no-print-directory -C nikto run
-
-deploy-nikto:
-	@${MAKE} --no-print-directory -C nikto deploy

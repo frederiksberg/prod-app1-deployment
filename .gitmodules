@@ -4,9 +4,6 @@
 [submodule "iot/vejrapi"]
 	path = iot/vejrapi
 	url = https://github.com/frederiksberg/VejrAPI
-[submodule "meta/nikto"]
-	path = meta/nikto
-	url = https://github.com/frederiksberg/niktodeployment
 [submodule "proxy/modsec_monitor"]
 	path = proxy/modsec_monitor
 	url = https://github.com/frederiksberg/modsec_monitor
