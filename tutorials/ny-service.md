@@ -91,7 +91,6 @@ services:
     build: .
     container_name: shiny-cvr
     restart: unless-stopped
-    env_file: .env
     networks: [proxy]
 
 networks:
@@ -136,7 +135,7 @@ Du kan enten finde på dine egne tests, eller deploye produktionsmiljøet på en
 
 Din nye service skal nu tilføjes til git. Repo'et bor på [https://github.com/frederiksberg/prod-app1-deployment](https://github.com/frederiksberg/prod-app1-deployment).
 
-Du har mulighed for at oprette dit projekt som et submodule, eller at kopiere koden over i prosuktions repo'et. I dette eksempel kopierer vi koden.
+Du har mulighed for at oprette dit projekt som et submodule, eller at kopiere koden over i produktions repo'et. I dette eksempel kopierer vi koden.
 
 Der er tre steder projekter kan bo på produktionsserveren.
 
@@ -204,6 +203,8 @@ kills       := kill-tilehut kill-posgrest kill-vectortile kill-shiny-cvr
 
 I dette eksempel er domænet cvr.frb-data.dk sat af til denne service.
 
+Det registreres i domænet med en CNAME record, der peger på `app1.frb-data.dk`.
+
 Domænet skal oprettes i proxyen. Vi opretter en .conf fil i `/proxy/conf/cvr.frb-data.dk.conf`.
 
 ```nginx
@@ -250,6 +251,8 @@ Sørg for de ovennævnte ændringer er committet til github.
 
 ### 1. Pull ændringer
 
+På produktionsserveren i `/opt/prod-app1-deployment`.
+
 ```shell
 git pull
 ```
@@ -258,7 +261,7 @@ git pull
 
 Hvis du har benyttet .env-filer, skal de initialises. Der ligger et script initenv.sh på serveren i /opt/.
 
-Her kan der tilføjes en entry til de nye .env fil.
+Her kan der tilføjes en entry til de nye .env fil eller config filer.
 
 ### 3. Start servicen
 
@@ -289,7 +292,7 @@ Fra roden kør:
 make restart
 ```
 
-Verificer at domænet kan tilgås på http. Brug chrome eller kør flg. kommando fra en kommandoprompt.
+Verificer at domænet kan tilgås på http. På grund af vores TLS politik vil browsere normalt nægte at tilgå vores domæner på http. Kør derfor denne kommando eller tilsvarende fra en kommandoprompt.
 
 ```shell
 curl http://cvr.frb-data.dk

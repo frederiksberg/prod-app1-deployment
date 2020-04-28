@@ -11,19 +11,24 @@ I DigitalOcean kan dette gøres nemt ved tage et snapshot af produktionsserveren
 
 ## 2. Opgrader din kode
 
-De to vigtige kommandoer er `make` for at starte hele setupet of `make restart` for at genstarte et setup, der kører. Begge kommandoer skal køres fra roden af repoet.
+De to vigtige kommandoer er `make` for at starte hele setupet og `make restart` for at genstarte et setup, der kører. Begge kommandoer skal køres fra roden af repoet.
 
 Vær opmærksom på at proxy-servicen ikke vil køre korrekt i denne fase, da dns ikke er ændret endnu.
 
 Under udviklingen kan det være en fordel at spinne enkelte services op og ned. Se guiden for [live opgradering](upgrade-service.md) for hjælp til dette.
 
-## 3. Skift dns
+## 3. Håndter docker-volume
+
+Dockers gemmer sit data på et DigitalOcean volume, der er mounted til `/mnt/docker-data`.
+For at overføre data til den nye instance skal dette volume klones og mountes til den server instance.
+
+## 4. Skift dns
 
 Når det er verificeret at den nye server kører korrekt, skal dns'en peges over.
 
 På DigitalOcean har produktionsserveren en "floating ip". Assign denne til den nye server.
 Ændringen bør slå igennem med det samme.
 
-## 4. Wrap up
+## 5. Wrap up
 
 Når den nye server kører og det er kontrolleret at alt fungerer som det skal, kan den gamle server lukkes ned.

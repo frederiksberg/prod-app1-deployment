@@ -37,7 +37,7 @@ Nøglen skal uploades til serveren. Dette kræver at du har ssh adgang til serve
 scp <din-nøgle>.pub root@app.frb-data.dk:/opt/prod-app1-deployment/gis/tilehut/pub_keys/
 ```
 
-Fra serveren i mappen `/opt/prod-app1-deployment/gis/tilehut/` køres kommandoen `make re-ftp` for at opdatere ftp-serveren keystore.
+Fra serveren i mappen `/opt/prod-app1-deployment/gis/tilehut/` køres kommandoen `make re-ftp` for at opdatere ftp-serverens keystore.
 
 ### Oprettelse af server i WinSCP
 

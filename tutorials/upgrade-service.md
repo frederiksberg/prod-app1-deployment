@@ -25,9 +25,11 @@ Nu da servicen er opgraderet er det tid til at verificere at ændringen er slåe
 
 ## Eksempel
 I eksemplet herunder ses opgradering af Grafana til nyeste version:
+
 1. `$ docker pull grafana/grafana`
 2. `$ cd /opt/prod-app1-deployment/iot/iot-pipeline`
 3. `$ make`
+
 Vær opmærksom på at denne kommando også lukker ned for NodeRED i en kort periode.
 
 ## Bemærkninger

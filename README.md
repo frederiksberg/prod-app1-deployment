@@ -5,51 +5,63 @@
 <img src="https://github.com/frederiksberg/prod-app1-deployment/blob/master/figures/tree.svg" width="900px">
 
 ## Indhold
+
 - [Opdeling](#opdeling)
 - [Kom igang](#kom-igang)
-  * [Make](#make)
-  * [Make i roden](#make-i-roden)
+
+  - [Make](#make)
+  - [Make i roden](#make-i-roden)
+
 - [Opgradering](#opgradering)
 - [Konfiguration](#konfiguration)
-  * [tilehut](#tilehut)
+
+  - [tilehut](#tilehut)
+
 - [Sikkerhed](#sikkerhed)
-  * [NGINX](#nginx)
-  * [Node-RED](#node-red)
+
+  - [NGINX](#nginx)
+  - [Node-RED](#node-red)
+
 - [Digital Ocean](#digital-ocean)
 - [Videre udvikling](#videre-udvikling)
 - [Lokal udvikling](#lokal-udvikling)
 - [Afhængigheder](#afhængigheder)
 - [Links](#links)
-  * [Landing](#landing)
-  * [GIS](#gis)
-  * [IoT](#iot)
-  * [Meta](#meta)
-- [Postman tests](#postman-tests)
 
+  - [Landing](#landing)
+  - [GIS](#gis-services)
+  - [IoT](#iot-services)
+  - [Meta](#meta-services)
+
+- [Postman tests](#postman-tests)
 
 ## Opdeling
 
 Projektet er opdelt i 4 logiske kasser.
 
-* [GIS](gis/)
-    * [Tilehut](gis/tilehut/)
-    * [PostgREST API/Swagger](https://github.com/frederiksberg/PostgREST)
-    * [Vector tile server (Tegola/Maputnik)](gis/vector-tiles/) 
-    * [Terria](gis/terria/) 
-    * [OSRM](gis/osrm/)
-* [IOT](iot/README.md)
-    * [Grafana/Node-RED](iot/iot-pipeline/)
-    * [Vejr API](https://github.com/frederiksberg/VejrAPI/tree/master)
-    * [Forecasting](iot/forecast)
-* [Meta](meta/)
-* [Reverse proxy](proxy/)
+- [GIS](gis/)
+
+  - [Tilehut](gis/tilehut/)
+  - [PostgREST API/Swagger](https://github.com/frederiksberg/PostgREST)
+  - [Vector tile server (Tegola/Maputnik)](gis/vector-tiles/)
+  - [Terria](gis/terria/)
+  - [OSRM](gis/osrm/)
+
+- [IOT](iot/README.md)
+  - [Grafana/Node-RED](iot/iot-pipeline/)
+  - [Vejr API](https://github.com/frederiksberg/VejrAPI/tree/master)
+  - [Forecasting](iot/forecast)
+
+- [Meta](meta/)
+- [Reverse proxy](proxy/)
 
 ## Kom igang
+
 Inden de forskellige services startes kræver det at afhængigheder er installeret, hvilket er beskrevet [her](#afhængigheder). Efterfølgende gemmemgås disse skridt:
 
 1. Klon dette repository `git clone https://github.com/frederiksberg/prod-app1-deployment.git`
 2. `cd prod-app1-deployment` og klon submodules med `git submodule update --init --recursive`
-3. Tilret `*.env`under de forskellige projekter (brug evt. `initenv.sh` script - se [dette afsnit](#konfiguration))
+3. Tilret `*-*.env`under de forskellige projekter (brug evt. `initenv.sh` script - se [dette afsnit](#konfiguration))
 4. Container specifik init (se [dette afsnit](#konfiguration))
 5. Kør `make` i root folderen
 6. Kør `make init-proxy` for at sætte SSL op
@@ -58,11 +70,11 @@ Inden de forskellige services startes kræver det at afhængigheder er installer
 
 Til at styre docker-compose filerne bruges [Make](https://www.gnu.org/software/make/), som gør det muligt at bygge, fjerne,  starte eller stoppe produktionsserveren eller dele af den afhængigt af hvor man står i foldertræet. Som udgangpunkt har alle services en `docker-compose.yml` og en tilhørnede `Makefile` som kalder docker-compose filen med forskellige kommandoer.
 
-* `make deploy` - Starter containerne i detatch mode (`docker-compose up -d`)
-* `make run` - Starter containerne med live logging (`docker-compose up`)
-* `make build` - Bygger images fra `Dockerfile` (`docker-compose build`)
-* `make kill` - Lukker containere(`docker-compose down`)
-* `make clean` - Fjerner containere (`docker-compose rm -f`)
+- `make deploy` - Starter containerne i detatch mode (`docker-compose up -d`)
+- `make run` - Starter containerne med live logging (`docker-compose up`)
+- `make build` - Bygger images fra `Dockerfile` (`docker-compose build`)
+- `make kill` - Lukker containere(`docker-compose down`)
+- `make clean` - Fjerner containere (`docker-compose rm -f`)
 
 Ovennævnte build targets har interne afhængigheder for at lette workflowet.
 
@@ -90,20 +102,24 @@ Du kan også kigge på [dette](tutorials/ny-service.md) eksempel
 
 Flere af servicesne kræver at der laves konfigurationer inden de startes. Dette står nærmere beskrevet i `README.md` for de forskellige services. Overordnet skal følgende services konfigureres inden de startes:
 
-**GIS**
-* Tegola
-* PostgREST
-* Swagger
-* Tilehut
-* Terria
+### GIS
 
-**IoT**
-* Grafana
+- Tegola
+- PostgREST
+- Swagger
+- Tilehut
+- Terria
 
-**Meta**
-* Monitor
+### IoT
+
+- Grafana
+
+### Meta
+
+- Monitor
 
 Herunder ses eksempel på `initenv.sh` bash script som kan tilrettes. Det anbefales at ligge dette udenfor git repo'et så man ved en fejl ikke commiter disse oplysninger.
+
 ```bash
 # ----- Config files -----
 POSTGREST='/opt/prod-app1-deployment/gis/PostgREST/envs/postgrest.env'
@@ -169,11 +185,14 @@ Det er det første lag af isolation.
 
 nginx's config filer styrer, hvordan trafik routes fra via proxy netværket. Dette tjener som det andet lag af isolation.
 
+Der kører en Modsecurity Web Application Firewall (WAF) side om side med nginx, der filterer mistænkelig trafik fra inden de når servisne. Dette er yderste lag af beskyttelse.
+
 SSL certifikaterne bruges til at oprette sikre https tuneller til brugeren og nginx er konfigureret til at redirecte alt http trafik til https.
 
 For detaljer om proxy servicen se [denne readme](proxy/README.md).
 
 ### Node-RED
+
 Node-RED skal have opsat auth **efter** containeren er startet, hvilket står beskrevet `README.md` for iot-pipeline.
 
 ## Digital Ocean
@@ -182,9 +201,9 @@ Vi kører setuppet i DigitalOcean.
 
 Produktionsdelen af setuppet består af en produktions server og en produktionsdatabase.
 
-Produktionserveren har en floating ip, som dns'en peger på. Dette gør at produktionsserveren kan flyttes ved plot at pege denne ip over på en ny droplet.
+Produktionserveren har en floating ip, som dns'en peger på. Dette gør at produktionsserveren kan flyttes ved blot at pege denne ip over på en ny droplet.
 
-Dockers root directory er mappet ud på en ekstern volume, der backes op for sig selv.
+Dockers root directory er mappet ud på en ekstern volume, der kan backes op for sig selv.
 
 DNS'en har en CAA record sat op, der begrænser hvilke CA's, der kan udstede certifikater til vores domæner.
 
@@ -194,9 +213,11 @@ Det er muligt at tilføje standby og read-only nodes til clusteren, hvis nedetid
 
 ## Videre udvikling
 
-Ønskes der at tilføjes services til stacken 
-* lav `docker-compose.yml` og tilhørende `Makefile`
-* Hvis servicen er en webapplikation tilføjes docker netværket til `docker-compose.yml`:
+Ønskes der at tilføjes services til stacken
+
+- lav `docker-compose.yml` og tilhørende `Makefile`
+- Hvis servicen er en webapplikation tilføjes docker netværket til `docker-compose.yml`:
+
 ```yml
 version: '3.5'
 services:
@@ -208,11 +229,14 @@ networks:
     external: true
     name: proxy
 ```
-* Tilføj den nye service i parent `Makefile`. Se [eksempel](https://github.com/frederiksberg/prod-app1-deployment/blob/master/gis/Makefile)
-* Opret nginx konfiguration under [`proxy/confs/`](https://github.com/frederiksberg/prod-app1-deployment/tree/master/proxy/confs)
-* Tilføj services til [`proxy/init.sh`](https://github.com/frederiksberg/prod-app1-deployment/blob/master/proxy/init.sh)
-* Start servicen
-* Er der tilføjet et nye (sub)domæne skal [proxy genstartes](proxy/README.md)
+
+- Tilføj den nye service i parent `Makefile`. Se [eksempel](https://github.com/frederiksberg/prod-app1-deployment/blob/master/gis/Makefile)
+- Opret nginx konfiguration under [`proxy/confs/`](https://github.com/frederiksberg/prod-app1-deployment/tree/master/proxy/confs)
+- Tilføj services til [`proxy/init.sh`](https://github.com/frederiksberg/prod-app1-deployment/blob/master/proxy/init.sh)
+- Start servicen
+- Er der tilføjet et nye (sub)domæne skal [proxy genstartes](proxy/README.md)
+
+For en detaljeret gennemgang se [denne](tutorials/ny-service.md) guide.
 
 ## Lokal udvikling
 
@@ -226,10 +250,10 @@ Fordelen er at dev-proxyen server på http på localhost, på en række endpoint
 
 For at benytte setup kræves flgn. installeret på serveren.
 
-* Docker
-* docker-compose
-* cmake
-* git
+- Docker
+- docker-compose
+- cmake
+- git
 
 De enkelte projekter kan have yderligere dependencies.
 
@@ -239,27 +263,30 @@ Herunder er links til de webapps og services som udstilles.
 
 ### Landing
 
-* [https://frb-data.dk](https://frb-data.dk)
+- [https://frb-data.dk](https://frb-data.dk)
 
-### GIS
+### GIS services
 
-* [https://tegola.frb-data.dk](https://tegola.frb-data.dk)
-* [https://maputnik.frb-data.dk](https://maputnik.frb-data.dk)
-* [https://api.frb-data.dk](https://api.frb-data.dk)
-* [https://th.frb-data.dk](https://th.frb-data.dk)
-* [https://3d.frb-data.dk](https://3d.frb-data.dk)
-* [https://cvr.frb-data.dk](https://cvr.frb-data.dk)
+- [https://rute.frb-data.dk](https://rute.frb-data.dk)
+- [https://tegola.frb-data.dk](https://tegola.frb-data.dk)
+- [https://maputnik.frb-data.dk](https://maputnik.frb-data.dk)
+- [https://api.frb-data.dk](https://api.frb-data.dk)
+- [https://th.frb-data.dk](https://th.frb-data.dk)
+- [https://3d.frb-data.dk](https://3d.frb-data.dk)
+- [https://cvr.frb-data.dk](https://cvr.frb-data.dk)
 
-### IoT
+### IoT services
 
-* [https://grafana.frb-data.dk](https://grafana.frb-data.dk)
-* [https://nodered.frb-data.dk](https://nodered.frb-data.dk)
-* [https://forecast.frb-data.dk](https://forecast.frb-data.dk)
-* [https://vejr.frb-data.dk/getforecast](https://vejr.frb-data.dk/getforecast)
+- [https://grafana.frb-data.dk](https://grafana.frb-data.dk)
+- [https://nodered.frb-data.dk](https://nodered.frb-data.dk)
+- [https://forecast.frb-data.dk](https://forecast.frb-data.dk)
+- [https://vejr.frb-data.dk/getforecast](https://vejr.frb-data.dk/getforecast)
+- [https://forecast.frb-data.dk](https://forecast.frb-data.dk)
 
-### Meta
+### Meta services
 
-* [https://monitor.frb-data.dk](https://monitor.frb-data.dk)
+- [https://monitor.frb-data.dk](https://monitor.frb-data.dk)
+- [https://frb-data.dk](https://frb-data.dk)
 
 ## Postman tests
 

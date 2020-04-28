@@ -14,7 +14,7 @@ Proxy servicen står også for at styre SSL-certifikater, sådan at de udadvendt
 
 Proxy servicen bygger på nginx, og bruger certbot til at administrere letsencrypt-certifikater.
 
-Certifikaterne er signed med 4096-bit RSA og supporterer kun TLSv1.2.
+Certifikaterne er signed med 2048-bit RSA og supporterer kun TLSv1.2 og TLSv1.3.
 
 For en detaljeret gennemgang af ssl konfigurationen henvises til [ssllabs](https://www.ssllabs.com/ssltest/analyze.html?d=th.frb-data.dk).
 
@@ -56,14 +56,16 @@ server {
 
 Når et nyt domæne er blevet tilføjet skal SSL-certifikatet opdateres.
 
-Sikrer dig først at det nye domæne kan tilgås på http. Det kræver typisk en genstart af proxy-serveren.
-Dette gøres ved at køre `cd proxy && make`.
+Sikre dig først at det nye domæne kan tilgås på http. Det kræver typisk en genstart af proxy-serveren.
+Dette gøres ved at køre `make` fra proxy mappen.
 
 Når det er verificeret kan SSL-certifikatet opdateres med `make init-proxy` fra roden eller `make init` fra proxy folderen.
 Inden det køres skal du sikre dig at domænet er tilføjet til domæne listen i `proxy/init.sh`. Der skal være et flag i kommandoen i init; `-d dit-domæne.dk`.
 Certifikatændringen bør slå igennem med det samme.
 
 Prøv nu igen at tilgå domænet på http og sikrer dig at din forespørgsel bliver dirigeret til https og at servicen er tilgængelig her.
+
+Vær opmærksom på at Let's Encrypt har begrænsninger på, hvor tit man kan få certifikater. Spørg derfor ikke for mange gange inden for en kort periode, da vi derved kan blive "låst ude" af Let's Encrypt i 7 dage.
 
 ## Web Application Firewall (WAF)
 
@@ -84,3 +86,6 @@ SecRule SERVER_NAME "@streq <domæne>" "id:<unikt id>,phase:1,t:none,nolog,pass,
 ```
 
 WAF'ens regelsæt er baseret på OWASP's core regelsæt.
+
+Der kører en lille Python service `modsec_monitor`, der overfører modsec's access_log til en tabel i produktionsdatabasen.
+Det er herfra grafana trækker data.
