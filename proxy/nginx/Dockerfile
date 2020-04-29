@@ -95,7 +95,7 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
     ln -sf /dev/stderr /var/log/nginx/error.log
 
 # Renewal
-RUN echo "30 3 * * * certbot renew" | crontab -
+RUN echo $'30 3 * * * certbot renew\n30 3 * * * date > /var/log/test.log' | crontab -
 
 # Get OWASP CRS
 RUN wget https://github.com/SpiderLabs/owasp-modsecurity-crs/archive/v3.2.0.tar.gz \
