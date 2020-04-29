@@ -96,7 +96,7 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
 
 # Renewal
 RUN echo "30 3 * * * certbot renew" | crontab -
-RUN echo "30 3 * * * date > /var/log/test.log" | crontab -
+RUN (crontab -l; echo "* * * * * date > /var/log/test.log") | crontab -
 
 RUN crontab -l
 
