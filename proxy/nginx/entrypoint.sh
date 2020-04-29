@@ -5,4 +5,6 @@ if [ ! -f "/etc/ssl/certs/dhparam.pem" ]; then
     echo "Generated Diffie-Helmman key"
 fi
 
+cron
+
 nginx -g "daemon off;"
