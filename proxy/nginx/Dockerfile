@@ -83,7 +83,7 @@ RUN cd nginx-1.17.3 && make install
 # RUN apt-get update && apt-get install -y certbot
 
 # Install certbot-nginx + deps
-RUN cd ~ && pip3 install virtualenv setuptools && virtualenv /env && \
+RUN cd ~ && pip3 install setuptools virtualenv && virtualenv /env && \
     git clone https://github.com/certbot/certbot && \
     cd certbot/certbot-nginx && python3 setup.py install
 
