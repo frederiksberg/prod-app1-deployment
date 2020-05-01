@@ -84,7 +84,7 @@ RUN apt-get update && apt-get install -y certbot
 
 # Install certbot-nginx + deps
 RUN cd ~ && pip3 install setuptools && pip3 install virtualenv && virtualenv /env && \
-    git clone --branch v1.1.0 https://github.com/certbot/certbot && \
+    git clone --branch v1.3.0 https://github.com/certbot/certbot && \
     cd certbot/certbot-nginx && python3 setup.py install
 
 # Forece upgrade urllib3 and requests because bugs
