@@ -77,10 +77,10 @@ RUN tar -zxf nginx-1.17.3.tar.gz && \
 RUN cd nginx-1.17.3 && make install
     
 # Backports repo for newer certbot version
-# RUN echo "deb http://deb.debian.org/debian stretch-backports main" >> /etc/apt/sources.list
+RUN echo "deb http://deb.debian.org/debian stretch-backports main" >> /etc/apt/sources.list
 
 # Install certbot
-# RUN apt-get update && apt-get install -y certbot
+RUN apt-get update && apt-get install -y certbot
 
 # Install certbot-nginx + deps
 RUN cd ~ && pip3 install setuptools && pip3 install virtualenv && virtualenv /env && \
