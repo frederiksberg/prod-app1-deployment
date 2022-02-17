@@ -5,7 +5,7 @@
 Når kodebasen opdateres anbefales det at lade servicen køre under hele processen.
 Det er den bedste måde at minimere nedetid, og det har den positive effekt at det ikke risikere at påvirke proxy-servicen med at resolve adresser, der ikke findes.
 
-Stil dig i den directory hvor servicen er. Når du kører `make` kommandoer herfra vil de kun påvirke den ene service. Det er **meget vigtigt** at der ikke køres docker/docker-compose kommandoer manuelt, da de kan risikere at påvirke de andre services. Hvis du har behov for at gøre dette anbefales det at lave en green/blue deployment. Se guiden i [her](green-blue.md).
+Stil dig i den directory hvor servicen er. Når du kører `make` kommandoer herfra vil de kun påvirke den ene service. Det er **meget vigtigt** at der ikke køres docker/docker-compose kommandoer manuelt, da de kan risikere at påvirke de andre services. Hvis du har behov for at gøre dette anbefales det at lave en green/blue deployment. Se guiden i [her](blue-green.md).
 
 Når koden er bragt up-to-date kan servicen genstartes.
 
