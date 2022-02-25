@@ -56,3 +56,6 @@ Fra serveren i mappen `/opt/prod-app1-deployment/gis/tilehut/` køres kommandoen
 #### 7. I `Advanced` under `SSH -> Authentication` sættes `Private key file` til din privat nøgle
 
 #### 8. Du promptes om, hvorvidt nøglen skal laves om til en .ppk-nøgle; Svar ja
+
+# Tilehut landing
+/Landing er en react app den er bygget fra dette repository https://github.com/frederiksberg/tilehut-landing. Yarn skal installeres for at bygge app'en. 
