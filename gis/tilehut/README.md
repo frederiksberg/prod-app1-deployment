@@ -58,4 +58,4 @@ Fra serveren i mappen `/opt/prod-app1-deployment/gis/tilehut/` køres kommandoen
 #### 8. Du promptes om, hvorvidt nøglen skal laves om til en .ppk-nøgle; Svar ja
 
 # Tilehut landing
-/Landing er en react app den er bygget fra dette repository https://github.com/frederiksberg/tilehut-landing. Yarn skal installeres for at bygge app'en. 
+/Landing er en react app den er bygget fra  [dette repository](https://github.com/frederiksberg/tilehut-landing) . Yarn skal installeres for at bygge app'en. 
