@@ -3,11 +3,11 @@ MAKEFLAGS += --silent
 .PHONY: deploy run build clean kill
 
 # -------- Project definitions --------
-deploys 	:= deploy-tilehut deploy-posgrest deploy-vectortile deploy-shiny-cvr deploy-terria deploy-osrm
-runs 		:= run-tilehut run-posgrest run-vectortile run-shiny-cvr run-terria run-osrm
-builds 		:= build-tilehut build-posgrest build-vectortile build-shiny-cvr build-terria build-osrm
-cleans 		:= clean-tilehut clean-posgrest clean-vectortile clean-shiny-cvr clean-terria clean-osrm
-kills 		:= kill-tilehut kill-posgrest kill-vectortile kill-shiny-cvr kill-terria kill-osrm
+deploys 	:= deploy-tilehut deploy-posgrest
+runs 		:= run-tilehut run-posgrest
+builds 		:= build-tilehut build-posgrest 
+cleans 		:= clean-tilehut clean-posgrest
+kills 		:= kill-tilehut kill-posgrest
 
 # -------- The usefull options --------
 deploy: $(deploys)
@@ -41,20 +41,20 @@ deploy-tilehut:
 	@${MAKE} --no-print-directory -C tilehut deploy
 
 # -> terria
-kill-terria:
-	@${MAKE} --no-print-directory -C terria kill
-
-clean-terria:
-	@${MAKE} --no-print-directory -C terria clean
-
-build-terria:
-	@${MAKE} --no-print-directory -C terria build
-
-run-terria:
-	@${MAKE} --no-print-directory -C terria run
-
-deploy-terria:
-	@${MAKE} --no-print-directory -C terria deploy
+#kill-terria:
+#	@${MAKE} --no-print-directory -C terria kill
+#
+#clean-terria:
+#	@${MAKE} --no-print-directory -C terria clean
+#
+#build-terria:
+#	@${MAKE} --no-print-directory -C terria build
+#
+#run-terria:
+#	@${MAKE} --no-print-directory -C terria run
+#
+#deploy-terria:
+#	@${MAKE} --no-print-directory -C terria deploy
 
 # -> posgrest
 kill-posgrest:
@@ -73,49 +73,49 @@ deploy-posgrest:
 	@${MAKE} --no-print-directory -C PostgREST deploy
 
 # -> Vector Tiles
-kill-vectortile:
-	@${MAKE} --no-print-directory -C vector-tiles kill
-
-clean-vectortile:
-	@${MAKE} --no-print-directory -C vector-tiles clean
-
-build-vectortile:
-	@${MAKE} --no-print-directory -C vector-tiles build
-
-run-vectortile:
-	@${MAKE} --no-print-directory -C vector-tiles run
-
-deploy-vectortile:
-	@${MAKE} --no-print-directory -C vector-tiles deploy
+#kill-vectortile:
+#	@${MAKE} --no-print-directory -C vector-tiles kill
+#
+#clean-vectortile:
+#	@${MAKE} --no-print-directory -C vector-tiles clean
+#
+#build-vectortile:
+#	@${MAKE} --no-print-directory -C vector-tiles build
+#
+#run-vectortile:
+#	@${MAKE} --no-print-directory -C vector-tiles run
+#
+#deploy-vectortile:
+#	@${MAKE} --no-print-directory -C vector-tiles deploy
 
 # -> shiny-cvr
-kill-shiny-cvr:
-	@${MAKE} --no-print-directory -C shiny-cvr kill
+#kill-shiny-cvr:
+#	@${MAKE} --no-print-directory -C shiny-cvr kill
+#
+#clean-shiny-cvr:
+#	@${MAKE} --no-print-directory -C shiny-cvr clean
+#
+#build-shiny-cvr:
+#	@${MAKE} --no-print-directory -C shiny-cvr build
+#
+#run-shiny-cvr:
+#	@${MAKE} --no-print-directory -C shiny-cvr run
 
-clean-shiny-cvr:
-	@${MAKE} --no-print-directory -C shiny-cvr clean
-
-build-shiny-cvr:
-	@${MAKE} --no-print-directory -C shiny-cvr build
-
-run-shiny-cvr:
-	@${MAKE} --no-print-directory -C shiny-cvr run
-
-deploy-shiny-cvr:
-	@${MAKE} --no-print-directory -C shiny-cvr deploy
+#deploy-shiny-cvr:
+#	@${MAKE} --no-print-directory -C shiny-cvr deploy
 
 # -> osrm
-kill-osrm:
-	@${MAKE} --no-print-directory -C osrm kill
-
-clean-osrm:
-	@${MAKE} --no-print-directory -C osrm clean
-
-build-osrm:
-	@${MAKE} --no-print-directory -C osrm build
-
-run-osrm:
-	@${MAKE} --no-print-directory -C osrm run
-
-deploy-osrm:
-	@${MAKE} --no-print-directory -C osrm deploy
+#kill-osrm:
+#	@${MAKE} --no-print-directory -C osrm kill
+#
+#clean-osrm:
+#	@${MAKE} --no-print-directory -C osrm clean
+#
+#build-osrm:
+#	@${MAKE} --no-print-directory -C osrm build
+#
+#run-osrm:
+#	@${MAKE} --no-print-directory -C osrm run
+#
+#deploy-osrm:
+#	@${MAKE} --no-print-directory -C osrm deploy
