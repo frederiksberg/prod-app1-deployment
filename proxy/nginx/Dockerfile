@@ -1,4 +1,4 @@
-FROM debian:stretch-slim
+FROM debian:bookworm-slim
 
 WORKDIR /
 
@@ -15,9 +15,9 @@ RUN apt-get update && apt-get install --no-install-recommends --no-install-sugge
     libcurl4-openssl-dev pkgconf flex bison libyajl-dev libgeoip-dev \
     dh-autoreconf libmaxminddb-dev
 
-# Install OpenSSL 1.1.1
-RUN wget -q https://www.openssl.org/source/openssl-1.1.1.tar.gz && \
-    tar -zxf openssl-1.1.1.tar.gz && cd openssl-1.1.1 && \
+# Install OpenSSL 3.2.1
+RUN wget -q https://www.openssl.org/source/openssl-3.2.1.tar.gz && \
+    tar -zxf openssl-3.2.1.tar.gz && cd openssl-3.2.1 && \
     ./config -Wl,-rpath,'$(LIBRPATH)' && \
     make && make install && rm /usr/bin/openssl && \
     cp /usr/local/bin/openssl /usr/bin/ && openssl version
@@ -44,18 +44,18 @@ RUN git clone --depth 1 https://github.com/SpiderLabs/ModSecurity-nginx
 RUN apt-get purge nginx
 
 # Get nginx source
-RUN wget -q http://nginx.org/download/nginx-1.17.3.tar.gz && \
-    wget -q http://nginx.org/download/nginx-1.17.3.tar.gz.asc
+RUN wget -q https://nginx.org/download/nginx-1.25.4.tar.gz && \
+    wget -q https://nginx.org/download/nginx-1.25.4.tar.gz.asc
 
 # Get signing key
-RUN curl -sS http://nginx.org/keys/mdounin.key | gpg --import
+#RUN curl -sS https://nginx.org/keys/thresh.key | gpg --import
 
 # Verify signature
-RUN gpg --trusted-key 0x520A9993A1C052F8 --verify nginx-1.17.3.tar.gz.asc nginx-1.17.3.tar.gz
+#RUN gpg --trusted-key 0x520A9993A1C052F8 --verify nginx-1.25.4.tar.gz.asc nginx-1.25.4.tar.gz
 
 # Build and install
-RUN tar -zxf nginx-1.17.3.tar.gz && \
-    cd nginx-1.17.3 && \
+RUN tar -zxf nginx-1.25.4.tar.gz && \
+    cd nginx-1.25.4 && \
     ./configure --user=nginx --group=nginx \
         --prefix=/etc/nginx \
         --sbin-path=/usr/local/sbin/nginx \
@@ -66,29 +66,30 @@ RUN tar -zxf nginx-1.17.3.tar.gz && \
         --lock-path=/var/run/nginx.lock \
         --without-http_uwsgi_module \
         --with-http_ssl_module \
-        --with-openssl=../openssl-1.1.1 \
-        --with-openssl-opt="no-async enable-ec_nistp_64_gcc_128 no-shared no-ssl2 no-ssl3 no-comp no-idea no-weak-ssl-ciphers -DOPENSSL_NO_HEARTBEATS -O3 -fPIE -fstack-protector-strong -D_FORTIFY_SOURCE=2" \
+        --with-openssl=../openssl-3.2.1 \
+        --with-openssl-opt="no-async enable-ec_nistp_64_gcc_128 no-shared no-ssl2 no-ssl3 no-comp no-idea no-weak-ssl-ciphers -DOPENSSL_NO_HEARTBEATS -O3 -fPIE -fPIC -fstack-protector-strong -D_FORTIFY_SOURCE=2" \
         --with-http_v2_module \
         --add-module=/ModSecurity-nginx \
         --without-http_autoindex_module && \
     make
 
 # Install nginx
-RUN cd nginx-1.17.3 && make install
+RUN cd nginx-1.25.4 && make install
     
 # Backports repo for newer certbot version
-RUN echo "deb http://deb.debian.org/debian stretch-backports main" >> /etc/apt/sources.list
+# RUN echo "deb http://deb.debian.org/debian stretch-backports main" >> /etc/apt/sources.list
 
 # Install certbot
-RUN apt-get update && apt-get install -y certbot
+# RUN apt-get update && 
+RUN apt-get install -y certbot
 
 # Install certbot-nginx + deps
-RUN cd ~ && pip3 install setuptools && pip3 install virtualenv && virtualenv /env && \
-    git clone --branch v1.3.0 https://github.com/certbot/certbot && \
+RUN cd ~ && pip3 install setuptools --break-system-packages && pip3 install virtualenv --break-system-packages && virtualenv /env && \
+    git clone --branch v2.9.0 https://github.com/certbot/certbot && \
     cd certbot/certbot-nginx && python3 setup.py install
 
 # Forece upgrade urllib3 and requests because bugs
-RUN pip3 install --upgrade --force-reinstall urllib3 requests
+# RUN pip3 install --upgrade --force-reinstall urllib3 requests
 
 # Set up nice output of nginx to docker
 RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
@@ -98,11 +99,11 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
 RUN echo "30 3 * * * /usr/local/bin/certbot renew > /proc/1/fd/1 2>/proc/1/fd/2" | crontab -
 
 # Get OWASP CRS
-RUN wget https://github.com/SpiderLabs/owasp-modsecurity-crs/archive/v3.2.0.tar.gz \
-    && tar -xzvf v3.2.0.tar.gz \
-    && rm v3.2.0.tar.gz \
-    && mv owasp-modsecurity-crs-3.2.0 /usr/local \
-    && cd /usr/local/owasp-modsecurity-crs-3.2.0 \
+RUN wget https://github.com/coreruleset/coreruleset/archive/v4.0.0.tar.gz \
+    && tar -xzvf v4.0.0.tar.gz \
+    && rm v4.0.0.tar.gz \
+    && mv coreruleset-4.0.0 /usr/local \
+    && cd /usr/local/coreruleset-4.0.0 \
     && cp crs-setup.conf.example crs-setup.conf
 
 RUN cp /ModSecurity/unicode.mapping /etc/nginx/unicode.mapping

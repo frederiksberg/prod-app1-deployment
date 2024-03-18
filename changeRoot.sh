@@ -10,22 +10,19 @@ NEW_ROOT=${NEW_ROOT:-/mnt/docker_data/lib/docker}
 
 echo "Moving to: $NEW_ROOT"
 
-SERVICE_LOCATION="$(systemctl show -p FragmentPath docker.service | grep --colour=never -oP 'FragmentPath=\K.*')"
+DAEMON_CONFIG="/etc/docker/daemon.json"
 
-SERVICE_D="${SERVICE_LOCATION}.d/"
-SERVICE_NEWCONF="${SERVICE_D}docker.root.conf"
-
-mkdir -p $SERVICE_D
-
-echo "[Service]
-ExecStart=
-ExecStart=/usr/bin/dockerd --data-root=$NEW_ROOT -H fd:// --containerd=/run/containerd/containerd.sock
-" > $SERVICE_NEWCONF
+echo "
+{
+   \"data-root\": \"$NEW_ROOT\"
+}" > $DAEMON_CONFIG
 
 echo "Restarting docker service"
 
 systemctl daemon-reload
 systemctl restart docker
+
+sleep 3
 
 VERIFY_ROOT="$(docker info | grep --colour=never -oP 'Docker Root Dir: \K.*')"
 

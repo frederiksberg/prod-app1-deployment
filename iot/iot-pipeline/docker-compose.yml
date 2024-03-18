@@ -2,16 +2,21 @@ version: '3.5'
 services:
   nodered:
     container_name: nodered
-    image: nodered/node-red-docker
+    image: nodered/node-red:3.1.6
     volumes:
       - nodered-data:/data
     networks:
       - front-facing
     restart: unless-stopped
+    logging: 
+        driver: json-file
+        options:
+          max-size: "10mb"
+          max-file: "5"    
   
   grafana:
     container_name: grafana
-    image: grafana/grafana
+    image: grafana/grafana:10.3.4
     env_file:
       - ./.env
     user: "104"
@@ -22,6 +27,11 @@ services:
     depends_on:
       - nodered
     restart: unless-stopped
+    logging: 
+        driver: json-file
+        options:
+          max-size: "10mb"
+          max-file: "5"    
 
 volumes:
   grafana-data:
